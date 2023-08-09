@@ -65,7 +65,6 @@ const Home: React.FC<Props> = ({ products }) => {
   // const [openCategory, setOpenCategory] = useState('400px')
 
 
-
   return (
     <>
       <Head>
@@ -74,6 +73,7 @@ const Home: React.FC<Props> = ({ products }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <meta content="index, follow" name="robots" />
+        <meta name="theme-color" content="#3b82f6" />
         <meta
           data-rh="true"
           name="keywords"

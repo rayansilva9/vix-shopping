@@ -40,10 +40,11 @@ const Section_EmAlta: React.FC<props> = ({ products }) => {
           <p className="text-left text-2xl font-normal">Em alta</p>
           <div className="w-[90px] h-2 bg-blue-500 rounded-md"></div>
         </div>
-        <div className="flex items-center w-screen overflow-x-scroll no-scrollbar  pl-7 lg:pl-0">
-          <ul className="relative my-5 w-full px-[200px] flex justify-between md:justify-start lg:justify-center lg:px-40 gap-4 md:gap-x-6 gap-y-3">
+        <div className="flex items-center pl-7 w-screen overflow-x-scroll no-scrollbar  lg:pl-0">
+          <ul className="relative my-5 w-full flex justify-between md:justify-start lg:justify-center lg:px-40 gap-4 md:gap-x-6 gap-y-3">
             <IconButton
               sx={{
+                display: { xs: 'none', lg: 'inline', },
                 position: 'absolute',
                 left: '44px',
                 top: '150px',
@@ -159,6 +160,7 @@ const Section_EmAlta: React.FC<props> = ({ products }) => {
             )}
             <IconButton
               sx={{
+                display: { xs: 'none', lg: 'inline', },
                 position: 'absolute',
                 right: '44px',
                 top: '150px',
