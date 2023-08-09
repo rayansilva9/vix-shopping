@@ -1,13 +1,11 @@
-import { Divider, Rating } from '@mui/material'
+import { Divider } from '@mui/material'
 import { memo, useCallback, useState } from 'react'
-import { AiFillStar } from 'react-icons/ai'
 import ImgComments from './commentImg'
 import { formatDistance } from 'date-fns'
-import ptBR from 'date-fns/locale/pt-BR'
 import { SlArrowRight } from 'react-icons/sl'
-import Image from 'next/image'
 import { processLink } from '../../functions/fixLinksImg'
 import CustomizedRating from '../rating'
+import ptBR from 'date-fns/locale/pt-BR'
 
 interface Props {
   produto: { feedback: []; rating: number }
@@ -114,7 +112,7 @@ const SectionComments: React.FC<Props> = ({ produto }) => {
         py-5 px-5 w-full bg-white`}
                 >
                   <div className="flex items-center gap-2">
-                    <ImgComments rounded='50%' img={processLink(comment.buyer.buyerImage)} />
+                    <ImgComments height={46} width={46} rounded='50%' img={processLink(comment.buyer.buyerImage)} />
                     <div className="flex flex-col">
                       <p className='font-semibold'>{comment.buyer.buyerTitle} <span className='font-normal'>adquiriu o:{' '}</span>  </p>
                       <span className="text-[13px] font-medium"> {comment.review.itemSpecInfo}</span>
@@ -140,7 +138,7 @@ const SectionComments: React.FC<Props> = ({ produto }) => {
                   <ul className="flex gap-2">
                     {comment.review.reviewImages !== null && comment.review.reviewImages.map((src, index) => (
                       <li key={index}>
-                        <ImgComments rounded='0px' img={src !== null && processLink(src)} />
+                        <ImgComments height={64} width={64} rounded='0px' img={src !== null && processLink(src)} />
                       </li>
                     ))}
                   </ul>

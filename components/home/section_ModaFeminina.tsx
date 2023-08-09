@@ -8,7 +8,7 @@ const Section_ModaFeminina: React.FC<props> = ({ }) => {
   return (
     <>
       <section className="sct-mais-procurados bg-white flex justify-center w-screen flex-col">
-        <h1 className="text-md my-4 md:text-4xl self-center">Moda feminina</h1>
+        <p className="text-md my-4 md:text-4xl self-center">Moda feminina</p>
         <ul className="w-screen md:flex md:justify-evenly md:gap- whitespace-nowrap no-scrollbar overflow-x-scroll">
           {moda_feminina.map((img: { thumb: string; label: string }) => (
             <li className="inline-flex my-4 flex-col items-center pl-7 mx-3">

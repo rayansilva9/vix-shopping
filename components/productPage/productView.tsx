@@ -1,6 +1,6 @@
 import { Divider } from '@mui/material'
 import Image from 'next/image'
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import { BiChevronRight } from 'react-icons/bi'
 import { TfiAngleLeft, TfiAngleRight } from 'react-icons/tfi'
 import { processLink } from '../../functions/fixLinksImg'
@@ -9,7 +9,6 @@ import formatarMoeda from '../../functions/formataMoeda'
 
 interface CustomHTMLUListElement extends HTMLUListElement {
   scrollLeft: number
-  // Outras propriedades personalizadas, se necessário
 }
 
 type props = {
@@ -42,8 +41,34 @@ const ProductView: React.FC<props> = ({
   setCurrentImg,
   productVariedadesOnView
 }) => {
+  const MAGNIFY_SIZE = 200
+  const MAGNIFY_SIZE_HALF = MAGNIFY_SIZE / 2
 
+  const [magnifyStyle, setMagnifyStyle] = useState({
+    backgroundImage: `url(${processLink(photos[currentImg])})`
+  })
 
+  const handleMouseMove = (e: {
+    nativeEvent: { offsetX: any; offsetY: any; target: any }
+  }) => {
+    const { offsetX, offsetY, target } = e.nativeEvent
+    const { offsetWidth, offsetHeight } = target
+
+    const xPercentage = (offsetX / offsetWidth) * 100
+    const yPercentage = (offsetY / offsetHeight) * 100
+
+    setMagnifyStyle(prev => ({
+      ...prev,
+      display: 'block',
+      top: `${offsetY - MAGNIFY_SIZE_HALF}px`,
+      left: `${offsetX - MAGNIFY_SIZE_HALF}px`,
+      backgroundPosition: `${xPercentage}% ${yPercentage}%`
+    }))
+  }
+
+  const handleMouseLeave = () => {
+    setMagnifyStyle(prev => ({ ...prev, display: 'none' }))
+  }
 
   function dividirNomeVariedade(index: number) {
     return productVariedadesOnView[index].split(':')
@@ -59,8 +84,8 @@ const ProductView: React.FC<props> = ({
           <div className="w-full xl:w-[400px]  pt-0 px-0 flex flex-col gap-10">
             <div className="relative flex justify-center items-center">
               <Image
-                // onMouseLeave={handleMouseLeave}
-                // onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                onMouseMove={handleMouseMove}
                 style={{ animation: 'itemProduct 0.3s linear' }}
                 loading="eager"
                 src={altCurrentImg ? altCurrentImg : processLink(photos[currentImg])}
@@ -70,9 +95,9 @@ const ProductView: React.FC<props> = ({
                 className="rounded-lg md:self-center md:w-[340px] mt-4 lg:w-[380px]"
                 alt=""
               />
-              {/* <div className="magnify" style={magnifyStyle}>
-                      {' '}
-                    </div> */}
+              <div className="magnify" style={magnifyStyle}>
+                {' '}
+              </div>
             </div>
             <div className="relative flex flex-col items-center">
               <TfiAngleLeft
@@ -163,7 +188,6 @@ const ProductView: React.FC<props> = ({
                 },
                 i
               ) => {
-                // let displayName = e.values[0].displayName
                 return (
                   <div className="flex w-full gap-y-2 flex-col">
                     <p className="text-base xl:text-[15px]">
@@ -180,11 +204,11 @@ const ProductView: React.FC<props> = ({
                             onClick={() => {
                               MudarVariedade(i, `${opt.name}: ${e2.name}`)
                             }}
-                            className='rounded-sm'
+                            className="rounded-sm"
                             style={{
                               border:
                                 dividirNomeVariedade(i).length > 0 &&
-                                  dividirNomeVariedade(i)[1].trim() == e2.name
+                                dividirNomeVariedade(i)[1].trim() == e2.name
                                   ? '2px solid rgb(59 130 246)'
                                   : '0px',
                               cursor: 'pointer'

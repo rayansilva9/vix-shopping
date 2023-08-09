@@ -97,30 +97,7 @@ const Product: React.FC<productProps> = ({ produto }) => {
     document.documentElement.scrollTop = 0
   }
 
-  // const MAGNIFY_SIZE = 200;
-  // const MAGNIFY_SIZE_HALF = MAGNIFY_SIZE / 2;
-
-  // const [magnifyStyle, setMagnifyStyle] = useState({ backgroundImage: `url(${replaceProtocol(produto.photos[currentImg])})` });
-
-  // const handleMouseMove = (e) => {
-  //   const { offsetX, offsetY, target } = e.nativeEvent;
-  //   const { offsetWidth, offsetHeight } = target;
-
-  //   const xPercentage = (offsetX / offsetWidth) * 100;
-  //   const yPercentage = (offsetY / offsetHeight) * 100;
-
-  //   setMagnifyStyle((prev) => ({
-  //     ...prev,
-  //     display: 'block',
-  //     top: `${offsetY - MAGNIFY_SIZE_HALF}px`,
-  //     left: `${offsetX - MAGNIFY_SIZE_HALF}px`,
-  //     backgroundPosition: `${xPercentage}% ${yPercentage}%`,
-  //   }));
-  // };
-
-  // const handleMouseLeave = (e) => {
-  //   setMagnifyStyle((prev) => ({ ...prev, display: 'none' }));
-  // };
+  
 
   return (
     <>

@@ -2,13 +2,16 @@ import React from 'react'
 import Head from 'next/head'
 import { db } from '../lib/firebase'
 import HeroBg from '../components/home/section_Hero'
-import Footer from '../components/footer'
+import Footer from '../components/footer/footer'
 import SectionBeneficios from '../components/home/section_Beneficios'
 import Header2 from '../components/header/header'
 import productProps from '../@types/productHome'
 import Section_EmAlta from '../components/home/section_emAlta'
 import Section_Categoria from '../components/home/section_Categorias'
 import Section_ModaFeminina from '../components/home/section_ModaFeminina'
+import ProductVertical from '../components/home/productHorizontal'
+import ProductHorizontal from '../components/home/productHorizontal'
+import Section_DiaDosPais from '../components/home/section_diaDosPais'
 
 interface Props {
   products: productProps[]
@@ -32,39 +35,6 @@ export const getStaticProps = async () => {
 
 const Home: React.FC<Props> = ({ products }) => {
 
-  // const [lazy_section_bestSellers, setLazy_section_bestSellers] = useState(false)
-  // const [lazy_section_category, setLazy_section_category] = useState(false)
-  // const [lazy_section_mda_feminin, setLazy_section_mda_feminin] = useState(false)
-
-  // const SectionCategorias_Ref = useRef(null)
-  // const SectionBestSellers_Ref = useRef(null)
-  // const SectionMdaFeminin_Ref = useRef(null)
-  // const options = {
-  //   root: null,
-  //   rootMargin: '1px',
-  //   threshold: 0.1
-  // }
-
-  // const isSectionCategoryVisibile = useElementOnScreen(options, SectionCategorias_Ref)
-  // const isSectionBestSellersVisibile = useElementOnScreen(options, SectionBestSellers_Ref)
-  // const isSectionMdaFemininVisibile = useElementOnScreen(options, SectionBestSellers_Ref)
-
-  // useEffect(() => {
-  //   if (isSectionCategoryVisibile) {
-  //     setLazy_section_category(true)
-  //   }
-  //   if (isSectionBestSellersVisibile) {
-  //     setLazy_section_bestSellers(true)
-  //   }
-  // }, [
-  //   isSectionCategoryVisibile,
-  //   isSectionBestSellersVisibile,
-  //   isSectionMdaFemininVisibile
-  // ])
-
-  // const [openCategory, setOpenCategory] = useState('400px')
-
-
   return (
     <>
       <Head>
@@ -86,6 +56,7 @@ const Home: React.FC<Props> = ({ products }) => {
         <SectionBeneficios />
         <Section_EmAlta products={products} />
         <Section_Categoria />
+        <Section_DiaDosPais products={products} />
         <Section_ModaFeminina />
       </main>
       <Footer />
