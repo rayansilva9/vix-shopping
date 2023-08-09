@@ -13,6 +13,8 @@ type props = {
   variedade: string[]
   setQuantidadeUnitariaToBuy: React.Dispatch<React.SetStateAction<number>>
 }
+// #0BC86D;
+
 
 const ProductPayInfo: React.FC<props> = ({ priceId, quantidade, variedade, setQuantidadeUnitariaToBuy }) => {
   return (
