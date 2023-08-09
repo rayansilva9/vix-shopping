@@ -62,7 +62,7 @@ const Header2: React.FC = () => {
                   router.push('/')
                 }}
               >
-                Logo
+                VIX
               </p>
             </div>
             <div className="flex gap-2 md:flex-col">
@@ -147,7 +147,7 @@ const Header2: React.FC = () => {
               }}
               className="text-2xl"
             >
-              Logo
+              VIX
             </p>
             <div className="flex items-center gap-2 cursor-pointer">
               {' '}

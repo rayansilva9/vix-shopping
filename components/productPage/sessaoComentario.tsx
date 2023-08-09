@@ -114,7 +114,7 @@ const SectionComments: React.FC<Props> = ({ produto }) => {
         py-5 px-5 w-full bg-white`}
                 >
                   <div className="flex items-center gap-2">
-                    <ImgComments img={processLink(comment.buyer.buyerImage)} />
+                    <ImgComments rounded='50%' img={processLink(comment.buyer.buyerImage)} />
                     <div className="flex flex-col">
                       <p className='font-semibold'>{comment.buyer.buyerTitle} <span className='font-normal'>adquiriu o:{' '}</span>  </p>
                       <span className="text-[13px] font-medium"> {comment.review.itemSpecInfo}</span>
@@ -140,7 +140,7 @@ const SectionComments: React.FC<Props> = ({ produto }) => {
                   <ul className="flex gap-2">
                     {comment.review.reviewImages !== null && comment.review.reviewImages.map((src, index) => (
                       <li key={index}>
-                        <ImgComments img={src !== null && processLink(src)} />
+                        <ImgComments rounded='0px' img={src !== null && processLink(src)} />
                       </li>
                     ))}
                   </ul>

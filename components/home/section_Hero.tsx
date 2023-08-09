@@ -28,7 +28,7 @@ const HeroBg: React.FC = () => {
 
   return (
     <>
-      <img className='hero relative z-0 mt-3' height={300} width='100%' src="https://images-submarino.b2w.io/spacey/suba/2023/01/02/VAD23_Destaque_deskcupom2-55f245d1a72e.png" alt="" />
+      <img className='hero relative z-0 mt-3' height={300} width='100%' src="/Cartaz promoção mês dos pais moderno azul e branco.webp" alt="" />
       {/* <Image className='mb-5 lg:w-3/4 lg:mx-auto lg:h-96' alt='banner' width={400} height={400} src='/VAD23_Destaque_mobcupom2-43455a5788eb.webp' /> */}
     </>
   )

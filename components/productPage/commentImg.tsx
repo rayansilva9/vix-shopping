@@ -4,8 +4,9 @@ import useElementOnScreen from '../../hooks/useElementOnScreen'
 
 interface Props {
   img: string
+  rounded: string
 }
-const ImgComments: React.FC<Props> = ({ img }) => {
+const ImgComments: React.FC<Props> = ({ img, rounded }) => {
   const [showPhoto, setShowPhoto] = useState(false)
 
   const CommentsRef = useRef(null)
@@ -25,12 +26,12 @@ const ImgComments: React.FC<Props> = ({ img }) => {
 
   return (
     <Image
-      style={{ animation: showPhoto && 'commentImg .3s linear' }}
+      style={{ animation: showPhoto && 'commentImg .3s linear', borderRadius: rounded, }}
       ref={CommentsRef}
       height={64}
       width={64}
       loading="lazy"
-      className="mx-1  rounded-full"
+      className="mx-1 "
       src={showPhoto ? img != null ? img : '/emptyImg.jpg' : '/emptyImg.jpg'}
       alt="feedback img"
     />

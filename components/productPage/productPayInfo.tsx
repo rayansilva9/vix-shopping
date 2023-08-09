@@ -111,7 +111,7 @@ const ProductPayInfo: React.FC<props> = ({ priceId, quantidade, variedade, setQu
           >
             <button
               type="submit"
-              className="w-[350px] hover:bg-green-700 transition-colors py-3 bg-[#40cd28] rounded-3xl text-lg text-white font-medium"
+              className="w-[350px] hover:bg-green-700 transition-colors py-3 bg-[#0BC86D] rounded-3xl text-lg text-white font-medium"
             >
               <p className="text-md">Compra Agora</p>
             </button>
