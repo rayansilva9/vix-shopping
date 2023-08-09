@@ -43,10 +43,15 @@ const Section_EmAlta: React.FC<props> = ({ products }) => {
         <div className="flex items-center w-screen overflow-x-scroll no-scrollbar  pl-7 lg:pl-0">
           <ul className="relative my-5 w-full px-[200px] flex justify-between md:justify-start lg:justify-center lg:px-40 gap-4 md:gap-x-6 gap-y-3">
             <IconButton
+              sx={{
+                position: 'absolute',
+                left: '44px',
+                top: '150px',
+                fontSize: '40px',
+              }}
               onClick={() => {
                 slide('left')
               }}
-              className="absolute lg:left-11 text-[40px] lg:top-[150px]"
             >
               <TfiAngleLeft />
             </IconButton>
@@ -153,10 +158,15 @@ const Section_EmAlta: React.FC<props> = ({ products }) => {
               </>
             )}
             <IconButton
+              sx={{
+                position: 'absolute',
+                right: '44px',
+                top: '150px',
+                fontSize: '40px',
+              }}
               onClick={() => {
                 slide('right')
               }}
-              className="absolute lg:right-11 text-[40px] lg:top-[150px]"
             >
               <TfiAngleRight />
             </IconButton>
