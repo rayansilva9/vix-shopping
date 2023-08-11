@@ -8,10 +8,11 @@ import { processLink } from '../../functions/fixLinksImg';
 import CustomizedRating from '../../components/rating'
 
 
-// import { Container } from './styles';
 type props = {
   product: productProps
 }
+
+
 const ProductVertical: React.FC<props> = ({ product }) => {
   return (
     <>
@@ -82,7 +83,6 @@ const ProductVertical: React.FC<props> = ({ product }) => {
           </Paper>
         </li>
       </Link>
-
     </>
   )
 }

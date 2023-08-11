@@ -1,6 +1,6 @@
 import { Divider } from '@mui/material'
 import Image from 'next/image'
-import { memo, useState } from 'react'
+import { memo, useMemo, useState } from 'react'
 import { BiChevronRight } from 'react-icons/bi'
 import { TfiAngleLeft, TfiAngleRight } from 'react-icons/tfi'
 import { processLink } from '../../functions/fixLinksImg'
@@ -45,7 +45,9 @@ const ProductView: React.FC<props> = ({
   const MAGNIFY_SIZE_HALF = MAGNIFY_SIZE / 2
 
   const [magnifyStyle, setMagnifyStyle] = useState({
-    backgroundImage: `url(${processLink(photos[currentImg])})`
+    backgroundImage: `url(${
+      altCurrentImg ? altCurrentImg : processLink(photos[currentImg])
+    })`
   })
 
   const handleMouseMove = (e: {
@@ -73,6 +75,14 @@ const ProductView: React.FC<props> = ({
   function dividirNomeVariedade(index: number) {
     return productVariedadesOnView[index].split(':')
   }
+
+  useMemo(() => {
+    setMagnifyStyle({
+      backgroundImage: `url(${
+        altCurrentImg ? altCurrentImg : processLink(photos[currentImg])
+      })`
+    })
+  }, [currentImg, altCurrentImg])
 
   return (
     <>

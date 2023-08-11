@@ -51,9 +51,9 @@ const Home: React.FC<Props> = ({ products }) => {
         />
       </Head>
       <Header2 />
-      <main className="w-screen bg-zinc-100">
         <HeroBg />
         <SectionBeneficios />
+      <main className="flex flex-col w-[calc(100vw)] xl:px-10 2xl:w-[calc(100vw-500px)] mx-auto bg-zinc-100 ">
         <Section_EmAlta products={products} />
         <Section_Categoria />
         <Section_DiaDosPais products={products} />

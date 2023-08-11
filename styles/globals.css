@@ -80,6 +80,7 @@ body {
   background-size: 800%;
   background-position: center;
   pointer-events: none;
+  z-index: 999;
   transform: scale(0);
   animation: scaleUp 200ms ease-in forwards;
 }

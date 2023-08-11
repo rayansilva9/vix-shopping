@@ -6,7 +6,7 @@ const SectionBeneficios: React.FC = () => {
     <>
       <section
         style={{ overflowX: 'scroll' }}
-        className="sct-beneficios  no-scrollbar bg-white my-3 py-5 rounded-xl flex justify-center w-screen"
+        className="sct-beneficios  no-scrollbar bg-white my-3 py-5 rounded-xl flex justify-center w-full"
       >
         <ul className="w-full whitespace-nowrap px-3 py-4 flex md:justify-center items-center gap-5">
           {beneficios.map((item: { label: JSX.Element, title: string, content: string }) => (
