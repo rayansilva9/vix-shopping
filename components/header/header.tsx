@@ -60,7 +60,7 @@ const Header2: React.FC = () => {
             <div className="w-full flex items-center justify-between px-[108px]  pt-1">
               <div className="text-3xl text-white font-bold">
                 <p
-                  className="cursor-pointer"
+                  className="cursor-pointer relative top-3"
                   onClick={() => {
                     router.push('/')
                   }}
@@ -103,7 +103,7 @@ const Header2: React.FC = () => {
                   <BiSearch className="text-2xl text-gray-500" />
                 </Stack>
               </div>
-              <div className="flex items-center gap-8 ">
+              <div className="flex items-center gap-8  relative top-3 ">
                 <div className="cursor-pointer">
                   <p>Entre ou cadastre-se</p>
                 </div>

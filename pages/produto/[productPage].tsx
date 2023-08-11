@@ -114,7 +114,7 @@ const Product: React.FC<productProps> = ({ produto }) => {
         />
       </Head>
       <>
-        <Header2 />
+        {/* <Header2 /> */}
         <button
           type="submit"
           className="w-[60px] h-[60px] flex items-center justify-center bg-blue-500 fixed bottom-6 right-5 rounded-full"
@@ -129,7 +129,7 @@ const Product: React.FC<productProps> = ({ produto }) => {
         </button>
         <main
           style={{ background: 'rgb(241, 241, 241)' }}
-          className="min-h-screen xl:h-auto pb-24"
+          className="min-h-screen xl:h-auto pb-24 select-none"
         >
           <section className="w-full xl:w-screen xl:px-[108px] lg:py-6 mx-auto flex flex-col items-center xl:justify-center xl:flex-row xl:gap-5">
             <ProductView

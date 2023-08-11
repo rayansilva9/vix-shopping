@@ -45,9 +45,8 @@ const ProductView: React.FC<props> = ({
   const MAGNIFY_SIZE_HALF = MAGNIFY_SIZE / 2
 
   const [magnifyStyle, setMagnifyStyle] = useState({
-    backgroundImage: `url(${
-      altCurrentImg ? altCurrentImg : processLink(photos[currentImg])
-    })`
+    backgroundImage: `url(${altCurrentImg ? altCurrentImg : processLink(photos[currentImg])
+      })`
   })
 
   const handleMouseMove = (e: {
@@ -78,9 +77,8 @@ const ProductView: React.FC<props> = ({
 
   useMemo(() => {
     setMagnifyStyle({
-      backgroundImage: `url(${
-        altCurrentImg ? altCurrentImg : processLink(photos[currentImg])
-      })`
+      backgroundImage: `url(${altCurrentImg ? altCurrentImg : processLink(photos[currentImg])
+        })`
     })
   }, [currentImg, altCurrentImg])
 
@@ -97,7 +95,8 @@ const ProductView: React.FC<props> = ({
                 onMouseLeave={handleMouseLeave}
                 onMouseMove={handleMouseMove}
                 style={{ animation: 'itemProduct 0.3s linear' }}
-                loading="eager"
+                priority
+                placeholder='empty'
                 src={altCurrentImg ? altCurrentImg : processLink(photos[currentImg])}
                 height={380}
                 width={380}
@@ -163,7 +162,7 @@ const ProductView: React.FC<props> = ({
               {productName}
             </p>
             <Divider className="my-2 w-full lg:w-[330px]" />
-            <p className="text-lg text-[#40cd28] font-bold xl:my-5 xl:text-[20px]">
+            <p className="text-lg text-[#40cd28] font-semibold xl:my-5 xl:text-[20px]">
               R${''}
               <span className="text-[33px] xl:text-[30px] text-[#40cd28]">
                 {formatarMoeda(productPrice)}
@@ -218,7 +217,7 @@ const ProductView: React.FC<props> = ({
                             style={{
                               border:
                                 dividirNomeVariedade(i).length > 0 &&
-                                dividirNomeVariedade(i)[1].trim() == e2.name
+                                  dividirNomeVariedade(i)[1].trim() == e2.name
                                   ? '2px solid rgb(59 130 246)'
                                   : '0px',
                               cursor: 'pointer'

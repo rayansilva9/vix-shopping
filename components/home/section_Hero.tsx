@@ -27,12 +27,10 @@ const HeroBg: React.FC = () => {
   // }, [isVisibile])
 
   return (
-    <>
-
-      <img className='hero relative z-0 mt-3 inline lg:hidden' height={300} width='100%' src="/Cartaz promoção mês dos pais moderno azul e branco.webp" alt="" />
-      <img className='hero relative z-0 mt-3 hidden lg:inline' height={400} width='100%' src="Design sem nome (1).png" alt="" />
-      {/* <Image className='mb-5 lg:w-3/4 lg:mx-auto lg:h-96' alt='banner' width={400} height={400} src='/VAD23_Destaque_mobcupom2-43455a5788eb.webp' /> */}
-    </>
+    <div className='px-[106px]'>
+      <img className='hero relative z-0 mt-3 inline lg:hidden rounded-md' height={300} width='100%' src="/Cartaz promoção mês dos pais moderno azul e branco.webp" alt="" />
+      <img className='hero relative z-0 mt-3 hidden lg:inline rounded-2xl' height={400} width='100%' src="Design sem nome (2).webp" alt="" />
+    </div>
   )
 }
 

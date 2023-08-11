@@ -57,11 +57,11 @@ const SectionComments: React.FC<Props> = ({ produto }) => {
               </div>
               <div className="w-full lg:hidden">
                 <Divider sx={{ mb: '20px', display: { sm: 'inline', lg: 'none' } }} />
-                <button className="w-full lg:w-[200px] py-2 hover:bg-gray-300 transition-colors flex items-center justify-center gap-2 bg-blue-500 rounded-md text-lg text-black font-medium">
+                <button className="w-full lg:w-[200px] py-2  transition-colors flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 rounded-md text-lg text-black font-medium">
                   <p className="text-md text-white">Avaliar este produto</p>
                 </button>
               </div>
-              <button className="bg-blue-500 w-full hidden lg:flex lg:w-[200px] py-2 hover:bg-gray-300 transition-colors  items-center justify-center gap-2 rounded-md text-lg text-white font-medium">
+              <button className="bg-blue-500 hover:bg-blue-600 w-full hidden lg:flex lg:w-[200px] py-2 transition-colors  items-center justify-center gap-2 rounded-md text-lg text-white font-medium">
                 <p className="text-md">Avaliar este produto</p>
               </button>
             </div>

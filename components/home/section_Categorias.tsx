@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -18,6 +19,8 @@ const Section_Categoria: React.FC<props> = ({ }) => {
               <Link href="category/brinquedo">
                 <div className="w-32 flex flex-col justify-center items-center cursor-pointer">
                   <img
+                    width={200}
+                    height={200}
                     src="https://images-submarino.b2w.io/spacey/suba/2022/07/18/Atalho_APP_Esporte15x-97effe49c77d.png"
                     alt=""
                   />

@@ -31,13 +31,13 @@ const Section_EmAlta: React.FC<props> = ({ products }) => {
 
   return (
     <>
-      <section className="bg-zinc-100 flex flex-col items-center 2xl:px-[300px]">
+      <section className="bg-zinc-100 flex flex-col items-center ">
         <div className="flex flex-col w-full relative pl-8 lg:pl-0 mt-4 mb-7 self-start">
-          <p className="text-left text-2xl font-normal">Em alta</p>
+          <p className="text-left text-xl font-normal">Em alta</p>
           <div className="w-[90px] h-2 bg-blue-500 rounded-md"></div>
         </div>
         <div className="flex items-center pl-7 w-full overflow-x-scroll no-scrollbar  lg:pl-0">
-          <ul className="relative my-5 w-full flex justify-between md:justify-start lg:justify-center lg:px-40 gap-4 md:gap-x-6 gap-y-3">
+          <ul className="relative my-5 w-full flex justify-between md:justify-start lg:justify-center lg:px-40 gap-4 md:gap-x-3 gap-y-3">
             <IconButton
               sx={{
                 display: { xs: 'none', lg: 'inline', },

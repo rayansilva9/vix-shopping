@@ -50,16 +50,15 @@ const Home: React.FC<Props> = ({ products }) => {
           content=""
         />
       </Head>
-      <Header2 />
-        <HeroBg />
-        <SectionBeneficios />
-      <main className="flex flex-col w-[calc(100vw)] xl:px-10 2xl:w-[calc(100vw-500px)] mx-auto bg-zinc-100 ">
+      {/* <Header2 /> */}
+      <HeroBg />
+      <SectionBeneficios />
+      <main className="flex flex-col w-[calc(100vw)] xl:px-10 2xl:w-[calc(100vw)] mx-auto bg-zinc-100 select-none">
         <Section_EmAlta products={products} />
         <Section_Categoria />
         <Section_DiaDosPais products={products} />
-        <Section_ModaFeminina />
       </main>
-      <Footer />
+      <Section_ModaFeminina />
     </>
   )
 }
