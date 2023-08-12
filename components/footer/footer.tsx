@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
   // const router = useRouter()
 
   return (
-    <footer style={{ minHeight: '231px' }} ref={footerRef}>
+    <footer style={{ minHeight: '231px', userSelect: 'none', }} ref={footerRef}>
       {showFooter ? (
         <div style={{ background: '#f8f8f8', }} className='pt-2'>
           <div className='text-gray-700'>

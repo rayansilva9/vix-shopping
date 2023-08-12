@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { IoBagHandleOutline } from 'react-icons/io5'
 import { BsSuitHeart } from 'react-icons/bs'
@@ -10,10 +10,11 @@ import MenuMobile from './menuHeader'
 import { Stack } from '@mui/material'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { CATEGORY } from '../../utils/linksCategoria'
 
 const Header2: React.FC = () => {
   const [openMenu, setopenMenu] = React.useState(false)
-  const [Tchan, setTchan] = React.useState('')
+  // const [Tchan, setTchan] = React.useState('')
 
   const open2 = () => {
     if (openMenu == true) {
@@ -24,15 +25,7 @@ const Header2: React.FC = () => {
   }
   const pathname = usePathname()
 
-  const CATEGORY = [
-    { name: 'Casa e Decoração' },
-    { name: 'Moda e Acessórios' },
-    { name: 'Beleza e Cuidados Pessoais' },
-    { name: 'Eletrônicos e Tecnologia' },
-    { name: 'Esportes e Lazer' },
-    { name: 'Saúde e Bem-Estar' },
-    { name: 'Cozinha' }
-  ]
+
   // const CATEGORY = [
   //   { name: 'Casa e Decoração' },
   //   { name: 'Moda e Acessórios' },
@@ -46,10 +39,9 @@ const Header2: React.FC = () => {
   //   { name: 'Viagens e Aventuras' },
   // ]
 
-
   return (
     <>
-      <div className="w-full bg-blue-500">
+      <div className="w-full bg-blue-600 select-none">
         <p className="text-center font-semibold text-sm text-white"> Frete grátis</p>
       </div>
       <header
@@ -73,12 +65,8 @@ const Header2: React.FC = () => {
           <div className="hidden lg:inline">
             <div className="w-full flex items-center justify-between px-[108px]  pt-1">
               <div className="text-3xl text-white font-bold">
-                <Link href={"/"}>
-                  <p
-                    className="cursor-pointer relative top-3"
-                  >
-                    VIX
-                  </p>
+                <Link href={'/'}>
+                  <p className="cursor-pointer relative top-3">VIX</p>
                 </Link>
               </div>
               <div className="flex gap-2 md:flex-col">
@@ -110,7 +98,7 @@ const Header2: React.FC = () => {
                   <input
                     placeholder="Buscar produtos..."
                     style={{ background: '#ededed', color: 'black' }}
-                    className=" w-full rounded-md h-11"
+                    className=" w-full rounded-md h-11 placeholder:text-gray-500"
                     type="text"
                   />
                   <BiSearch className="text-2xl text-gray-500" />
@@ -129,19 +117,17 @@ const Header2: React.FC = () => {
             <div className="flex gap-4 px-[108px] mt-5">
               {CATEGORY.map((e, i) => {
                 return (
-                  <Link href={'/categoria/' + e.name.replaceAll(' ', '-')}>
+                  <Link key={i} href={'/categoria/' + e.name.replaceAll(' ', '-')}>
                     <p
+                      style={{ fontWeight: decodeURI(pathname) == '/categoria/'.concat(e.name.replaceAll(' ', '-')) ? '600' : '300', }}
                       key={i}
-                      onMouseEnter={() => {
-                        setTchan('item-header-category')
-                      }}
-                      onMouseOut={() => {
-                        setTchan('')
-                      }}
-                      className={`relative ${Tchan}  text-sm ${pathname == '/categoria/'.concat(e.name.replaceAll(' ', '-'))
-                        ? 'text-white font-semibold'
-                        : 'text-white font-light'
-                        }`}
+                      // onMouseEnter={() => {
+                      //   setTchan('item-header-category')
+                      // }}
+                      // onMouseOut={() => {
+                      //   setTchan('')
+                      // }}
+                      className={`relative text-sm `}
                     >
                       {e.name}
                     </p>
@@ -159,7 +145,7 @@ const Header2: React.FC = () => {
                   style={{ fontSize: '1.5rem' }}
                 />
               </div>
-              <Link href={"/"}>
+              <Link href={'/'}>
                 <p className="text-2xl">VIX</p>
               </Link>
               <div className="flex items-center gap-2 cursor-pointer">
@@ -185,7 +171,7 @@ const Header2: React.FC = () => {
                 id="input-src"
                 placeholder="Buscar produtos..."
                 style={{ background: '#ededed' }}
-                className=" w-full rounded-md h-11"
+                className=" w-full rounded-md h-11 placeholder:text-gray-500"
                 type="text"
               />
               <BiSearch className="text-2xl" />

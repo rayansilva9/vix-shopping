@@ -38,20 +38,24 @@ const Section_EmAlta: React.FC<props> = ({ products }) => {
         </div>
         <div className="flex items-center pl-7 w-full overflow-x-scroll no-scrollbar  lg:pl-0">
           <ul className="relative my-5 w-full flex justify-between md:justify-start lg:justify-center lg:px-40 gap-4 md:gap-x-3 gap-y-3">
-            <IconButton
-              sx={{
-                display: { xs: 'none', lg: 'inline', },
-                position: 'absolute',
-                left: '10px',
-                top: '150px',
-                fontSize: '40px',
-              }}
-              onClick={() => {
-                slide('left')
-              }}
-            >
-              <TfiAngleLeft />
-            </IconButton>
+            <li>
+              <IconButton
+                aria-label="Prev"
+                sx={{
+                  display: { xs: 'none', lg: 'inline', },
+                  position: 'absolute',
+                  left: '10px',
+                  top: '150px',
+                  fontSize: '40px',
+                }}
+                onClick={() => {
+                  slide('left')
+                }}
+              >
+                <p className='opacity-0 w-0 h-0'>Next</p>
+                <TfiAngleLeft />
+              </IconButton>
+            </li>
             {products.length > 0 ? (
               products.slice(positon, positon + 5).map((produtos: productProps) => (
                 <>
@@ -89,20 +93,24 @@ const Section_EmAlta: React.FC<props> = ({ products }) => {
                 </li>
               </>
             )}
-            <IconButton
-              sx={{
-                display: { xs: 'none', lg: 'inline', },
-                position: 'absolute',
-                right: '10px',
-                top: '150px',
-                fontSize: '40px',
-              }}
-              onClick={() => {
-                slide('right')
-              }}
-            >
-              <TfiAngleRight />
-            </IconButton>
+            <li>
+              <IconButton
+                aria-label="Next"
+                sx={{
+                  display: { xs: 'none', lg: 'inline', },
+                  position: 'absolute',
+                  right: '10px',
+                  top: '150px',
+                  fontSize: '40px',
+                }}
+                onClick={() => {
+                  slide('right')
+                }}
+              >
+                <p className='opacity-0 w-0 h-0'>Next</p>
+                <TfiAngleRight />
+              </IconButton>
+            </li>
           </ul>
         </div>
       </section>

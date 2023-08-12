@@ -60,25 +60,22 @@ const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
                   onClick={() => {
                     setModeView('grid')
                   }}
-                  className={`text-xl cursor-pointer ${
-                    modeView == 'grid' ? 'text-black' : 'text-gray-400'
-                  }`}
+                  className={`text-xl cursor-pointer ${modeView == 'grid' ? 'text-black' : 'text-gray-400'
+                    }`}
                 />
                 <MdOutlineFormatListBulleted
                   onClick={() => {
                     setModeView('list')
                   }}
-                  className={`text-2xl cursor-pointer ${
-                    modeView == 'list' ? 'text-black' : 'text-gray-400'
-                  }`}
+                  className={`text-2xl cursor-pointer ${modeView == 'list' ? 'text-black' : 'text-gray-400'
+                    }`}
                 />
               </div>
             </div>
             <div className="inline-flex items-center flex-1 gap-2 cursor-pointer ">
               <p
-                className={`text-sm ${
-                  modeView == 'grid' ? 'text-black' : 'text-gray-600'
-                }`}
+                className={`text-sm ${modeView == 'grid' ? 'text-black' : 'text-gray-600'
+                  }`}
               >
                 Ordenar por
               </p>
@@ -88,7 +85,7 @@ const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
         </div>
         <div className="flex-1 md:px-[40px]  lg:px-[60px] mx-auto">
           <div className="block px-4">
-            <p className="text-xl">{produto[0].category}</p>
+            <p className="text-xl">{produto[0].category.replaceAll('-', ' ')}</p>
             <p className="text-xs text-gray-600 my-2">{produto.length} produtos</p>
           </div>
           <div className="block h-full w-full">
@@ -109,9 +106,8 @@ const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
                 </div>
                 <div className="inline-flex items-center flex-1 gap-2 ">
                   <p
-                    className={`text-sm ${
-                      modeView == 'grid' ? 'text-black' : 'text-gray-600'
-                    }`}
+                    className={`text-sm ${modeView == 'grid' ? 'text-black' : 'text-gray-600'
+                      }`}
                   >
                     Ordenar por
                   </p>
@@ -122,17 +118,15 @@ const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
                     onClick={() => {
                       setModeView('grid')
                     }}
-                    className={`text-xl ${
-                      modeView == 'grid' ? 'text-black' : 'text-gray-400'
-                    }`}
+                    className={`text-xl ${modeView == 'grid' ? 'text-black' : 'text-gray-400'
+                      }`}
                   />
                   <MdOutlineFormatListBulleted
                     onClick={() => {
                       setModeView('list')
                     }}
-                    className={`text-2xl ${
-                      modeView == 'list' ? 'text-black' : 'text-gray-400'
-                    }`}
+                    className={`text-2xl ${modeView == 'list' ? 'text-black' : 'text-gray-400'
+                      }`}
                   />
                 </div>
               </div>
