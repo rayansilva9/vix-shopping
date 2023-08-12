@@ -16,7 +16,7 @@ export const getStaticPaths = async () => {
 
   const paths = res.docs.map((produto) => ({
     params: {
-      categoryPage: produto.data().category // Codifica a categoria para uso seguro em URLs
+      categoryPage: produto.data().category
     }
   }));
 
@@ -35,7 +35,7 @@ export const getStaticProps = async ({ params }) => {
   const produto = res.docs.map((doc) => doc.data());
 
   return {
-    props: { produto, category: params.categoryPage }
+    props: { produto }
   };
 }
 
