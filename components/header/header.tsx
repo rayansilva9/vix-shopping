@@ -54,6 +54,7 @@ const Header2: React.FC = () => {
       </div>
       <header
         style={{
+          userSelect: 'none',
           background: '#ffffff',
           position: 'relative',
           zIndex: 5,
