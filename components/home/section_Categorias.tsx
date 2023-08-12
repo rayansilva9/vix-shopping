@@ -12,10 +12,10 @@ const Section_Categoria: React.FC<props> = ({ }) => {
 
   return (
     <>
-      <section className="flex bg-zinc-100 flex-col items-center lg:px-10 2xl:px-[300px] my-12  pl-7">
+      <section className="flex bg-zinc-100 flex-col items-center lg:px-10 2xl:px-[300px] my-12 pl-7">
         <ul className="w-full flex lg:justify-center lg:gap-14 no-scrollbar overflow-x-scroll">
           {a.map(() => (
-            <li>
+            <li className='hover:scale-110 transition-transform'>
               <Link href="category/brinquedo">
                 <div className="w-32 flex flex-col justify-center items-center cursor-pointer">
                   <img

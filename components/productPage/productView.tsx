@@ -158,7 +158,7 @@ const ProductView: React.FC<props> = ({
         {/* 2 */}
         <div className="mt-1 lg:flex flex-col ">
           <div className="px-3">
-            <p className="text-2xl font-medium xl:max-w-[330px] text-gray-600 xl:text-[19px] xl:my-0">
+            <p className="text-2xl font-medium xl:max-w-[330px] text-gray-600 xl:text-[19px] xl:mb-2">
               {productName}
             </p>
             <Divider className="my-2 w-full lg:w-[330px]" />

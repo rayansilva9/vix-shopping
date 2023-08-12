@@ -27,7 +27,7 @@ const ProductHorizontal: React.FC<props> = ({ product }) => {
             mx: 'auto',
             borderRadius: '20px',
             width: { xs: 'calc(100% - 10px)', },
-            minWidth: { xs: 'calc(100vw - 10px)', sm: '346px', md: '380px', },
+            minWidth: { xs: '100%', sm: '346px', md: '380px', },
             // maxWidth: { xs: 'calc(100vw - 10px)', sm: '346px', md: '380px', },
             height: '170px',
             display: 'flex',
@@ -41,7 +41,12 @@ const ProductHorizontal: React.FC<props> = ({ product }) => {
           }}
         >
           <div className="flex items-center justify-center">
-            <Image height={107} width={107} src={processLink(product.photos[0])} alt="" />
+            <Image
+              style={{ animation: 'productImg .2s linear', }}
+              quality={65}
+              height={107}
+              width={107}
+              src={processLink(product.photos[0])} alt="" />
           </div>
           <div className="flex self-start h-full flex-col">
             <p className='self-start break-words text-sm my-1'>{product.name}</p>

@@ -51,6 +51,7 @@ const ProductVertical: React.FC<props> = ({ product }) => {
           ) :
             currentImg == 0 ? (
               <Image
+                quality={65}
                 style={{ animation: 'productImg .2s linear', }}
                 width={194}
                 height={194}
@@ -62,6 +63,7 @@ const ProductVertical: React.FC<props> = ({ product }) => {
               />
             ) : (
               <Image
+                quality={65}
                 style={{ animation: 'productImg .5s linear', }}
                 width={194}
                 height={194}

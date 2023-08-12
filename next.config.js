@@ -11,6 +11,18 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'cea.vtexassets.com',
+        port: '',
+        pathname: '**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'th.bing.com',
+        port: '',
+        pathname: '**'
+      },
+      {
+        protocol: 'https',
         hostname: 'gw.alicdn.com',
         port: '',
         pathname: '**/**'
