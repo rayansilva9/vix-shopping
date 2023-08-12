@@ -49,13 +49,13 @@ const Header2: React.FC = () => {
           zIndex: 5,
           boxShadow: ' 0px 5px 28px -2px #0000002a',
           borderBottomLeftRadius: ' 40px',
-          borderBottomRightRadius: '40px'
+          borderBottomRightRadius: '40px',
         }}
       >
         <div style={{
           borderBottomLeftRadius: ' 20px',
-          borderBottomRightRadius: '20px'
-        }} className="py-6 bg-blue-500 text-white">
+          borderBottomRightRadius: '20px',
+        }} className="py-6 px-4 bg-blue-500 text-white">
           <div className="hidden lg:inline">
             <div className="w-full flex items-center justify-between px-[108px]  pt-1">
               <div className="text-3xl text-white font-bold">
@@ -114,9 +114,10 @@ const Header2: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-4 px-[108px] mt-5">
-              {CATEGORY.map(e => {
+              {CATEGORY.map((e, i) => {
                 return (
                   <p
+                    key={i}
                     onMouseEnter={() => {
                       setTchan('item-header-category')
                     }}

@@ -3,7 +3,6 @@ import { db } from '../../lib/firebase'
 import Head from 'next/head'
 import useElementOnScreen from '../../hooks/useElementOnScreen'
 import SectionComments from '../../components/productPage/sessaoComentario'
-import Header2 from '../../components/header/header'
 import { SlArrowRight } from 'react-icons/sl'
 import BtnCheckout from '../../components/productPage/btnCheckout'
 import SectionDescricao from '../../components/productPage/sessaoDescriçao'
@@ -97,7 +96,7 @@ const Product: React.FC<productProps> = ({ produto }) => {
     document.documentElement.scrollTop = 0
   }
 
-  
+
 
   return (
     <>

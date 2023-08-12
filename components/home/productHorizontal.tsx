@@ -9,23 +9,25 @@ import { useRouter } from 'next/navigation';
 
 type props = {
   product: productProps
+  minWidth?: string
+  rounded?: string
 }
 
-const ProductHorizontal: React.FC<props> = ({ product }) => {
+const ProductHorizontal: React.FC<props> = ({ product, minWidth, rounded = '20px' }) => {
 
   const router = useRouter().push
 
 
   return (
     <>
-      <li className='cursor-pointer list-none flex-1'
+      <li className={`cursor-pointer list-none flex-1 ${minWidth}`}
         onClick={() => { router(`produto/${product.id!}`) }}
       >
         <Paper
-          elevation={1}
+          elevation={0}
           sx={{
             mx: 'auto',
-            borderRadius: '20px',
+            borderRadius: rounded,
             width: { xs: 'calc(100% - 10px)', },
             minWidth: { xs: '100%', sm: '346px', md: '380px', },
             // maxWidth: { xs: 'calc(100vw - 10px)', sm: '346px', md: '380px', },
@@ -36,7 +38,7 @@ const ProductHorizontal: React.FC<props> = ({ product }) => {
             paddingY: '26px',
             paddingX: { xs: '12px', sm: '12px', md: '18px', },
             gap: '24px',
-            boxShadow: ' rgba(0, 0, 0, 0.25) 0px 3px 10px -5px'
+            // boxShadow: ' rgba(0, 0, 0, 0.25) 0px 3px 10px -5px'
 
           }}
         >
