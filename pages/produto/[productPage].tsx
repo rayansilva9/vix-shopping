@@ -113,7 +113,6 @@ const Product: React.FC<productProps> = ({ produto }) => {
         />
       </Head>
       <>
-        {/* <Header2 /> */}
         <button
           type="submit"
           className="w-[60px] h-[60px] flex items-center justify-center bg-blue-500 fixed bottom-6 right-5 rounded-full"

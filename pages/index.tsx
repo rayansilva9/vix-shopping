@@ -2,15 +2,11 @@ import React from 'react'
 import Head from 'next/head'
 import { db } from '../lib/firebase'
 import HeroBg from '../components/home/section_Hero'
-import Footer from '../components/footer/footer'
 import SectionBeneficios from '../components/home/section_Beneficios'
-import Header2 from '../components/header/header'
 import productProps from '../@types/productHome'
 import Section_EmAlta from '../components/home/section_emAlta'
 import Section_Categoria from '../components/home/section_Categorias'
 import Section_ModaFeminina from '../components/home/section_ModaFeminina'
-import ProductVertical from '../components/home/productHorizontal'
-import ProductHorizontal from '../components/home/productHorizontal'
 import Section_DiaDosPais from '../components/home/section_diaDosPais'
 
 interface Props {
@@ -21,10 +17,17 @@ export const getStaticProps = async () => {
 
   const productsDocs = await db.collection('products').get()
 
-  const products = productsDocs.docs.map(e =>
-    JSON.parse(JSON.stringify(e.data()))
+  const products = productsDocs.docs.map((e) => (
+    {
+      photos: e.data().photos,
+      name: e.data().name,
+      precoAvenda: e.data().precoAvenda,
+      id: e.data().id,
+      rating: e.data().rating,
+    }
+  ))
 
-  )
+  console.log(products);
 
   return {
     props: {
@@ -50,7 +53,6 @@ const Home: React.FC<Props> = ({ products }) => {
           content=""
         />
       </Head>
-      {/* <Header2 /> */}
       <HeroBg />
       <SectionBeneficios />
       <main className="flex flex-col w-[calc(100vw)] xl:px-10 2xl:w-[calc(100vw)] mx-auto bg-zinc-100 select-none">
