@@ -27,7 +27,6 @@ export const getStaticProps = async () => {
     }
   ))
 
-  console.log(products);
 
   return {
     props: {

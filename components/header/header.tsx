@@ -8,7 +8,8 @@ import { MdPayment } from 'react-icons/md'
 import { SiBloglovin } from 'react-icons/si'
 import MenuMobile from './menuHeader'
 import { Stack } from '@mui/material'
-import { useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 const Header2: React.FC = () => {
   const [openMenu, setopenMenu] = React.useState(false)
@@ -21,26 +22,35 @@ const Header2: React.FC = () => {
       setopenMenu(true)
     }
   }
+  const pathname = usePathname()
 
   const CATEGORY = [
-    'Novidades',
-    'Feminino',
-    'Masculino',
-    'Infantil',
-    'Beleza',
-    'Acessórios',
-    'Calçados',
-    'Relogios',
-    'Esportivo',
-    'Moda Praia'
+    { name: 'Casa e Decoração' },
+    { name: 'Moda e Acessórios' },
+    { name: 'Beleza e Cuidados Pessoais' },
+    { name: 'Eletrônicos e Tecnologia' },
+    { name: 'Esportes e Lazer' },
+    { name: 'Saúde e Bem-Estar' },
+    { name: 'Cozinha' }
   ]
+  // const CATEGORY = [
+  //   { name: 'Casa e Decoração' },
+  //   { name: 'Moda e Acessórios' },
+  //   { name: 'Beleza e Cuidados Pessoais' },
+  //   { name: 'Eletrônicos e Tecnologia' },
+  //   { name: 'Esportes e Lazer' },
+  //   { name: 'Saúde e Bem-Estar' },
+  //   { name: 'Livros, Filmes e Música' },
+  //   { name: 'Cozinha' },
+  //   { name: 'Jardinagem e Ambiente Externo' },
+  //   { name: 'Viagens e Aventuras' },
+  // ]
 
-  const router = useRouter()
 
   return (
     <>
       <div className="w-full bg-blue-500">
-        <p className='text-center font-semibold text-sm text-white'> Frete grátis</p>
+        <p className="text-center font-semibold text-sm text-white"> Frete grátis</p>
       </div>
       <header
         style={{
@@ -49,24 +59,26 @@ const Header2: React.FC = () => {
           zIndex: 5,
           boxShadow: ' 0px 5px 28px -2px #0000002a',
           borderBottomLeftRadius: ' 40px',
-          borderBottomRightRadius: '40px',
+          borderBottomRightRadius: '40px'
         }}
       >
-        <div style={{
-          borderBottomLeftRadius: ' 20px',
-          borderBottomRightRadius: '20px',
-        }} className="py-6 px-4 bg-blue-500 text-white">
+        <div
+          style={{
+            borderBottomLeftRadius: ' 20px',
+            borderBottomRightRadius: '20px'
+          }}
+          className="py-6 px-4 bg-blue-500 text-white"
+        >
           <div className="hidden lg:inline">
             <div className="w-full flex items-center justify-between px-[108px]  pt-1">
               <div className="text-3xl text-white font-bold">
-                <p
-                  className="cursor-pointer relative top-3"
-                  onClick={() => {
-                    router.push('/')
-                  }}
-                >
-                  VIX
-                </p>
+                <Link href={"/"}>
+                  <p
+                    className="cursor-pointer relative top-3"
+                  >
+                    VIX
+                  </p>
+                </Link>
               </div>
               <div className="flex gap-2 md:flex-col">
                 <div className="flex gap-5">
@@ -96,7 +108,7 @@ const Header2: React.FC = () => {
                 >
                   <input
                     placeholder="Buscar produtos..."
-                    style={{ background: '#ededed', color: 'black', }}
+                    style={{ background: '#ededed', color: 'black' }}
                     className=" w-full rounded-md h-11"
                     type="text"
                   />
@@ -116,18 +128,23 @@ const Header2: React.FC = () => {
             <div className="flex gap-4 px-[108px] mt-5">
               {CATEGORY.map((e, i) => {
                 return (
-                  <p
-                    key={i}
-                    onMouseEnter={() => {
-                      setTchan('item-header-category')
-                    }}
-                    onMouseOut={() => {
-                      setTchan('')
-                    }}
-                    className={`relative ${Tchan} font-light`}
-                  >
-                    {e}
-                  </p>
+                  <Link href={'/categoria/' + e.name.replaceAll(' ', '-')}>
+                    <p
+                      key={i}
+                      onMouseEnter={() => {
+                        setTchan('item-header-category')
+                      }}
+                      onMouseOut={() => {
+                        setTchan('')
+                      }}
+                      className={`relative ${Tchan}  text-sm ${pathname == '/categoria/'.concat(e.name.replaceAll(' ', '-'))
+                        ? 'text-white font-semibold'
+                        : 'text-white font-light'
+                        }`}
+                    >
+                      {e.name}
+                    </p>
+                  </Link>
                 )
               })}
             </div>
@@ -141,14 +158,9 @@ const Header2: React.FC = () => {
                   style={{ fontSize: '1.5rem' }}
                 />
               </div>
-              <p
-                onClick={() => {
-                  router.push('/')
-                }}
-                className="text-2xl"
-              >
-                VIX
-              </p>
+              <Link href={"/"}>
+                <p className="text-2xl">VIX</p>
+              </Link>
               <div className="flex items-center gap-2 cursor-pointer">
                 {' '}
                 <p className="hidden md:inline font-light">Entre ou cadastre-se</p>
@@ -182,7 +194,6 @@ const Header2: React.FC = () => {
         </div>
       </header>
     </>
-
   )
 }
 
