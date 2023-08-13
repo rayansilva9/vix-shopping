@@ -19,7 +19,7 @@ const ProductHorizCategory: React.FC<props> = ({ e }) => {
 
   return (
     <>
-      <li className='cursor-pointer flex-1 relative list-none max-w-[50%] md:max-w-[200px] ' >
+      <li className='cursor-pointer flex-1 relative min-w-[50vw] lg:min-w-[auto] list-none max-w-[50%] md:max-w-[200px] ' >
         <Link href={`/produto/${e.id!}`}>
           <Paper
             elevation={0}

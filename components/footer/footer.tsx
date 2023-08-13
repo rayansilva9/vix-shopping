@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
     <footer style={{ minHeight: '231px', userSelect: 'none', }} ref={footerRef}>
       {showFooter ? (
         <div style={{ background: '#f8f8f8', }} className='pt-2'>
-          <div className="flex flex-col lg:flex-row justify-between lg:px-[100px] my-6">
+          <div className="flex flex-col lg:flex-row justify-between px-4 lg:px-[100px] my-6">
             <div className="my-5">
               <p className='text-xs font-semibold mb-2'>Central de Atendimento</p>
               <p className='text-xs mb-1'><strong>SAC (Serviço de Atendimento ao Consumidor)</strong></p>

@@ -8,6 +8,7 @@ type props = {
 
 function LogOff() {
   destroyCookie(null, 'US');
+  window.location.reload();
 }
 
 const AlertDialogDemo: React.FC<props> = ({ children }) => (

@@ -34,8 +34,8 @@ const ProductVertCategory: React.FC<props> = ({ e }) => {
             sx={{
               mx: 'auto',
               // borderRadius: rounded,
-              width: { xs: 'calc(100% - 10px)', },
-              minWidth: { xs: '100%', sm: '346px', md: '380px', },
+              // width: { xs: 'calc(100% - 10px)', },
+              minWidth: { xs: '50%', sm: '346px', md: '380px', },
               height: '170px',
               display: 'flex',
               flex: 1,

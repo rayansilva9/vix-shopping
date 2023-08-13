@@ -15,7 +15,7 @@ import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth, db } from '../../lib/firebase'
 import { setCookie } from 'nookies'
 import { UserContext } from '../../context/userContext'
-import HoverCardDemo from '../formCard'
+import HoverCardDemo from './formCard'
 
 
 type User = {
@@ -230,28 +230,32 @@ const Header2: React.FC = () => {
               })}
             </div>
           </div>
-          <div className="lg:hidden flex flex-col gap-2 px-3">
+          <div className="lg:hidden flex flex-col gap-0 px-3">
             <div className="flex items-center justify-between">
-              <div className="pr-5 md:pr-52">
+              <div className="flex gap-4 items-center pr-5 md:pr-52">
                 <RxHamburgerMenu
                   className="bg-blue-500"
                   onClick={open2}
                   style={{ fontSize: '1.5rem' }}
                 />
+                {user == null && (
+                  <p onClick={() => { AuthFace() }} className="text-xs font-light">Login</p>
+                )}
               </div>
-              <Link href={'/'}>
-                <p className="text-2xl">VIX</p>
-              </Link>
+
               <div className="flex items-center gap-2 cursor-pointer">
                 {' '}
-                <p onClick={() => { AuthFace() }} className="hidden md:inline font-light">Entre ou cadastre-se</p>
+
                 <div className="flex gap-4 text-xl">
                   <BsSuitHeart />
                   <IoBagHandleOutline />
                 </div>
               </div>
             </div>
-            <Stack
+            <Link href={'/'}>
+              <p className=" text-center text-2xl">VIX</p>
+            </Link>
+            {/* <Stack
               alignItems="center"
               direction="row"
               sx={{
@@ -261,6 +265,7 @@ const Header2: React.FC = () => {
                 p: '0 10px'
               }}
             >
+
               <input
                 id="input-src"
                 placeholder="Buscar produtos..."
@@ -269,7 +274,7 @@ const Header2: React.FC = () => {
                 type="text"
               />
               <BiSearch className="text-2xl" />
-            </Stack>
+            </Stack> */}
           </div>
           <MenuMobile openedMenu={openMenu} funcOpen={open2} />
         </div>

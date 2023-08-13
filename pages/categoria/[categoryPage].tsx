@@ -94,7 +94,7 @@ const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
                 position: 'sticky',
                 top: '0px',
                 height: '45px',
-                zIndex: 999,
+                zIndex: 4,
                 flex: 1
               }}
               className=" bg-zinc-100 py-2 my-4 h-9 md:hidden"

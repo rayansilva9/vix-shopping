@@ -1,7 +1,7 @@
 import React, { ReactNode, useContext, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { UserContext } from '../context/userContext';
-import { db } from '../lib/firebase';
+import { UserContext } from '../../context/userContext';
+import { db } from '../../lib/firebase';
 import { setCookie, } from 'nookies';
 // import { Cross2Icon } from '@radix-ui/react-icons';
 type props = {
