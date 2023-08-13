@@ -1,3 +1,4 @@
+import { getAuth } from 'firebase/auth'
 import Firebase from 'firebase/compat/app'
 import 'firebase/compat/firestore'
 import 'firebase/compat/storage'
@@ -19,5 +20,6 @@ const firebase = Firebase.initializeApp(config)
 const db = firebase.firestore()
 const storage = firebase.storage('gs://noir-shop.appspot.com')
 // const database = firebase.database()
+const auth = getAuth(firebase)
 
-export { firebase, storage, db }
+export { firebase, storage, db, auth }

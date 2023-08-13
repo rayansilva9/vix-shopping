@@ -11,6 +11,8 @@ import { Stack } from '@mui/material'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { CATEGORY } from '../../utils/linksCategoria'
+import { getAuth, signInWithPopup, FacebookAuthProvider } from "firebase/auth";
+import { auth } from '../../lib/firebase'
 
 const Header2: React.FC = () => {
   const [openMenu, setopenMenu] = React.useState(false)
@@ -38,6 +40,34 @@ const Header2: React.FC = () => {
   //   { name: 'Jardinagem e Ambiente Externo' },
   //   { name: 'Viagens e Aventuras' },
   // ]
+
+  const provider = new FacebookAuthProvider();
+  const AuthFace = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
+        console.log(user);
+
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = FacebookAuthProvider.credentialFromError(error);
+
+        // ...
+      });
+  }
 
   return (
     <>
@@ -150,7 +180,7 @@ const Header2: React.FC = () => {
               </Link>
               <div className="flex items-center gap-2 cursor-pointer">
                 {' '}
-                <p className="hidden md:inline font-light">Entre ou cadastre-se</p>
+                <p onClick={AuthFace} className="hidden md:inline font-light">Entre ou cadastre-se</p>
                 <div className="flex gap-4 text-xl">
                   <BsSuitHeart />
                   <IoBagHandleOutline />
