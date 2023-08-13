@@ -10,6 +10,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { destroyCookie } from 'nookies'
 import HoverCardDemo from './formCard'
 import AlertDialogDemo from './alertDialog'
+import DialogDemo from './editProfile'
 
 interface Props {
   openedMenu: boolean
@@ -111,10 +112,25 @@ const MenuMobile: React.FC<Props> = ({ openedMenu, funcOpen }) => {
         {openedMenu && (
           <>
             <Categoys />
-            <div className="flex gap-2 items-center mb-4">
-              <Avatar alt={user && user.username} src={user && user.photo} />
-              <p className="text-black font-semibold">{user ? user.username : 'Entre ou Cadastre-se'}</p>
-            </div>
+            <>
+              {user ? (
+                <DialogDemo>
+                  <div className="flex gap-2 items-center mb-4">
+                    <Avatar alt={user && user.username} src={user && user.photo} />
+                    <p className="text-black font-semibold">{user ? user.username : 'Entre ou Cadastre-se'}</p>
+                  </div>
+                </DialogDemo>
+              ) : (
+                <>
+                  <div className="flex gap-2 items-center mb-4">
+                    <Avatar src='/emptyImg.jpg' />
+                    <p className="text-black font-semibold">{user ? user.username : 'Entre ou Cadastre-se'}</p>
+                  </div>
+                </>
+              )}
+
+            </>
+
             <div style={{ animation: 'item-menu .4s ease' }} className="py-3 px-2 ">
               <p className="text-black">Home</p>
             </div>
@@ -173,8 +189,9 @@ const MenuMobile: React.FC<Props> = ({ openedMenu, funcOpen }) => {
               }
             </div>
           </>
-        )}
-      </div>
+        )
+        }
+      </div >
     </div >
   )
 

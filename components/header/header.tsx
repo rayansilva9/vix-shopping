@@ -102,7 +102,7 @@ const Header2: React.FC = () => {
               maxAge: 60 * 60 * 24 * 365 // 1 ano
             })
           }
-
+          window.location.reload();
         } catch (error) {
 
         }

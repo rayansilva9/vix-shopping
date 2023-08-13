@@ -24,7 +24,7 @@ const ProductHorizontal: React.FC<props> = ({ product, rounded = '20px' }) => {
               mx: 'auto',
               borderRadius: rounded,
               width: { xs: 'calc(100% - 10px)', },
-              minWidth: { xs: '100%', sm: '346px', md: '380px', },
+              minWidth: { xs: 'calc(100vw - 6px)', sm: '346px', md: '380px', },
               // maxWidth: { xs: 'calc(100vw - 10px)', sm: '346px', md: '380px', },
               height: '170px',
               display: 'flex',

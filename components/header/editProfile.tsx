@@ -42,7 +42,7 @@ const DialogDemo: React.FC<props> = ({ children }) => {
       <Dialog.Portal>
         <Dialog.Overlay className="DialogOverlay z-[19]" />
         <Dialog.Content className="DialogContent z-[21]">
-          <Dialog.Title className="DialogTitle">Edit profile</Dialog.Title>
+          <Dialog.Title className="DialogTitle">Editar Perfil</Dialog.Title>
           <Dialog.Description className="DialogDescription">
             Altere as informaçôes do seu perfil, e clique em Salvar.
           </Dialog.Description>
@@ -104,4 +104,4 @@ const DialogDemo: React.FC<props> = ({ children }) => {
   )
 };
 
-export default React.memo(DialogDemo);
+export default DialogDemo;
