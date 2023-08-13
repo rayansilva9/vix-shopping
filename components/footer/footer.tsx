@@ -9,6 +9,7 @@ import { IoLogoGooglePlaystore } from 'react-icons/io5'
 import useElementOnScreen from '../../hooks/useElementOnScreen'
 import { Divider } from '@mui/material'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const Footer: React.FC = () => {
   const options = {
@@ -21,14 +22,23 @@ const Footer: React.FC = () => {
   const [showFooter, setShowFooter] = useState<Boolean>(false)
   const isFooterVisible: Boolean = useElementOnScreen(options, footerRef)
 
+  const pathname = usePathname()
+
   useMemo(() => {
     if (isFooterVisible) {
       setShowFooter(true)
     }
   }, [isFooterVisible])
 
+
   return (
-    <footer style={{ minHeight: '231px', userSelect: 'none', }} ref={footerRef}>
+    <footer
+      ref={footerRef}
+      style={{
+        minHeight: '231px',
+        userSelect: 'none',
+        marginBottom: pathname.includes('produto') ? '120px' : '0'
+      }}>
       {showFooter ? (
         <div style={{ background: '#f8f8f8', }} className='pt-2'>
           <div className="flex flex-col lg:flex-row justify-between px-4 lg:px-[100px] my-6">

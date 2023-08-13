@@ -18,7 +18,7 @@ const HeroBg: React.FC = () => {
         alt=""
       />
       <Image
-        quality={75}
+        quality={95}
         style={{ animation: 'productImg .4s ease' }}
         className="hero relative z-0 mt-3 hidden lg:inline rounded-2xl w-full"
         width={500}

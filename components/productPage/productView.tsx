@@ -162,7 +162,7 @@ const ProductView: React.FC<props> = ({
               {productName}
             </p>
             <Divider className="my-2 w-full lg:w-[330px]" />
-            <p className="text-lg text-[#40cd28] font-semibold xl:my-5 xl:text-[20px]">
+            <p className="text-lg text-[#40cd28] my-8 font-semibold xl:my-5 xl:text-[20px]">
               R${''}
               <span className="text-[33px] xl:text-[30px] text-[#40cd28]">
                 {formatarMoeda(productPrice)}

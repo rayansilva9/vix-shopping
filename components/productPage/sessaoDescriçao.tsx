@@ -15,7 +15,6 @@ const SectionDescricao: React.FC<props> = ({ productDescription }) => {
       sectionDesc.current.innerHTML = productDescription
       const parentElement = document.getElementById('#desc')
       const allDescendants = parentElement.querySelectorAll('*')
-      console.log(allDescendants)
       allDescendants.forEach(el => {
         let haveClass = el.getAttribute('class')
         if (haveClass) {
