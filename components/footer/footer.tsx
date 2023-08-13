@@ -33,11 +33,12 @@ const Footer: React.FC = () => {
 
   return (
     <footer
+      className={`${pathname.includes('produto') ? 'mb-[120px] lg:mb-[0px]' : ''}`}
       ref={footerRef}
       style={{
         minHeight: '231px',
         userSelect: 'none',
-        marginBottom: pathname.includes('produto') ? '120px' : '0'
+        marginBottom:
       }}>
       {showFooter ? (
         <div style={{ background: '#f8f8f8', }} className='pt-2'>
