@@ -42,6 +42,7 @@ const Header2: React.FC = () => {
   // ]
 
   const provider = new FacebookAuthProvider();
+
   const AuthFace = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -59,12 +60,12 @@ const Header2: React.FC = () => {
       .catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
+        console.log(errorCode);
         const errorMessage = error.message;
         // The email of the user's account used.
         const email = error.customData.email;
         // The AuthCredential type that was used.
         const credential = FacebookAuthProvider.credentialFromError(error);
-
         // ...
       });
   }
@@ -136,7 +137,7 @@ const Header2: React.FC = () => {
               </div>
               <div className="flex items-center gap-8  relative top-3 ">
                 <div className="cursor-pointer">
-                  <p>Entre ou cadastre-se</p>
+                  <p onClick={() => { AuthFace() }}>Entre ou cadastre-se</p>
                 </div>
                 <div className="flex gap-4 text-2xl">
                   <BsSuitHeart className="cursor-pointer hover:text-red-500 transition-colors" />
@@ -180,7 +181,7 @@ const Header2: React.FC = () => {
               </Link>
               <div className="flex items-center gap-2 cursor-pointer">
                 {' '}
-                <p onClick={AuthFace} className="hidden md:inline font-light">Entre ou cadastre-se</p>
+                <p onClick={() => { AuthFace() }} className="hidden md:inline font-light">Entre ou cadastre-se</p>
                 <div className="flex gap-4 text-xl">
                   <BsSuitHeart />
                   <IoBagHandleOutline />
