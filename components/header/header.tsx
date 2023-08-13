@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useContext, useState, useEffect, memo } from 'react'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { IoBagHandleOutline } from 'react-icons/io5'
 import { BsSuitHeart } from 'react-icons/bs'
@@ -7,16 +7,29 @@ import { IoPeopleOutline } from 'react-icons/io5'
 import { MdPayment } from 'react-icons/md'
 import { SiBloglovin } from 'react-icons/si'
 import MenuMobile from './menuHeader'
-import { Stack } from '@mui/material'
+import { Avatar, Stack } from '@mui/material'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { CATEGORY } from '../../utils/linksCategoria'
-import { getAuth, signInWithPopup, FacebookAuthProvider } from "firebase/auth";
-import { auth } from '../../lib/firebase'
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth, db } from '../../lib/firebase'
+import { setCookie } from 'nookies'
+import { UserContext } from '../../context/userContext'
+import HoverCardDemo from '../formCard'
+
+
+type User = {
+  username: string
+  email: string
+  photo: string
+  _id: string
+  uid: string
+}
+
 
 const Header2: React.FC = () => {
   const [openMenu, setopenMenu] = React.useState(false)
-  // const [Tchan, setTchan] = React.useState('')
+  const [usuario, setusuario] = useState<User | null>(null);
 
   const open2 = () => {
     if (openMenu == true) {
@@ -25,6 +38,7 @@ const Header2: React.FC = () => {
       setopenMenu(true)
     }
   }
+
   const pathname = usePathname()
 
 
@@ -40,35 +54,79 @@ const Header2: React.FC = () => {
   //   { name: 'Jardinagem e Ambiente Externo' },
   //   { name: 'Viagens e Aventuras' },
   // ]
+  const provider = new GoogleAuthProvider();
 
-  const provider = new FacebookAuthProvider();
-
-  const AuthFace = () => {
+  const AuthFace = async () => {
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        console.log(user);
-
-        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-        const credential = FacebookAuthProvider.credentialFromResult(result);
-        const accessToken = credential.accessToken;
-
+        // console.log(user);
         // IdP data available using getAdditionalUserInfo(result)
         // ...
-      })
-      .catch((error) => {
+        const usuario = {
+          username: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+          number: user.phoneNumber,
+          uid: user.uid,
+          doc: '',
+        }
+        setCookie(undefined, 'US', JSON.stringify(usuario), {
+          maxAge: 60 * 60 * 24 * 365 // 1 ano
+        })
+
+
+        try {
+          const querySnapshot = await db.collection('users').where('uid', '==', user.uid).get()
+
+          if (!querySnapshot.empty) {
+            const res = db.collection('users').where('uid', '==', user.uid).get()
+            const doc = (await res).docs.map((e) => ({ ...e.data() }))
+            console.log(doc[0]);
+            setCookie(undefined, 'US', JSON.stringify(doc[0]), {
+              maxAge: 60 * 60 * 24 * 365 // 1 ano
+            })
+          } else {
+            // Nenhum documento com o uid foi encontrado
+            const id = await db.collection("users"
+            ).add(usuario)
+            await db.collection("users"
+            ).doc(id.id)
+              .update({ doc: id.id, })
+            usuario.doc = id.id
+            setCookie(undefined, 'US', JSON.stringify(usuario), {
+              maxAge: 60 * 60 * 24 * 365 // 1 ano
+            })
+          }
+
+        } catch (error) {
+
+        }
+        // window.reload()
+
+
+      }).catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
-        console.log(errorCode);
         const errorMessage = error.message;
+        console.log(errorMessage);
         // The email of the user's account used.
         const email = error.customData.email;
         // The AuthCredential type that was used.
-        const credential = FacebookAuthProvider.credentialFromError(error);
+        const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
       });
   }
+
+  const { setUser, user } = useContext(UserContext)
+
+  useEffect(() => {
+    setusuario(user)
+  }, [user])
 
   return (
     <>
@@ -136,9 +194,20 @@ const Header2: React.FC = () => {
                 </Stack>
               </div>
               <div className="flex items-center gap-8  relative top-3 ">
-                <div className="cursor-pointer">
-                  <p onClick={() => { AuthFace() }}>Entre ou cadastre-se</p>
-                </div>
+                {usuario !== null ? (
+                  <div className="">
+                    <HoverCardDemo  >
+                      <div>
+                        <Avatar src={usuario.photo} alt="" />
+                        <p>{usuario.username}</p>
+                      </div>
+                    </HoverCardDemo>
+                  </div>
+                ) : (
+                  <div className="cursor-pointer">
+                    <p onClick={() => { AuthFace() }}>Entre ou cadastre-se</p>
+                  </div>
+                )}
                 <div className="flex gap-4 text-2xl">
                   <BsSuitHeart className="cursor-pointer hover:text-red-500 transition-colors" />
                   <IoBagHandleOutline className="cursor-pointer" />
@@ -152,12 +221,6 @@ const Header2: React.FC = () => {
                     <p
                       style={{ fontWeight: decodeURI(pathname) == '/categoria/'.concat(e.name.replaceAll(' ', '-')) ? '600' : '300', }}
                       key={i}
-                      // onMouseEnter={() => {
-                      //   setTchan('item-header-category')
-                      // }}
-                      // onMouseOut={() => {
-                      //   setTchan('')
-                      // }}
                       className={`relative text-sm `}
                     >
                       {e.name}
@@ -215,4 +278,4 @@ const Header2: React.FC = () => {
   )
 }
 
-export default Header2
+export default memo(Header2)
