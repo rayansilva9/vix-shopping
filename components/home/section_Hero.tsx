@@ -9,6 +9,7 @@ const HeroBg: React.FC = () => {
   return (
     <div style={{ minHeight: '400px' }} className="lg:px-[40px]">
       <Image
+        priority
         quality={75}
         style={{ animation: 'productImg .4s ease' }}
         className="hero relative z-0 mt-3 inline lg:hidden rounded-md"
@@ -18,6 +19,7 @@ const HeroBg: React.FC = () => {
         alt=""
       />
       <Image
+        priority
         quality={95}
         style={{ animation: 'productImg .4s ease' }}
         className="hero relative z-0 mt-3 hidden lg:inline rounded-2xl w-full"
