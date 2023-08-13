@@ -38,7 +38,6 @@ const Footer: React.FC = () => {
       style={{
         minHeight: '231px',
         userSelect: 'none',
-        marginBottom:
       }}>
       {showFooter ? (
         <div style={{ background: '#f8f8f8', }} className='pt-2'>
