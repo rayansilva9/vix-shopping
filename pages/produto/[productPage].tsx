@@ -115,7 +115,7 @@ const Product: React.FC<productProps> = ({ produto }) => {
       <>
         <button
           type="submit"
-          className="w-[60px] h-[60px] flex items-center justify-center bg-blue-500 fixed bottom-6 right-5 rounded-full"
+          className="w-[60px] cursor-pointer h-[60px] flex items-center justify-center bg-blue-500 fixed bottom-6 right-5 rounded-full"
           onClick={() => {
             topFunction()
           }}

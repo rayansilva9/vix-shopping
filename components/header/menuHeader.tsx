@@ -6,11 +6,10 @@ import { IoLogoInstagram } from 'react-icons/io'
 import { CiFacebook } from 'react-icons/ci'
 import { ImPinterest2 } from 'react-icons/im'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
-import { destroyCookie } from 'nookies'
-import HoverCardDemo from './formCard'
+import { usePathname } from 'next/navigation'
 import AlertDialogDemo from './alertDialog'
 import DialogDemo from './editProfile'
+import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
 
 interface Props {
   openedMenu: boolean
@@ -18,16 +17,10 @@ interface Props {
 }
 
 const MenuMobile: React.FC<Props> = ({ openedMenu, funcOpen }) => {
-  const { setUser, user } = React.useContext(UserContext)
+  const { user } = React.useContext(UserContext)
 
   const [openCategorys, setopenCategorys] = React.useState(false)
   const pathname = usePathname()
-
-  function LogOff() {
-    destroyCookie(null, 'US');
-    window.location.reload();
-  }
-
 
   const Categoys: React.FC = () => {
 
@@ -52,11 +45,11 @@ const MenuMobile: React.FC<Props> = ({ openedMenu, funcOpen }) => {
         }}
         className="h-screen w-screen fixed left-0 top-0 z-40 bg-white"
       >
-        <AiOutlineClose
+        <MdOutlineKeyboardArrowDown
           onClick={() => {
-            setopenCategorys(false), funcOpen()
+            setopenCategorys(false)
           }}
-          style={{ fontSize: '2.2rem', margin: '10px 0 ', color: 'black' }}
+          style={{ fontSize: '2.2rem', margin: '10px 0 ', color: 'black', transform: 'rotate(90deg)', }}
         />
         <div className="flex flex-col gap-1 px-2">
           {openedMenu && (
@@ -132,7 +125,13 @@ const MenuMobile: React.FC<Props> = ({ openedMenu, funcOpen }) => {
             </>
 
             <div style={{ animation: 'item-menu .4s ease' }} className="py-3 px-2 ">
-              <p className="text-black">Home</p>
+              <Link href='/'
+                onClick={() => {
+                setopenCategorys(false),
+                  funcOpen()
+              }}>
+                <p className="text-black">Home</p>
+              </Link>
             </div>
             <div style={{ animation: 'item-menu .4s ease' }} className="py-3 px-2 ">
               <p
@@ -194,14 +193,6 @@ const MenuMobile: React.FC<Props> = ({ openedMenu, funcOpen }) => {
       </div >
     </div >
   )
-
-  {
-    /* <IoLogoInstagram className='text-3xl' />
-  <CiFacebook className='text-3xl' />
-  <AiFillYoutube className='text-3xl' />
-  <AiFillTwitterCircle className='text-3xl' />
-  <ImPinterest2 className='text-3xl' /> */
-  }
 }
 
 export default React.memo(MenuMobile)

@@ -7,6 +7,7 @@ import { db } from '../../lib/firebase'
 import productPropsCategory from '../../@types/productCategory'
 import ProductVertCategory from '../../components/categoryPage/productVertical'
 import ProductHorizCategory from '../../components/categoryPage/productHorizontal'
+import ModalOrderBy from '../../components/categoryPage/orderBy'
 
 export const getStaticPaths = async () => {
   const res = await db.collection('products').get()
@@ -47,7 +48,7 @@ const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
             boxShadow: '#0000003f 0px 3px 10px -5px',
             position: 'sticky',
             top: '10px',
-            zIndex: 999
+            zIndex: 10
           }}
           className="md:w-[200px] lg:w-[300px] h-[200px] bg-white rounded-xl md:px-2 xl:px-6 py-4 hidden md:inline "
         >
@@ -72,20 +73,23 @@ const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
                 />
               </div>
             </div>
-            <div className="inline-flex items-center flex-1 gap-2 cursor-pointer ">
-              <p
-                className={`text-sm ${modeView == 'grid' ? 'text-black' : 'text-gray-600'
-                  }`}
-              >
-                Ordenar por
-              </p>
-              <MdOutlineKeyboardArrowDown />
-            </div>
+            {/* <ModalOrderBy>
+              <div className="inline-flex items-center flex-1 gap-2 cursor-pointer ">
+                <p
+                  className='text-sm text-gray-600 '
+                >
+                  Ordenar por
+                </p>
+                <MdOutlineKeyboardArrowDown />
+              </div>
+            </ModalOrderBy> */}
           </div>
         </div>
         <div className="flex-1 md:px-[40px]  lg:px-[60px] mx-auto">
           <div className="block px-4">
+
             <p className="text-xl">{produto[0].category.replaceAll('-', ' ')}</p>
+
             <p className="text-xs text-gray-600 my-2">{produto.length} produtos</p>
           </div>
           <div className="block h-full w-full">
@@ -104,15 +108,18 @@ const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
                   <BsFunnel />
                   <p className="text-sm ">Filtrar</p>
                 </div>
-                <div className="inline-flex items-center flex-1 gap-2 ">
-                  <p
-                    className={`text-sm ${modeView == 'grid' ? 'text-black' : 'text-gray-600'
-                      }`}
-                  >
-                    Ordenar por
-                  </p>
-                  <MdOutlineKeyboardArrowDown />
-                </div>
+                {/* <div className="inline-flex items-center flex-1 gap-2 ">
+                  <ModalOrderBy>
+                    <div>
+                      <p
+                        className='text-sm text-gray-600'
+                      >
+                        Ordenar por
+                      </p>
+                      <MdOutlineKeyboardArrowDown />
+                    </div>
+                  </ModalOrderBy>
+                </div> */}
                 <div className="inline-flex gap-2 items-center justify-end flex-1 text-gray-400">
                   <IoApps
                     onClick={() => {
@@ -138,7 +145,7 @@ const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
             </div>
           </div>
         </div>
-      </div>
+      </div >
     </>
   )
 }

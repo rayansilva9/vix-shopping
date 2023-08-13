@@ -111,17 +111,17 @@ const ProductPayInfo: React.FC<props> = ({ priceId, quantidade, variedade, setQu
           >
             <button
               type="submit"
-              className="w-[350px] hover:bg-green-700 transition-colors py-3 bg-[#0BC86D] rounded-3xl text-lg text-white font-medium"
+              className="w-[350px] cursor-pointer hover:bg-green-700 transition-colors py-3 bg-[#0BC86D] rounded-3xl text-lg text-white font-medium"
             >
-              <p className="text-md">Compra Agora</p>
+              <p className="text-md text-center">Compra Agora</p>
             </button>
           </form>
           <div className="flex gap-3">
-            <button className="w-full py-2 hover:bg-gray-300 transition-colors flex items-center justify-center gap-2 bg-gray-200 rounded-3xl text-lg text-black font-medium">
+            <button className="w-full py-2 cursor-pointer hover:bg-gray-300 transition-colors flex items-center justify-center gap-2 bg-gray-200 rounded-3xl text-lg text-black font-medium">
               <FaShare style={{ stroke: '1' }} />
               <p className="text-md">Compartlihar</p>
             </button>
-            <button className="w-full py-2 hover:bg-gray-300 transition-colors flex items-center justify-center gap-2 bg-gray-200 rounded-3xl text-lg text-black font-medium">
+            <button className="w-full py-2 cursor-pointer hover:bg-gray-300 transition-colors flex items-center justify-center gap-2 bg-gray-200 rounded-3xl text-lg text-black font-medium">
               <AiOutlineHeart />
               <p className="text-md">523</p>
             </button>

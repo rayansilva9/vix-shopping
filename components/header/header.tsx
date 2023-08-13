@@ -41,32 +41,14 @@ const Header2: React.FC = () => {
 
   const pathname = usePathname()
 
-
-  // const CATEGORY = [
-  //   { name: 'Casa e Decoração' },
-  //   { name: 'Moda e Acessórios' },
-  //   { name: 'Beleza e Cuidados Pessoais' },
-  //   { name: 'Eletrônicos e Tecnologia' },
-  //   { name: 'Esportes e Lazer' },
-  //   { name: 'Saúde e Bem-Estar' },
-  //   { name: 'Livros, Filmes e Música' },
-  //   { name: 'Cozinha' },
-  //   { name: 'Jardinagem e Ambiente Externo' },
-  //   { name: 'Viagens e Aventuras' },
-  // ]
   const provider = new GoogleAuthProvider();
 
   const AuthFace = async () => {
     signInWithPopup(auth, provider)
       .then(async (result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        // The signed-in user info.
         const user = result.user;
-        // console.log(user);
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
         const usuario = {
           username: user.displayName,
           email: user.email,
@@ -106,7 +88,6 @@ const Header2: React.FC = () => {
         } catch (error) {
 
         }
-        // window.reload()
 
 
       }).catch((error) => {
@@ -122,7 +103,7 @@ const Header2: React.FC = () => {
       });
   }
 
-  const { setUser, user } = useContext(UserContext)
+  const { user } = useContext(UserContext)
 
   useEffect(() => {
     setusuario(user)
@@ -217,7 +198,7 @@ const Header2: React.FC = () => {
             <div className="flex gap-4 px-[108px] mt-5">
               {CATEGORY.map((e, i) => {
                 return (
-                  <Link key={i} href={'/categoria/' + e.name.replaceAll(' ', '-')}>
+                  <Link className='cursor-pointer' key={i} href={'/categoria/' + e.name.replaceAll(' ', '-')}>
                     <p
                       style={{ fontWeight: decodeURI(pathname) == '/categoria/'.concat(e.name.replaceAll(' ', '-')) ? '600' : '300', }}
                       key={i}

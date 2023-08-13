@@ -62,8 +62,8 @@ const Footer: React.FC = () => {
               </div>
             </div>
             <Divider sx={{ m: '28px 0', }} />
-            <div className='flex justify-between md:justify-center md:gap-24 px-2 text-gray-700'>
-              <div className='flex flex-col items-center'>
+            <div className='flex justify-between gap-6 md:justify-center md:gap-24 px-2 text-gray-700'>
+              <div className='flex flex-col items-center '>
                 <AiFillApple className='text-2xl' />
                 <p className='text-xs lg:text-base'>Disponivel na Appstore</p>
               </div>

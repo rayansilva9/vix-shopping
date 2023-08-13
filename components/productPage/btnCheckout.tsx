@@ -42,9 +42,9 @@ const BtnCheckout: React.FC<props> = ({ preço, priceId, quantidade, variedade }
           <p className="text-zinc-700 text-sm  mb-2">ou 12x sem juros</p>
           <button
             type="submit"
-            className="w-full hover:bg-[#369e23] transition-colors py-3 bg-[#0BC86D] rounded-md text-lg text-white font-medium"
+            className="w-full cursor-pointer hover:bg-[#369e23] transition-colors py-3 bg-[#0BC86D] rounded-md text-lg text-white font-medium"
           >
-            <p className="text-md">Compra Agora</p>
+            <p className="text-md text-center">Compra Agora</p>
           </button>
         </div>
       </form>
