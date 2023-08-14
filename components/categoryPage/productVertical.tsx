@@ -1,9 +1,11 @@
 import { Paper } from '@mui/material';
 import Image from 'next/image';
-import React from 'react';
+import React, { SetStateAction, useContext } from 'react';
 import formatarMoeda from '../../functions/formataMoeda';
 import { processLink } from '../../functions/fixLinksImg';
 import Link from 'next/link';
+import { CartContext } from '../../context/cartContext';
+import productPropsCart from '../../@types/productCart';
 
 type props = {
   e: any
@@ -14,7 +16,21 @@ const ProductVertCategory: React.FC<props> = ({ e }) => {
   const [mouseHover, setMouseHover] = React.useState<boolean>(false);
   const itemRef = React.useRef(null)
 
+  const { setProductCart, productCart } = useContext(CartContext)
 
+  console.log(productCart);
+
+  const addToCart = () => {
+    if (productCart !== null) {
+      setProductCart((prev: any) => {
+        return (
+          [...prev, { price: e.priceId, quantity: 1, }]
+        )
+      })
+    } else {
+      setProductCart([{ price: e.priceId, quantity: 1, }])
+    }
+  }
   return (
     <>
       <li
@@ -22,11 +38,17 @@ const ProductVertCategory: React.FC<props> = ({ e }) => {
         onMouseEnter={() => { setMouseHover(true) }}
         onMouseLeave={() => { setMouseHover(false) }}
         className={`relative cursor-pointer list-none flex-1 min-w-[100%]`}
-      // onClick={() => { router(`produto/${product.id!}`) }}
       >
-
         <div style={{ display: mouseHover ? 'inline' : 'none', animation: 'productImg .15s linear', }} className="absolute right-4 top-1/2 transform -translate-y-1/2">
-          <button className='bg-blue-500 text-white px-2 py-2 rounded-lg'>Adicionar ao Carrinho</button>
+          {e.optVal <= 0 ? (
+            <button onClick={() => {
+              addToCart()
+            }}
+              className='bg-blue-500 text-white px-2 py-2 rounded-lg' > Adicionar ao Carrinho</button>
+          ) : (
+            <Link href={`/produto/${e.id!}`}
+              className='bg-blue-500 text-white px-2 py-2 rounded-lg'>Selecionar Variantes</Link>
+          )}
         </div>
         <Link href={`/produto/${e.id!}`}>
           <Paper

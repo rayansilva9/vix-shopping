@@ -7,6 +7,7 @@ import '../styles/cardHover.css';
 import '../styles/alertDialog.css';
 import { Montserrat } from '@next/font/google'
 import { UserContextProvider } from '../context/userContext';
+import { CartContextProvider } from '../context/cartContext';
 
 const montserrat = Montserrat({
   preload: true,
@@ -20,14 +21,16 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <UserContextProvider>
-        <div className={montserrat.className}>
-          <Header2 />
-          <main>
-            <Component {...pageProps} />
-          </main>
-          <Analytics />
-          <Footer />
-        </div>
+        <CartContextProvider>
+          <div className={montserrat.className}>
+            <Header2 />
+            <main>
+              <Component {...pageProps} />
+            </main>
+            <Analytics />
+            <Footer />
+          </div>
+        </CartContextProvider>
       </UserContextProvider>
     </>
   )

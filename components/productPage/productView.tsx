@@ -86,7 +86,7 @@ const ProductView: React.FC<props> = ({
     <>
       <div
         style={{ boxShadow: ' rgba(0, 0, 0, 0.25) 0px 3px 10px -5px' }}
-        className="bg-white w-[94%] md:w-[calc(100vw-216px)]  xl:w-[calc(100vw-216px)] xl:flex xl:py-[10px] mt-6 lg:mt-0 xl:h-[523px]  rounded-xl"
+        className="bg-white w-[94%] md:w-[calc(100vw-216px)]  xl:w-[calc(100vw-216px)] xl:flex xl:py-[10px] mt-6 lg:mt-0 xl:h-[536px]  rounded-xl"
       >
         <div className="lg:px-3">
           <div className="w-full xl:w-[400px]  pt-0 px-0 flex flex-col gap-10">
@@ -108,9 +108,9 @@ const ProductView: React.FC<props> = ({
                 {' '}
               </div>
             </div>
-            <div className="relative flex flex-col items-center">
+            <div className="relative pt-4 flex flex-col items-center">
               <TfiAngleLeft
-                className="absolute hover:bg-[none] -left-[0px] top-[13px]  w-[40px] h-[40px] rounded-full flex items-center justify-center text-[30px]"
+                className="absolute hover:bg-[none] -left-[0px] top-[27px]  w-[40px] h-[40px] rounded-full flex items-center justify-center text-[30px]"
                 onClick={() => {
                   scrollMiniImg('left')
                 }}
@@ -150,7 +150,7 @@ const ProductView: React.FC<props> = ({
                 onClick={() => {
                   scrollMiniImg('right')
                 }}
-                className="text-[30px] absolute -right-[00px] top-[10px]  w-[40px] h-[40px] rounded-full flex items-center justify-center"
+                className="text-[30px] absolute -right-[00px] top-[27px]  w-[40px] h-[40px] rounded-full flex items-center justify-center"
               />
             </div>
           </div>

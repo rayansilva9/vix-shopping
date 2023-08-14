@@ -6,25 +6,30 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 })
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-
+  const produtos = JSON.parse(req.query.id[0] as unknown as string)
+  console.log(
+    produtos.map(e => ({
+      price: e.price,
+      quantity: e.quantity,
+      adjustable_quantity: { enabled: true, maximum: 10, minimum: 1 }
+    }))
+  )
   if (req.method === 'POST') {
     try {
       console.log(req.headers.origin)
       const session = await stripe.checkout.sessions.create({
-        line_items: [
-          {
-            price: req.query.id[0] as string,
-            quantity: req.query.id[1] as unknown as number,
-            adjustable_quantity: { enabled: true, maximum: 10, minimum: 1 }
-          }
-        ],
+        line_items: produtos.map(e => ({
+          price: e.price,
+          quantity: e.quantity,
+          adjustable_quantity: { enabled: true, maximum: 10, minimum: 1 }
+        })),
         metadata: {
-          tipos: req.query.id[2] as string
+          tipos: req.query.id[1] as string
         },
         payment_intent_data: {
           metadata: {
             // Add your metadata key-value pairs here
-            tipos: req.query.id[2] as string
+            tipos: req.query.id[1] as string
           }
         },
         billing_address_collection: 'required',
@@ -41,3 +46,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(405).end('Method Not Allowed')
   }
 }
+// line_items: [
+//   {
+//     price: req.query.id[0] as string,
+//     quantity: req.query.id[1] as unknown as number,
+//     adjustable_quantity: { enabled: true, maximum: 10, minimum: 1 }
+//   }
+// ],

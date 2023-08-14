@@ -18,8 +18,6 @@ type props = {
   setQuantidadeUnitariaToBuy: React.Dispatch<React.SetStateAction<number>>
 }
 
-
-
 const ProductPayInfo: React.FC<props> = ({
   priceId,
   quantidade,
@@ -101,14 +99,14 @@ const ProductPayInfo: React.FC<props> = ({
       {/* 3 */}
       <div
         style={{ boxShadow: ' rgba(0, 0, 0, 0.25) 0px 3px 10px -5px' }}
-        className="bg-white w-[94%]  md:w-[calc(100vw-216px)] xl:w-auto border rounded-xl mt-5 lg:mt-0 p-3"
+        className="bg-white w-[94%]  md:w-[calc(100vw-216px)] xl:w-auto border rounded-xl mt-0 lg:mt-0 p-3"
       >
         <Divider className="lg:inline hidden" />
         <div className="flex flex-col gap-2 pr-4 pl-2">
           <div className="flex items-center justify-between">
             <p className="text-lg font-medium text-gray-700 xl:hidden ">Entrega</p>
             <div className="flex items-center justify-between w-full">
-              <p className="text-lg font-bold text-gray-700 xl:text-[19px] hidden xl:inline">
+              <p className="text-lg font-bold text-gray-700 xl:text-[17px] hidden xl:inline">
                 Enviar para
               </p>
               <div className="flex items-center gap-1">
@@ -120,8 +118,8 @@ const ProductPayInfo: React.FC<props> = ({
             </div>
             <BiChevronRight className="text-2xl xl:hidden" />
           </div>
-          <div className="flex flex-col xl:my-4">
-            <p className="text-xl font-medium xl:text-[19px]">Frete Grátis</p>
+          <div className="flex flex-col xl:my-1">
+            <p className="text-xl font-medium xl:text-[17px]">Frete Grátis</p>
             <p className="text-gray-700 xl:text-[16px]">
               De china para Santa Ines via Correios
             </p>
@@ -131,8 +129,8 @@ const ProductPayInfo: React.FC<props> = ({
           </div>
           <Divider />
         </div>
-        <div className="flex-col gap-2 px-3 xl:my-4 hidden xl:flex">
-          <p className="text-lg font-medium text-gray-700 xl:text-[19px]">
+        <div className="flex-col gap-2 px-3 xl:my-1 hidden xl:flex">
+          <p className="text-lg font-medium text-gray-700 xl:text-[17px]">
             Metodos de pagamento
           </p>
           <div className="flex flex-col ">
@@ -143,7 +141,7 @@ const ProductPayInfo: React.FC<props> = ({
           <Divider />
         </div>
         <div className="px-3 mb-4">
-          <p className="font-medium text-gray-700 xl:text-[19px]">Quantidade</p>
+          <p className="font-medium text-gray-700 xl:text-[17px]">Quantidade</p>
           <div className="flex gap-4 my-5">
             <button
               className="w-6 h-6 text-lg bg-slate-200 rounded-full flex items-center justify-center"
@@ -175,13 +173,20 @@ const ProductPayInfo: React.FC<props> = ({
           >
             <button
               type="submit"
-              className="w-[350px] cursor-pointer hover:bg-green-700 transition-colors py-3 bg-[#0BC86D] rounded-3xl text-lg text-white font-medium"
+              className="w-[350px] cursor-pointer hover:bg-[#3eae78] transition-colors py-3 bg-[#0BC86D] rounded-3xl text-lg text-white font-medium"
             >
               <p className="text-md text-center">Compra Agora</p>
             </button>
           </form>
+          <button
+            // style={{ border: '1px solid #0bc86d', }}
+            type="submit"
+            className="w-[350px] cursor-pointer hover:bg-[#3ffca192]  transition-colors py-3 bg-[#3ffca159] rounded-3xl text-lg text-white font-medium"
+          >
+            <p className="text-md text-center text-green-600">Adicionar ao carrinho</p>
+          </button>
           <div className="flex gap-3">
-            <button className="w-full py-2 cursor-pointer hover:bg-gray-300 transition-colors flex items-center justify-center gap-2 bg-gray-200 rounded-3xl text-lg text-black font-medium">
+            <button className="w-full py-2 cursor-pointer hover:bg-gray-300  transition-colors flex items-center justify-center gap-2 bg-gray-200 rounded-3xl text-lg text-black font-medium">
               <FaShare style={{ stroke: '1' }} />
               <p className="text-md">Compartlihar</p>
             </button>

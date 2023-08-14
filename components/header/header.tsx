@@ -14,6 +14,7 @@ import { CATEGORY } from '../../utils/linksCategoria'
 import { UserContext } from '../../context/userContext'
 import HoverCardDemo from './formCard'
 import AuthGoogle from '../../hooks/googleAuth'
+import BtnCheckouCart from '../btnCheckoutCart'
 
 
 type User = {
@@ -131,7 +132,11 @@ const Header2: React.FC = () => {
                 )}
                 <div className="flex gap-4 text-2xl">
                   <BsSuitHeart className="cursor-pointer hover:text-red-500 transition-colors" />
-                  <IoBagHandleOutline className="cursor-pointer" />
+                  <BtnCheckouCart>
+                    <button type='submit'>
+                      <IoBagHandleOutline className="cursor-pointer" />
+                    </button>
+                  </BtnCheckouCart>
                 </div>
               </div>
             </div>
