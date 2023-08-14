@@ -146,6 +146,7 @@ const Product: React.FC<productProps> = ({ produto }) => {
               productVariedadesOnView={varidedade}
             />
             <ProductPayInfo
+              docId={produto.docId}
               priceId={produto.priceId}
               quantidade={quantidadeUnitariaToBuy}
               setQuantidadeUnitariaToBuy={setQuantidadeUnitariaToBuy}

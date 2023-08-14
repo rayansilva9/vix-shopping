@@ -1,6 +1,7 @@
 export default interface productPropsCategory {
   produto: {
     id: string
+    docId: string
     optVal: [
       {
         name: string

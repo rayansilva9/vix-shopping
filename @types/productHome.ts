@@ -1,5 +1,6 @@
 export default interface productProps {
   id: string
+  docId: string
   optVal: [
     {
       name: string

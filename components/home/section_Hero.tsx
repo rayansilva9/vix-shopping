@@ -1,27 +1,20 @@
 import { memo } from 'react'
-import 'swiper/css'
-import 'swiper/css/bundle'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination } from 'swiper'
-import Image from 'next/image'
+// import 'swiper/css'
+// import 'swiper/css/bundle'
+// import { Swiper, SwiperSlide } from 'swiper/react'
+// import { Navigation, Pagination } from 'swiper'
 
 const HeroBg: React.FC = () => {
   return (
     <div style={{ minHeight: '400px' }} className="lg:px-[40px]">
-      <Image
-        priority
-        quality={75}
-        style={{ animation: 'productImg .4s ease' }}
+      <img
         className="hero relative z-0 mt-3 inline lg:hidden rounded-md"
         width={500}
         height={500}
         src="/Cartaz promoção mês dos pais moderno azul e branco.webp"
         alt=""
       />
-      <Image
-        priority
-        quality={95}
-        style={{ animation: 'productImg .4s ease' }}
+      <img
         className="hero relative z-0 mt-3 hidden lg:inline rounded-2xl w-full"
         width={500}
         height={500}

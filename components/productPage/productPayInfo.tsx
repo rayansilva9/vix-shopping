@@ -1,22 +1,86 @@
 import { Divider } from '@mui/material';
 import Image from 'next/image';
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState, useContext } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BiChevronRight } from 'react-icons/bi';
 import { FaShare } from 'react-icons/fa';
 import { IoLocationOutline } from 'react-icons/io5';
+import { usePathname } from 'next/navigation';
+import { UserContext } from '../../context/userContext';
+import AuthGoogle from '../../hooks/googleAuth';
 
 
 type props = {
+  docId: string
   priceId: string
   quantidade: number,
   variedade: string[]
   setQuantidadeUnitariaToBuy: React.Dispatch<React.SetStateAction<number>>
 }
-// #0BC86D;
 
 
-const ProductPayInfo: React.FC<props> = ({ priceId, quantidade, variedade, setQuantidadeUnitariaToBuy }) => {
+
+const ProductPayInfo: React.FC<props> = ({
+  priceId,
+  quantidade,
+  variedade,
+  setQuantidadeUnitariaToBuy,
+  docId
+}) => {
+
+  const [countDesejos, setCountDesejos] = useState(0);
+  // const [desejos, setDesejos] = useState(false);
+
+
+  const pathname = usePathname().split('/');
+
+  var produtoId = pathname[pathname.length - 1];
+  const { user } = useContext(UserContext)
+
+
+  const desejosLength = async () => {
+    try {
+      const response = await fetch(`/api/fetchDesejos/${produtoId}`, { method: 'POST', });
+      const data = await response.json();
+
+      return data.length; // O comprimento será retornado aqui
+    } catch (error) {
+      console.error('Erro:', error);
+      return 0; // Retorna 0 se houver um erro
+    }
+  };
+  const AddToDesejos = async () => {
+    if (user !== null) {
+      try {
+        const response = await fetch(`/api/addDesejos/${produtoId}/${user.uid}/${docId}`, { method: 'POST', })
+
+        const data = await response.json();
+        if (data.exists == true) {
+          setCountDesejos(prev => prev - 1)
+        } else {
+          setCountDesejos(prev => prev + 1)
+        }
+      } catch (error) {
+        console.error('Erro:', error);
+        return 0; // Retorna 0 se houver um erro
+      }
+    } else {
+      AuthGoogle()
+    }
+  };
+
+  useEffect(() => {
+    desejosLength()
+      .then(length => {
+        setCountDesejos(length)
+      })
+      .catch(error => {
+        console.error("Erro:", error);
+      });
+  }, []);
+
+
+
   return (
     <>
       <div className="bg-white w-[94%]  md:w-[calc(100vw-216px)] xl:w-auto xl:hidden rounded-lg py-2 px-4 mt-5 ">
@@ -121,9 +185,9 @@ const ProductPayInfo: React.FC<props> = ({ priceId, quantidade, variedade, setQu
               <FaShare style={{ stroke: '1' }} />
               <p className="text-md">Compartlihar</p>
             </button>
-            <button className="w-full py-2 cursor-pointer hover:bg-gray-300 transition-colors flex items-center justify-center gap-2 bg-gray-200 rounded-3xl text-lg text-black font-medium">
+            <button onClick={() => { AddToDesejos() }} className="w-full py-2 cursor-pointer hover:bg-gray-300 transition-colors flex items-center justify-center gap-2 bg-gray-200 rounded-3xl text-lg text-black font-medium">
               <AiOutlineHeart />
-              <p className="text-md">523</p>
+              <p className="text-md">{countDesejos}</p>
             </button>
           </div>
         </div>

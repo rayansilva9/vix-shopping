@@ -14,7 +14,7 @@ const config = {
 }
 
 const firebase = Firebase.initializeApp(config)
-// const { FieldValue } = Firebase.firestore
+const { FieldValue } = Firebase.firestore
 // const deleteDoc = firebase.firestore
 // const doc = firebase.firestore
 const db = firebase.firestore()
@@ -22,4 +22,4 @@ const storage = firebase.storage('gs://noir-shop.appspot.com')
 // const database = firebase.database()
 const auth = getAuth(firebase)
 
-export { firebase, storage, db, auth }
+export { firebase, storage, db, auth, FieldValue }
