@@ -5,6 +5,7 @@ import { IconButton, Paper } from '@mui/material'
 import Link from 'next/link'
 import { CartContext } from '../context/cartContext'
 import { RxCross1 } from 'react-icons/rx'
+import BtnCheckouCart from './btnCheckoutCart'
 
 const CartContent: React.FC = () => {
   const { setOpenCart, setProductCart, openCart, productCart } =
@@ -48,7 +49,7 @@ const CartContent: React.FC = () => {
           </IconButton>
           <p className="text-center text-lg font-semibold">Carrinho</p>
         </div>
-        <ul>
+        <ul className='overflow-y-scroll no-scrollbar'>
           {productCart.length > 0 ? productCart.map((e, i) => (
             <>
               <li
@@ -124,6 +125,17 @@ const CartContent: React.FC = () => {
             <p className='text-center mt-10'>Seu carrinho ainda esta vazío</p>
           )}
         </ul>
+        <div className="px-5 fixed w-full left-0 right-0 bottom-5">
+
+          <BtnCheckouCart>
+            <button
+              type="submit"
+              className="w-full  cursor-pointer  left-0 hover:bg-[#369e23] transition-colors py-3 bg-[#0BC86D] rounded-md text-lg text-white font-medium"
+            >
+              <p className="text-md text-center">Finalizar Compra</p>
+            </button>
+          </BtnCheckouCart>
+        </div>
       </div>
     </div>
   )
