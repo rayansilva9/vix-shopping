@@ -94,3 +94,16 @@ body {
   background: rgba(255, 255, 255, 0.409);
   color: black;
 }
+.cartCounterSm {
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  top:   17px;
+  right: 17px;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  /* background: rgba(255, 255, 255, 0.409); */
+  color: black;
+}

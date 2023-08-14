@@ -49,7 +49,7 @@ const CartContent: React.FC = () => {
           </IconButton>
           <p className="text-center text-lg font-semibold">Carrinho</p>
         </div>
-        <ul className='overflow-y-scroll no-scrollbar'>
+        <ul className='overflow-y-scroll max-h-full no-scrollbar pb-[100px]'>
           {productCart.length > 0 ? productCart.map((e, i) => (
             <>
               <li
@@ -122,19 +122,25 @@ const CartContent: React.FC = () => {
               </li>
             </>
           )) : (
-            <p className='text-center mt-10'>Seu carrinho ainda esta vazío</p>
+            <p className='text-center text-gray-400 mt-[200px]'>Seu carrinho ainda esta vazío...</p>
           )}
         </ul>
-        <div className="px-5 fixed w-full left-0 right-0 bottom-5">
+        <div className="px-5 pb-8 bg-white fixed w-full left-0 right-0 bottom-5">
+          {productCart.length >= 1 ? (
+            <BtnCheckouCart>
+              <button
+                disabled={productCart.length >= 1 ? false : true}
+                type="submit"
+                className="w-full cursor-pointer left-0 hover:bg-[#369e23] transition-colors py-3 bg-[#0BC86D] rounded-md text-lg text-white font-medium"
+              >
+                <p className="text-md text-center">Finalizar Compra</p>
+              </button>
+            </BtnCheckouCart>
+          ) :
+            (
+              <></>
+            )}
 
-          <BtnCheckouCart>
-            <button
-              type="submit"
-              className="w-full  cursor-pointer  left-0 hover:bg-[#369e23] transition-colors py-3 bg-[#0BC86D] rounded-md text-lg text-white font-medium"
-            >
-              <p className="text-md text-center">Finalizar Compra</p>
-            </button>
-          </BtnCheckouCart>
         </div>
       </div>
     </div>

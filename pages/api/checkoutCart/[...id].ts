@@ -8,7 +8,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const produtos = JSON.parse(req.query.id[0] as unknown as string)
   const variedades = JSON.parse(req.query.id[1] as unknown as string)
-  // console.log(variedades.metadata)
 
   const objeto = {
     metadata: {}
@@ -17,9 +16,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   variedades.metadata.forEach((item, index) => {
     objeto.metadata[`data${index}`] = item.data
   })
-
-  let meta = objeto.metadata as unknown as Stripe.MetadataParam
-
 
   function createPayDinamic() {
     let pay = {

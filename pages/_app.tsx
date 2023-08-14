@@ -23,7 +23,7 @@ export default function App({ Component, pageProps }) {
         <CartContextProvider>
           <div className={montserrat.className}>
             <Header2 />
-            <main>
+            <main className='no-scrollbar'>
               <Component {...pageProps} />
             </main>
             <CartContent />

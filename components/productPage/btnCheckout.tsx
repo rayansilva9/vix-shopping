@@ -44,7 +44,7 @@ const BtnCheckout: React.FC<props> = ({ preço, priceId, quantidade, variedade, 
           style={{ boxShadow: ' 0px -4px 15px -8px rgba(0,0,0,0.75)' }}
           className=" xl:hidden fixed bg-white bottom-0 w-full px-2 py-4"
         >
-          <div className="flex justify-between">
+          <div className="flex items-center justify-between">
 
             <p className="text-base text-gray-600 font-bold xl:my-5 xl:text-[20px]">
               R${''}
@@ -68,7 +68,6 @@ const BtnCheckout: React.FC<props> = ({ preço, priceId, quantidade, variedade, 
                   )
                 })
               }}
-              type="submit"
               className=""
             >
               <BsCartCheck />

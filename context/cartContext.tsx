@@ -1,5 +1,4 @@
 import React, { createContext, ReactNode, useEffect, useState, useMemo } from 'react'
-import { parseCookies } from 'nookies'
 import productPropsCart from '../@types/productCart'
 import { db } from '../lib/firebase'
 import { UserContext } from './userContext'
@@ -10,14 +9,12 @@ type cartContextProviderProps = {
 
 type cartContextProps = {
   variants: any
+  itemFormated: any
   productCart: productPropsCart[]
   setProductCart: React.Dispatch<React.SetStateAction<productPropsCart[]>>
   openCart: boolean
   setOpenCart: React.Dispatch<React.SetStateAction<boolean>>
 }
-
-
-
 
 
 export const CartContext = createContext({} as cartContextProps)
@@ -31,6 +28,20 @@ export const CartContextProvider: React.FC<cartContextProviderProps> = ({ childr
 
   const { user } = React.useContext(UserContext)
 
+  const [itemFormated, setItemFormated] = React.useState([]);
+
+  function getPriceAndQuantity() {
+    const item = productCart.map((e) => {
+      return (
+        {
+          price: e.price,
+          quantity: e.quantity
+        }
+      )
+
+    })
+    setItemFormated(item)
+  }
 
   async function getpost() {
 
@@ -38,8 +49,6 @@ export const CartContextProvider: React.FC<cartContextProviderProps> = ({ childr
     const cart = res.data().cart
     setDbCart(cart)
   }
-
-
 
   useEffect(() => {
     if (user !== null) {
@@ -55,10 +64,17 @@ export const CartContextProvider: React.FC<cartContextProviderProps> = ({ childr
     }
   }, [])
 
+  useMemo(() => {
+    if (typeof document !== 'undefined') {
+      if (openCart) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'visible';
+      }
+    }
+  }, [openCart])
 
   useEffect(() => {
-    // console.log(variants);
-    // console.log(productCart);
     let o = productCart.map((e) => {
       let name = e.name
       let val = e.tipos
@@ -76,9 +92,10 @@ export const CartContextProvider: React.FC<cartContextProviderProps> = ({ childr
         }
       )
     })
+    getPriceAndQuantity()
   }, [productCart]);
 
 
 
-  return <CartContext.Provider value={{ productCart, setProductCart, variants, setOpenCart, openCart }}>{children}</CartContext.Provider>
+  return <CartContext.Provider value={{ productCart, setProductCart, variants, setOpenCart, openCart, itemFormated }}>{children}</CartContext.Provider>
 }

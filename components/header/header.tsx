@@ -177,16 +177,14 @@ const Header2: React.FC = () => {
 
                 <div className="flex gap-4 text-xl">
                   <BsSuitHeart />
-                  {/* <BtnCheckouCart> */}
                   <>
-                    <div className={`cartCounter ${productCart.length == 0 ? 'hidden' : 'flex'}`}>
+                    <div className={`cartCounterSm ${productCart.length == 0 ? 'hidden' : 'flex'}`}>
                       {productCart.length}
                     </div>
                     <button onClick={() => { setOpenCart(true) }} className=''>
                       <IoBagHandleOutline className=' cursor-pointer  ' />
                     </button>
                   </>
-                  {/* </BtnCheckouCart> */}
                 </div>
               </div>
             </div>
