@@ -1,11 +1,18 @@
-import { memo } from "react"
+import { memo, useContext } from "react"
+import { CartContext } from "../../context/cartContext"
+import { IconButton } from "@mui/material"
+import { BsCartCheck } from "react-icons/bs"
+import { BsCartDashFill } from "react-icons/bs"
 
 
 type props = {
   priceId: string
   quantidade: number,
   variedade: string[]
-  preço: number
+  preço: number,
+  name: string
+  id: string,
+  photo: string,
 }
 
 function formatarMoeda(valor: number | string) {
@@ -21,7 +28,11 @@ function formatarMoeda(valor: number | string) {
   return valor
 }
 
-const BtnCheckout: React.FC<props> = ({ preço, priceId, quantidade, variedade }) => {
+const BtnCheckout: React.FC<props> = ({ preço, priceId, quantidade, variedade, name, id, photo }) => {
+
+  const { setProductCart, productCart } = useContext(CartContext)
+
+
   return (
     <>
       <form
@@ -33,12 +44,36 @@ const BtnCheckout: React.FC<props> = ({ preço, priceId, quantidade, variedade }
           style={{ boxShadow: ' 0px -4px 15px -8px rgba(0,0,0,0.75)' }}
           className=" xl:hidden fixed bg-white bottom-0 w-full px-2 py-4"
         >
-          <p className="text-base text-gray-600 font-bold xl:my-5 xl:text-[20px]">
-            R${''}
-            <span className="text-2xl xl:text-[30px]">
-              {formatarMoeda(preço)}
-            </span>
-          </p>
+          <div className="flex justify-between">
+
+            <p className="text-base text-gray-600 font-bold xl:my-5 xl:text-[20px]">
+              R${''}
+              <span className="text-2xl xl:text-[30px]">
+                {formatarMoeda(preço)}
+              </span>
+            </p>
+            <IconButton
+              onClick={() => {
+                setProductCart(prev => {
+                  return (
+                    [...prev, {
+                      price: priceId,
+                      name: name,
+                      prico: preço,
+                      tipos: variedade.join(', '),
+                      quantity: quantidade,
+                      id: id,
+                      photo: photo,
+                    }]
+                  )
+                })
+              }}
+              type="submit"
+              className=""
+            >
+              <BsCartCheck />
+            </IconButton>
+          </div>
           <p className="text-zinc-700 text-sm  mb-2">ou 12x sem juros</p>
           <button
             type="submit"

@@ -1,14 +1,19 @@
-import React, { createContext, ReactNode, useEffect, useState } from 'react'
+import React, { createContext, ReactNode, useEffect, useState, useMemo } from 'react'
 import { parseCookies } from 'nookies'
 import productPropsCart from '../@types/productCart'
+import { db } from '../lib/firebase'
+import { UserContext } from './userContext'
 
 type cartContextProviderProps = {
   children: ReactNode
 }
 
 type cartContextProps = {
+  variants: any
   productCart: productPropsCart[]
   setProductCart: React.Dispatch<React.SetStateAction<productPropsCart[]>>
+  openCart: boolean
+  setOpenCart: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 
@@ -19,11 +24,61 @@ export const CartContext = createContext({} as cartContextProps)
 
 export const CartContextProvider: React.FC<cartContextProviderProps> = ({ children }) => {
   const [productCart, setProductCart] = useState<productPropsCart[] | null>([])
+  const [variants, setVariants] = useState({})
+  const [openCart, setOpenCart] = useState(false)
+  const [dbCart, setDbCart] = useState([])
+
+
+  const { user } = React.useContext(UserContext)
+
+
+  async function getpost() {
+
+    const res = await db.collection('users').doc(user.doc).get()
+    const cart = res.data().cart
+    setDbCart(cart)
+  }
 
 
 
+  useEffect(() => {
+    if (user !== null) {
+      getpost()
+    }
+  }, []);
+
+  useMemo(() => {
+    if (user !== null) {
+      if (dbCart.length > 0) {
+        setProductCart(dbCart)
+      }
+    }
+  }, [])
+
+
+  useEffect(() => {
+    // console.log(variants);
+    // console.log(productCart);
+    let o = productCart.map((e) => {
+      let name = e.name
+      let val = e.tipos
+      let a = name + ': ' + val
+      return (
+        { data: a }
+      )
+    });
+    setVariants(prev => {
+      return (
+        {
+          metadata: o.map(item => {
+            return { data: item.data };
+          })
+        }
+      )
+    })
+  }, [productCart]);
 
 
 
-  return <CartContext.Provider value={{ productCart, setProductCart }}>{children}</CartContext.Provider>
+  return <CartContext.Provider value={{ productCart, setProductCart, variants, setOpenCart, openCart }}>{children}</CartContext.Provider>
 }

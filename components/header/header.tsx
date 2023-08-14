@@ -15,6 +15,7 @@ import { UserContext } from '../../context/userContext'
 import HoverCardDemo from './formCard'
 import AuthGoogle from '../../hooks/googleAuth'
 import BtnCheckouCart from '../btnCheckoutCart'
+import { CartContext } from '../../context/cartContext'
 
 
 type User = {
@@ -40,11 +41,8 @@ const Header2: React.FC = () => {
 
   const pathname = usePathname()
 
-
-
-
-
   const { user } = useContext(UserContext)
+  const { productCart, setOpenCart } = useContext(CartContext)
 
   useEffect(() => {
     setusuario(user)
@@ -132,11 +130,16 @@ const Header2: React.FC = () => {
                 )}
                 <div className="flex gap-4 text-2xl">
                   <BsSuitHeart className="cursor-pointer hover:text-red-500 transition-colors" />
-                  <BtnCheckouCart>
-                    <button type='submit'>
-                      <IoBagHandleOutline className="cursor-pointer" />
+                  {/* <BtnCheckouCart> */}
+                  <>
+                    <div className={`cartCounter ${productCart.length == 0 ? 'hidden' : 'flex'}`}>
+                      {productCart.length}
+                    </div>
+                    <button onClick={() => { setOpenCart(true) }} >
+                      <IoBagHandleOutline className=' cursor-pointer  ' />
                     </button>
-                  </BtnCheckouCart>
+                  </>
+                  {/* </BtnCheckouCart> */}
                 </div>
               </div>
             </div>
@@ -174,7 +177,16 @@ const Header2: React.FC = () => {
 
                 <div className="flex gap-4 text-xl">
                   <BsSuitHeart />
-                  <IoBagHandleOutline />
+                  {/* <BtnCheckouCart> */}
+                  <>
+                    <div className={`cartCounter ${productCart.length == 0 ? 'hidden' : 'flex'}`}>
+                      {productCart.length}
+                    </div>
+                    <button onClick={() => { setOpenCart(true) }} className=''>
+                      <IoBagHandleOutline className=' cursor-pointer  ' />
+                    </button>
+                  </>
+                  {/* </BtnCheckouCart> */}
                 </div>
               </div>
             </div>
@@ -201,10 +213,10 @@ const Header2: React.FC = () => {
               />
               <BiSearch className="text-2xl" />
             </Stack> */}
-          </div>
+          </div >
           <MenuMobile openedMenu={openMenu} funcOpen={open2} />
-        </div>
-      </header>
+        </div >
+      </header >
     </>
   )
 }

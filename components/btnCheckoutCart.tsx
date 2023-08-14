@@ -7,13 +7,13 @@ type props = {
 
 const BtnCheckouCart: React.FC<props> = ({ children }) => {
 
-  const { productCart } = React.useContext(CartContext)
+  const { productCart, variants } = React.useContext(CartContext)
 
 
   return (
     <>
       <form
-        action={`/api/checkoutCart/${JSON.stringify(productCart)}`}
+        action={`/api/checkoutCart/${JSON.stringify(productCart)}/${JSON.stringify(variants)}`}
         method="POST"
       >
         {children}

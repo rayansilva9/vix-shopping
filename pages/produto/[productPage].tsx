@@ -146,6 +146,10 @@ const Product: React.FC<productProps> = ({ produto }) => {
               productVariedadesOnView={varidedade}
             />
             <ProductPayInfo
+              id={produto.id}
+              photo={produto.photos[0]}
+              prico={produto.precoAvenda}
+              name={produto.name}
               docId={produto.docId}
               priceId={produto.priceId}
               quantidade={quantidadeUnitariaToBuy}
@@ -161,6 +165,9 @@ const Product: React.FC<productProps> = ({ produto }) => {
             }}
           />
           <BtnCheckout
+            id={produto.id}
+            photo={produto.photos[0]}
+            name={produto.name}
             preço={produto.precoAvenda}
             priceId={produto.priceId}
             quantidade={quantidadeUnitariaToBuy}

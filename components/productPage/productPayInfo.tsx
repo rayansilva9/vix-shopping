@@ -4,16 +4,23 @@ import React, { memo, useEffect, useState, useContext } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BiChevronRight } from 'react-icons/bi';
 import { FaShare } from 'react-icons/fa';
+import { BsCartCheck } from 'react-icons/bs';
+import { BsCartDash } from 'react-icons/bs';
 import { IoLocationOutline } from 'react-icons/io5';
 import { usePathname } from 'next/navigation';
 import { UserContext } from '../../context/userContext';
 import AuthGoogle from '../../hooks/googleAuth';
+import { CartContext } from '../../context/cartContext';
 
 
 type props = {
   docId: string
   priceId: string
+  id: string
+  prico: number
   quantidade: number,
+  name: string,
+  photo: string,
   variedade: string[]
   setQuantidadeUnitariaToBuy: React.Dispatch<React.SetStateAction<number>>
 }
@@ -23,7 +30,7 @@ const ProductPayInfo: React.FC<props> = ({
   quantidade,
   variedade,
   setQuantidadeUnitariaToBuy,
-  docId
+  docId, name, prico, photo, id
 }) => {
 
   const [countDesejos, setCountDesejos] = useState(0);
@@ -34,6 +41,7 @@ const ProductPayInfo: React.FC<props> = ({
 
   var produtoId = pathname[pathname.length - 1];
   const { user } = useContext(UserContext)
+  const { setProductCart } = useContext(CartContext)
 
 
   const desejosLength = async () => {
@@ -179,6 +187,21 @@ const ProductPayInfo: React.FC<props> = ({
             </button>
           </form>
           <button
+            onClick={() => {
+              setProductCart(prev => {
+                return (
+                  [...prev, {
+                    price: priceId,
+                    name: name,
+                    id: id,
+                    photo: photo,
+                    prico: prico,
+                    tipos: variedade.join(', '),
+                    quantity: quantidade,
+                  }]
+                )
+              })
+            }}
             // style={{ border: '1px solid #0bc86d', }}
             type="submit"
             className="w-[350px] cursor-pointer hover:bg-[#3ffca192]  transition-colors py-3 bg-[#3ffca159] rounded-3xl text-lg text-white font-medium"

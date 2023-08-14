@@ -1,11 +1,12 @@
 import { Divider } from '@mui/material'
 import Image from 'next/image'
-import { memo, useMemo, useState } from 'react'
+import { memo, useMemo, useState, useContext } from 'react'
 import { BiChevronRight } from 'react-icons/bi'
 import { TfiAngleLeft, TfiAngleRight } from 'react-icons/tfi'
 import { processLink } from '../../functions/fixLinksImg'
 import CustomizedRating from '../rating'
 import formatarMoeda from '../../functions/formataMoeda'
+import { CartContext } from '../../context/cartContext'
 
 interface CustomHTMLUListElement extends HTMLUListElement {
   scrollLeft: number
@@ -81,6 +82,8 @@ const ProductView: React.FC<props> = ({
         })`
     })
   }, [currentImg, altCurrentImg])
+
+  const { setProductCart } = useContext(CartContext)
 
   return (
     <>

@@ -18,19 +18,21 @@ const ProductVertCategory: React.FC<props> = ({ e }) => {
 
   const { setProductCart, productCart } = useContext(CartContext)
 
-  console.log(productCart);
 
   const addToCart = () => {
     if (productCart !== null) {
       setProductCart((prev: any) => {
         return (
-          [...prev, { price: e.priceId, quantity: 1, }]
+          [...prev, { price: e.priceId, quantity: 1, name: e.name, prico: e.precoAvenda, id: e.id, photo: e.photos[0] }]
         )
       })
     } else {
-      setProductCart([{ price: e.priceId, quantity: 1, }])
+      setProductCart([{ price: e.priceId, quantity: 1, name: e.name, prico: e.precoAvenda, id: e.id, photo: e.photos[0] }])
     }
   }
+
+
+
   return (
     <>
       <li
@@ -81,7 +83,7 @@ const ProductVertCategory: React.FC<props> = ({ e }) => {
               {/* <CustomizedRating mt={0} tamanho={'small'} val={e.rating} /> */}
               <div className="flex flex-col justify-self-end">
                 <p className=' my-1 text-sm'>R$ {formatarMoeda(e.precoAvenda)}</p>
-                <p className='text-sm'>em 12{e.inCardBy}x sem juros</p>
+              
               </div>
             </div>
           </Paper>
