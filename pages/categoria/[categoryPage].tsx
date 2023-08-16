@@ -36,16 +36,16 @@ export const getStaticProps = async ({ params }) => {
 
   const filter = { category: params.categoryPage } // Crie um filtro com a categoria
   const docs = await coll.find(filter).toArray() // Busque os documentos usando o filtro
-
   // Converta o _id de cada documento para string
   const serializedDocs = docs.map(doc => ({
     ...doc,
     _id: doc._id.toString()
   }))
+  console.log(serializedDocs)
 
   return {
     props: {
-      produtos: serializedDocs // Passe os documentos como prop
+      produto: serializedDocs // Passe os documentos como prop
     }
   }
 }
@@ -103,7 +103,6 @@ const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
         <div className="flex-1 md:px-[40px]  lg:px-[60px] mx-auto">
           <div className="block px-4">
             <p className="text-xl">{produto[0].category.replaceAll('-', ' ')}</p>
-
             <p className="text-xs text-gray-600 my-2">{produto.length} produtos</p>
           </div>
           <div className="block h-full w-full">
