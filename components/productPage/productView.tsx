@@ -91,7 +91,6 @@ const ProductView: React.FC<props> = ({
   useEffect(() => {
     const language = window.navigator.language
     setlanguage(language)
-    console.log(language)
   }, [language])
   return (
     <>

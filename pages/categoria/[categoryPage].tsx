@@ -41,7 +41,6 @@ export const getStaticProps = async ({ params }) => {
     ...doc,
     _id: doc._id.toString()
   }))
-  console.log(serializedDocs)
 
   return {
     props: {

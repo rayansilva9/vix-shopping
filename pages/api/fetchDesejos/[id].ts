@@ -1,19 +1,19 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { db } from '../../../lib/firebase'
+import client from '../../../lib/mongo'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
-      const querySnapshot = await db
-        .collection('products')
-        .where('id', '==', req.query.id)
-        .get()
+      await client.connect()
+      const db = client.db('loja')
+      const coll = db.collection('produtos')
 
-      if (!querySnapshot.empty) {
-        const doc = querySnapshot.docs[0] // Pega o primeiro documento retornado
-        const desejoField = doc.data().desejos
+      const queryResult = await coll.findOne({ id: req.query.id })
 
+      if (queryResult) {
+        const desejoField = queryResult.desejos || []
         const length = desejoField.length
+        console.log(desejoField)
 
         res.status(200).json({ length }) // Envia a resposta JSON com o comprimento
       } else {
@@ -21,6 +21,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     } catch (err) {
       res.status(err.statusCode || 500).json({ error: err.message }) // Retorna o erro como JSON
+    } finally {
+      await client.close()
     }
   } else {
     res.setHeader('Allow', 'POST')

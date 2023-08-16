@@ -48,13 +48,15 @@ const ProductPayInfo: React.FC<props> = ({
     try {
       const response = await fetch(`/api/fetchDesejos/${produtoId}`, { method: 'POST' })
       const data = await response.json()
-
+      // setCountDesejos(data.length)
+      console.log(data.length)
       return data.length // O comprimento será retornado aqui
     } catch (error) {
       console.error('Erro:', error)
       return 0 // Retorna 0 se houver um erro
     }
   }
+
   const AddToDesejos = async () => {
     if (user !== null) {
       try {
@@ -79,13 +81,7 @@ const ProductPayInfo: React.FC<props> = ({
   }
 
   useEffect(() => {
-    desejosLength()
-      .then(length => {
-        setCountDesejos(length)
-      })
-      .catch(error => {
-        console.error('Erro:', error)
-      })
+    desejosLength().then(e => console.log(e))
   }, [])
 
   return (
