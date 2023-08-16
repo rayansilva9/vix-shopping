@@ -8,13 +8,18 @@ import productPropsCategory from '../../@types/productCategory'
 import ProductVertCategory from '../../components/categoryPage/productVertical'
 import ProductHorizCategory from '../../components/categoryPage/productHorizontal'
 import ModalOrderBy from '../../components/categoryPage/orderBy'
+import client from '../../lib/mongo'
 
 export const getStaticPaths = async () => {
-  const res = await db.collection('products').get()
+  await client.connect()
+  const db = client.db('loja')
+  const coll = db.collection('produtos')
+  const cursor = coll.find({})
+  const docs = await cursor.toArray()
 
-  const paths = res.docs.map(produto => ({
+  const paths = docs.map(item => ({
     params: {
-      categoryPage: produto.data().category
+      categoryPage: item.category // Passe a categoria diretamente como parâmetro
     }
   }))
 
@@ -25,15 +30,23 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const res = await db
-    .collection('products')
-    .where('category', '==', params.categoryPage)
-    .get()
+  await client.connect()
+  const db = client.db('loja')
+  const coll = db.collection('produtos')
 
-  const produto = res.docs.map(doc => doc.data())
+  const filter = { category: params.categoryPage } // Crie um filtro com a categoria
+  const docs = await coll.find(filter).toArray() // Busque os documentos usando o filtro
+
+  // Converta o _id de cada documento para string
+  const serializedDocs = docs.map(doc => ({
+    ...doc,
+    _id: doc._id.toString()
+  }))
 
   return {
-    props: { produto }
+    props: {
+      produtos: serializedDocs // Passe os documentos como prop
+    }
   }
 }
 
@@ -61,15 +74,17 @@ const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
                   onClick={() => {
                     setModeView('grid')
                   }}
-                  className={`text-xl cursor-pointer ${modeView == 'grid' ? 'text-black' : 'text-gray-400'
-                    }`}
+                  className={`text-xl cursor-pointer ${
+                    modeView == 'grid' ? 'text-black' : 'text-gray-400'
+                  }`}
                 />
                 <MdOutlineFormatListBulleted
                   onClick={() => {
                     setModeView('list')
                   }}
-                  className={`text-2xl cursor-pointer ${modeView == 'list' ? 'text-black' : 'text-gray-400'
-                    }`}
+                  className={`text-2xl cursor-pointer ${
+                    modeView == 'list' ? 'text-black' : 'text-gray-400'
+                  }`}
                 />
               </div>
             </div>
@@ -87,7 +102,6 @@ const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
         </div>
         <div className="flex-1 md:px-[40px]  lg:px-[60px] mx-auto">
           <div className="block px-4">
-
             <p className="text-xl">{produto[0].category.replaceAll('-', ' ')}</p>
 
             <p className="text-xs text-gray-600 my-2">{produto.length} produtos</p>
@@ -125,15 +139,17 @@ const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
                     onClick={() => {
                       setModeView('grid')
                     }}
-                    className={`text-xl ${modeView == 'grid' ? 'text-black' : 'text-gray-400'
-                      }`}
+                    className={`text-xl ${
+                      modeView == 'grid' ? 'text-black' : 'text-gray-400'
+                    }`}
                   />
                   <MdOutlineFormatListBulleted
                     onClick={() => {
                       setModeView('list')
                     }}
-                    className={`text-2xl ${modeView == 'list' ? 'text-black' : 'text-gray-400'
-                      }`}
+                    className={`text-2xl ${
+                      modeView == 'list' ? 'text-black' : 'text-gray-400'
+                    }`}
                   />
                 </div>
               </div>
@@ -145,7 +161,7 @@ const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
             </div>
           </div>
         </div>
-      </div >
+      </div>
     </>
   )
 }

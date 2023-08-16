@@ -13,10 +13,9 @@ import Link from 'next/link'
 import { CATEGORY } from '../../utils/linksCategoria'
 import { UserContext } from '../../context/userContext'
 import HoverCardDemo from './formCard'
-import AuthGoogle from '../../hooks/googleAuth'
 import BtnCheckouCart from '../btnCheckoutCart'
 import { CartContext } from '../../context/cartContext'
-
+import { AuthGoogle } from '../../hooks/AuthGoogle'
 
 type User = {
   username: string
@@ -26,10 +25,9 @@ type User = {
   uid: string
 }
 
-
 const Header2: React.FC = () => {
   const [openMenu, setopenMenu] = React.useState(false)
-  const [usuario, setusuario] = useState<User | null>(null);
+  const [usuario, setusuario] = useState<User | null>(null)
 
   const open2 = () => {
     if (openMenu == true) {
@@ -47,6 +45,20 @@ const Header2: React.FC = () => {
   useEffect(() => {
     setusuario(user)
   }, [user])
+
+  const Login = async () => {
+    console.log('oiasd')
+    try {
+      const response = await fetch('/api/login/123', { method: 'POST' })
+      if (response.ok) {
+        window.location.reload()
+      } else {
+        console.error('Erro ao fazer login')
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <>
@@ -116,27 +128,35 @@ const Header2: React.FC = () => {
               <div className="flex items-center gap-8  relative top-3 ">
                 {usuario !== null ? (
                   <div className="">
-                    <HoverCardDemo  >
+                    <HoverCardDemo>
                       <div>
-                        <Avatar src={usuario.photo} alt="" />
+                        <Avatar src={decodeURIComponent(usuario.photo)} alt="" />
                         <p>{usuario.username}</p>
                       </div>
                     </HoverCardDemo>
                   </div>
                 ) : (
                   <div className="cursor-pointer">
-                    <p onClick={() => { AuthGoogle() }}>Entre ou cadastre-se</p>
+                    <button onClick={() => AuthGoogle()}>Login</button>
                   </div>
                 )}
                 <div className="flex gap-4 text-2xl">
                   <BsSuitHeart className="cursor-pointer hover:text-red-500 transition-colors" />
                   {/* <BtnCheckouCart> */}
                   <>
-                    <div className={`cartCounter ${productCart.length == 0 ? 'hidden' : 'flex'}`}>
+                    <div
+                      className={`cartCounter ${
+                        productCart.length == 0 ? 'hidden' : 'flex'
+                      }`}
+                    >
                       {productCart.length}
                     </div>
-                    <button onClick={() => { setOpenCart(true) }} >
-                      <IoBagHandleOutline className=' cursor-pointer  ' />
+                    <button
+                      onClick={() => {
+                        setOpenCart(true)
+                      }}
+                    >
+                      <IoBagHandleOutline className=" cursor-pointer  " />
                     </button>
                   </>
                   {/* </BtnCheckouCart> */}
@@ -146,9 +166,19 @@ const Header2: React.FC = () => {
             <div className="flex gap-4 px-[108px] mt-5">
               {CATEGORY.map((e, i) => {
                 return (
-                  <Link className='cursor-pointer' key={i} href={'/categoria/' + e.name.replaceAll(' ', '-')}>
+                  <Link
+                    className="cursor-pointer"
+                    key={i}
+                    href={'/categoria/' + e.name.replaceAll(' ', '-')}
+                  >
                     <p
-                      style={{ fontWeight: decodeURI(pathname) == '/categoria/'.concat(e.name.replaceAll(' ', '-')) ? '600' : '300', }}
+                      style={{
+                        fontWeight:
+                          decodeURI(pathname) ==
+                          '/categoria/'.concat(e.name.replaceAll(' ', '-'))
+                            ? '600'
+                            : '300'
+                      }}
                       key={i}
                       className={`relative text-sm `}
                     >
@@ -167,22 +197,28 @@ const Header2: React.FC = () => {
                   onClick={open2}
                   style={{ fontSize: '1.5rem' }}
                 />
-                {user == null && (
-                  <p onClick={() => { AuthGoogle() }} className="text-xs font-light">Login</p>
-                )}
+                {user == null && <button onClick={() => AuthGoogle()}>Login</button>}
               </div>
 
               <div className="flex items-center gap-2 cursor-pointer">
                 {' '}
-
                 <div className="flex gap-4 text-xl">
                   <BsSuitHeart />
                   <>
-                    <div className={`cartCounterSm ${productCart.length == 0 ? 'hidden' : 'flex'}`}>
+                    <div
+                      className={`cartCounterSm ${
+                        productCart.length == 0 ? 'hidden' : 'flex'
+                      }`}
+                    >
                       {productCart.length}
                     </div>
-                    <button onClick={() => { setOpenCart(true) }} className=''>
-                      <IoBagHandleOutline className=' cursor-pointer  ' />
+                    <button
+                      onClick={() => {
+                        setOpenCart(true)
+                      }}
+                      className=""
+                    >
+                      <IoBagHandleOutline className=" cursor-pointer  " />
                     </button>
                   </>
                 </div>
@@ -211,10 +247,10 @@ const Header2: React.FC = () => {
               />
               <BiSearch className="text-2xl" />
             </Stack> */}
-          </div >
+          </div>
           <MenuMobile openedMenu={openMenu} funcOpen={open2} />
-        </div >
-      </header >
+        </div>
+      </header>
     </>
   )
 }

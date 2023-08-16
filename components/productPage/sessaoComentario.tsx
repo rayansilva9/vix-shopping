@@ -37,7 +37,7 @@ const SectionComments: React.FC<Props> = ({ produto }) => {
           transition: 'all .5s linear'
         }}
         id="avaliaçoes"
-        className="lg:w-[calc(100vw-216px)] md:w-[calc(100vw-216px)]  w-[94%] rounded-lg bg-white mb-16 mt-5 mx-auto"
+        className="lg:w-[calc(100vw-216px)] md:w-[calc(100vw-216px)]  w-[94%] rounded-lg bg-white mt-5 mx-auto"
       >
         <div className="pb-7 relative flex flex-col items-center rounded-lg">
           <div className="self-start px-3 lg:px-7 mt-5 w-full">

@@ -30,3 +30,4 @@ const useElementOnScreen = (options: {
 }
 
 export default useElementOnScreen
+

@@ -1,26 +1,25 @@
-import { Divider } from '@mui/material';
-import Image from 'next/image';
-import React, { memo, useEffect, useState, useContext } from 'react';
-import { AiOutlineHeart } from 'react-icons/ai';
-import { BiChevronRight } from 'react-icons/bi';
-import { FaShare } from 'react-icons/fa';
-import { BsCartCheck } from 'react-icons/bs';
-import { BsCartDash } from 'react-icons/bs';
-import { IoLocationOutline } from 'react-icons/io5';
-import { usePathname } from 'next/navigation';
-import { UserContext } from '../../context/userContext';
-import AuthGoogle from '../../hooks/googleAuth';
-import { CartContext } from '../../context/cartContext';
-
+import { Divider } from '@mui/material'
+import Image from 'next/image'
+import React, { memo, useEffect, useState, useContext } from 'react'
+import { AiOutlineHeart } from 'react-icons/ai'
+import { BiChevronRight } from 'react-icons/bi'
+import { FaShare } from 'react-icons/fa'
+import { BsCartCheck } from 'react-icons/bs'
+import { BsCartDash } from 'react-icons/bs'
+import { IoLocationOutline } from 'react-icons/io5'
+import { usePathname } from 'next/navigation'
+import { UserContext } from '../../context/userContext'
+// import AuthGoogle from '../../hooks/googleAuth';
+import { CartContext } from '../../context/cartContext'
 
 type props = {
   docId: string
   priceId: string
   id: string
-  prico: number
-  quantidade: number,
-  name: string,
-  photo: string,
+  prico: { brl: string; usd: string; eur: string }
+  quantidade: number
+  name: string
+  photo: string
   variedade: string[]
   setQuantidadeUnitariaToBuy: React.Dispatch<React.SetStateAction<number>>
 }
@@ -30,50 +29,54 @@ const ProductPayInfo: React.FC<props> = ({
   quantidade,
   variedade,
   setQuantidadeUnitariaToBuy,
-  docId, name, prico, photo, id
+  docId,
+  name,
+  prico,
+  photo,
+  id
 }) => {
-
-  const [countDesejos, setCountDesejos] = useState(0);
+  const [countDesejos, setCountDesejos] = useState(0)
   // const [desejos, setDesejos] = useState(false);
 
+  const pathname = usePathname().split('/')
 
-  const pathname = usePathname().split('/');
-
-  var produtoId = pathname[pathname.length - 1];
+  var produtoId = pathname[pathname.length - 1]
   const { user } = useContext(UserContext)
   const { setProductCart } = useContext(CartContext)
 
-
   const desejosLength = async () => {
     try {
-      const response = await fetch(`/api/fetchDesejos/${produtoId}`, { method: 'POST', });
-      const data = await response.json();
+      const response = await fetch(`/api/fetchDesejos/${produtoId}`, { method: 'POST' })
+      const data = await response.json()
 
-      return data.length; // O comprimento será retornado aqui
+      return data.length // O comprimento será retornado aqui
     } catch (error) {
-      console.error('Erro:', error);
-      return 0; // Retorna 0 se houver um erro
+      console.error('Erro:', error)
+      return 0 // Retorna 0 se houver um erro
     }
-  };
+  }
   const AddToDesejos = async () => {
     if (user !== null) {
       try {
-        const response = await fetch(`/api/addDesejos/${produtoId}/${user.uid}/${docId}`, { method: 'POST', })
+        const response = await fetch(
+          `/api/addDesejos/${produtoId}/${user.uid}/${docId}`,
+          { method: 'POST' }
+        )
 
-        const data = await response.json();
+        const data = await response.json()
         if (data.exists == true) {
           setCountDesejos(prev => prev - 1)
         } else {
           setCountDesejos(prev => prev + 1)
         }
       } catch (error) {
-        console.error('Erro:', error);
-        return 0; // Retorna 0 se houver um erro
+        console.error('Erro:', error)
+        return 0 // Retorna 0 se houver um erro
       }
     } else {
-      AuthGoogle()
+      // AuthGoogle()
     }
-  };
+  }
 
   useEffect(() => {
     desejosLength()
@@ -81,11 +84,9 @@ const ProductPayInfo: React.FC<props> = ({
         setCountDesejos(length)
       })
       .catch(error => {
-        console.error("Erro:", error);
-      });
-  }, []);
-
-
+        console.error('Erro:', error)
+      })
+  }, [])
 
   return (
     <>
@@ -131,9 +132,7 @@ const ProductPayInfo: React.FC<props> = ({
             <p className="text-gray-700 xl:text-[16px]">
               De china para Santa Ines via Correios
             </p>
-            <p className="text-gray-700 xl:text-[16px]">
-              Estimativa de entrega: 30 dias
-            </p>
+            <p className="text-gray-700 xl:text-[16px]">Estimativa de entrega: 30 dias</p>
           </div>
           <Divider />
         </div>
@@ -142,9 +141,7 @@ const ProductPayInfo: React.FC<props> = ({
             Metodos de pagamento
           </p>
           <div className="flex flex-col ">
-            <p className="text-sm text-gray-700 xl:text-[16px]">
-              Segurança garantida
-            </p>
+            <p className="text-sm text-gray-700 xl:text-[16px]">Segurança garantida</p>
           </div>
           <Divider />
         </div>
@@ -175,8 +172,7 @@ const ProductPayInfo: React.FC<props> = ({
         </div>
         <div className=" flex-col gap-3 px-3 hidden xl:flex">
           <form
-            action={`/api/checkout/${priceId
-              }/${quantidade}/${variedade.join(', ')}`}
+            action={`/api/checkout/${priceId}/${quantidade}/${variedade.join(', ')}`}
             method="POST"
           >
             <button
@@ -188,18 +184,20 @@ const ProductPayInfo: React.FC<props> = ({
           </form>
           <button
             onClick={() => {
+              //@ts-ignore
               setProductCart(prev => {
-                return (
-                  [...prev, {
+                return [
+                  ...prev,
+                  {
                     price: priceId,
                     name: name,
                     id: id,
                     photo: photo,
                     prico: prico,
                     tipos: variedade.join(', '),
-                    quantity: quantidade,
-                  }]
-                )
+                    quantity: quantidade
+                  }
+                ]
               })
             }}
             // style={{ border: '1px solid #0bc86d', }}
@@ -213,7 +211,12 @@ const ProductPayInfo: React.FC<props> = ({
               <FaShare style={{ stroke: '1' }} />
               <p className="text-md">Compartlihar</p>
             </button>
-            <button onClick={() => { AddToDesejos() }} className="w-full py-2 cursor-pointer hover:bg-gray-300 transition-colors flex items-center justify-center gap-2 bg-gray-200 rounded-3xl text-lg text-black font-medium">
+            <button
+              onClick={() => {
+                AddToDesejos()
+              }}
+              className="w-full py-2 cursor-pointer hover:bg-gray-300 transition-colors flex items-center justify-center gap-2 bg-gray-200 rounded-3xl text-lg text-black font-medium"
+            >
               <AiOutlineHeart />
               <p className="text-md">{countDesejos}</p>
             </button>
@@ -221,7 +224,7 @@ const ProductPayInfo: React.FC<props> = ({
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default memo(ProductPayInfo);
+export default memo(ProductPayInfo)

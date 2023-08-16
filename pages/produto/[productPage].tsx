@@ -9,15 +9,18 @@ import SectionDescricao from '../../components/productPage/sessaoDescriçao'
 import ProductView from '../../components/productPage/productView'
 import ProductPayInfo from '../../components/productPage/productPayInfo'
 import productProps from '../../@types/product'
-
-
+import client from '../../lib/mongo'
 
 export const getStaticPaths = async () => {
-  const res = await db.collection('products').get()
+  await client.connect()
+  const db = client.db('loja')
+  const coll = db.collection('produtos')
+  const cursor = coll.find({})
+  const docs = await cursor.toArray()
 
-  const paths = res.docs.map(produto => ({
+  const paths = docs.map(item => ({
     params: {
-      productPage: produto.data().id
+      productPage: item.id.toString() // Transforma o ObjectId em string
     }
   }))
 
@@ -28,13 +31,24 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const res = await db.collection('products').where('id', '==', params.productPage).get()
+  await client.connect()
+  const db = client.db('loja')
+  const coll = db.collection('produtos')
 
-  const [p] = res.docs.map(e => e.data())
-  const produto = p
+  const objectId = params.productPage // Pega o ObjectId da URL
+  const filter = { id: objectId } // Cria um filtro com o ObjectId
+  const doc = await coll.findOne(filter) // Busca o documento usando o filtro
+
+  // Converte o _id para string
+  const serializedDoc = {
+    ...doc,
+    _id: doc._id.toString()
+  }
 
   return {
-    props: { produto }
+    props: {
+      produto: serializedDoc // Passa o documento como prop
+    }
   }
 }
 
@@ -47,7 +61,6 @@ const Product: React.FC<productProps> = ({ produto }) => {
   const sectionComments = useRef(null)
   const miniImagesRef = useRef<CustomHTMLUListElement | null>(null)
 
-
   function scrollMiniImg(direction: string) {
     if (direction == 'right') {
       miniImagesRef.current.scrollLeft = 100
@@ -58,14 +71,17 @@ const Product: React.FC<productProps> = ({ produto }) => {
 
   const [showSctComments, setSctComments] = useState(false)
   const [quantidadeUnitariaToBuy, setQuantidadeUnitariaToBuy] = useState(1)
-  const [varidedade, setVariedade] = useState<string[] | null[]>(function () {
-    const names = []
-    for (let index = 0; index < produto.optVal.length; index++) {
-      const a = produto.optVal[index].name + ':' + produto.optVal[index].values[0].name
-      names.push(a)
-    }
-    return names
-  })
+  const [varidedade, setVariedade] = useState<string[] | null[]>([
+    '123321:13321,123321:12332'
+  ])
+  // const [varidedade, setVariedade] = useState<string[] | null[]>(function () {
+  //   const names = []
+  //   for (let index = 0; index < produto.optVal.length; index++) {
+  //     const a = produto.optVal[index].name + ':' + produto.optVal[index].values[0].name
+  //     names.push(a)
+  //   }
+  //   return names
+  // })
 
   function MudarVariedade(index: number, novoValor: string) {
     setVariedade(prev => {
@@ -90,13 +106,10 @@ const Product: React.FC<productProps> = ({ produto }) => {
     }
   }, [isCommentsVisible])
 
-
   function topFunction() {
     document.body.scrollTop = 0
     document.documentElement.scrollTop = 0
   }
-
-
 
   return (
     <>
@@ -137,7 +150,7 @@ const Product: React.FC<productProps> = ({ produto }) => {
               miniImagesRef={miniImagesRef}
               photos={produto.photos}
               productName={produto.name}
-              productPrice={produto.precoAvenda}
+              productPrice={produto.precos}
               productRating={produto.rating}
               productVariedades={produto.optVal}
               scrollMiniImg={scrollMiniImg}
@@ -148,7 +161,7 @@ const Product: React.FC<productProps> = ({ produto }) => {
             <ProductPayInfo
               id={produto.id}
               photo={produto.photos[0]}
-              prico={produto.precoAvenda}
+              prico={produto.precos}
               name={produto.name}
               docId={produto.docId}
               priceId={produto.priceId}
@@ -168,7 +181,7 @@ const Product: React.FC<productProps> = ({ produto }) => {
             id={produto.id}
             photo={produto.photos[0]}
             name={produto.name}
-            preço={produto.precoAvenda}
+            preço={produto.precos}
             priceId={produto.priceId}
             quantidade={quantidadeUnitariaToBuy}
             variedade={varidedade}

@@ -23,7 +23,7 @@ export default interface productProps {
     inCardBy: number
     totalPedidos: number
     rating: number
-    precoAvenda: number
+    precos: { brl: string; usd: string; eur: string }
     feedback: []
     descPrevia: string
     desc: string

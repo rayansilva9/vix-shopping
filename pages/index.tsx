@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import { db } from '../lib/firebase'
 import HeroBg from '../components/home/section_Hero'
@@ -8,35 +8,65 @@ import Section_EmAlta from '../components/home/section_emAlta'
 import Section_Categoria from '../components/home/section_Categorias'
 import Section_ModaFeminina from '../components/home/section_ModaFeminina'
 import Section_DiaDosPais from '../components/home/section_diaDosPais'
+import client from '../lib/mongo'
 
 interface Props {
   products: productProps[]
 }
 
+// export const getStaticProps = async () => {
+//   const productsDocs = await db.collection('products').get()
+
+//   const products = productsDocs.docs.map(e => ({
+//     photos: e.data().photos,
+//     name: e.data().name,
+//     precoAvenda: e.data().precoAvenda,
+//     id: e.data().id,
+//     rating: e.data().rating
+//   }))
+
+//   return {
+//     props: {
+//       products: products
+//     }
+//   }
+// }
+
 export const getStaticProps = async () => {
+  try {
+    await client.connect()
+    const db = client.db('loja')
+    const coll = db.collection('produtos')
 
-  const productsDocs = await db.collection('products').get()
+    const cursor = await coll.find({})
+    const products = await cursor.toArray()
 
-  const products = productsDocs.docs.map((e) => (
-    {
-      photos: e.data().photos,
-      name: e.data().name,
-      precoAvenda: e.data().precoAvenda,
-      id: e.data().id,
-      rating: e.data().rating,
+    const serializedProducts = products.map(product => ({
+      photos: product.photos,
+      name: product.name,
+      precos: product.precos,
+      id: product.id,
+      rating: product.rating
+    }))
+
+    return {
+      props: {
+        products: serializedProducts
+      }
     }
-  ))
-
-
-  return {
-    props: {
-      products: products
+  } catch (error) {
+    console.error(error)
+    return {
+      props: {
+        products: []
+      }
     }
+  } finally {
+    await client.close()
   }
 }
 
 const Home: React.FC<Props> = ({ products }) => {
-
   return (
     <>
       <Head>
@@ -46,11 +76,7 @@ const Home: React.FC<Props> = ({ products }) => {
         <meta name="theme-color" content="#3b82f6" />
         <link rel="icon" href="/favicon.ico" />
         <meta content="index, follow" name="robots" />
-        <meta
-          data-rh="true"
-          name="keywords"
-          content=""
-        />
+        <meta data-rh="true" name="keywords" content="" />
       </Head>
       <HeroBg />
       <SectionBeneficios />

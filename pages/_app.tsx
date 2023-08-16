@@ -9,6 +9,7 @@ import { Montserrat } from '@next/font/google'
 import { UserContextProvider } from '../context/userContext'
 import { CartContextProvider } from '../context/cartContext'
 import CartContent from '../components/cart'
+import LoadingBar from '../components/loadingPage'
 
 const montserrat = Montserrat({
   preload: true,
@@ -23,7 +24,8 @@ export default function App({ Component, pageProps }) {
         <CartContextProvider>
           <div className={montserrat.className}>
             <Header2 />
-            <main className='no-scrollbar'>
+            {/* <LoadingBar /> */}
+            <main className="no-scrollbar">
               <Component {...pageProps} />
             </main>
             <CartContent />

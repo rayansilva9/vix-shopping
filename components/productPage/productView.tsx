@@ -1,6 +1,6 @@
 import { Divider } from '@mui/material'
 import Image from 'next/image'
-import { memo, useMemo, useState, useContext } from 'react'
+import { memo, useMemo, useState, useContext, useEffect } from 'react'
 import { BiChevronRight } from 'react-icons/bi'
 import { TfiAngleLeft, TfiAngleRight } from 'react-icons/tfi'
 import { processLink } from '../../functions/fixLinksImg'
@@ -19,7 +19,7 @@ type props = {
   miniImagesRef: React.MutableRefObject<CustomHTMLUListElement>
   scrollMiniImg: (direction: string) => void
   productName: string
-  productPrice: number
+  productPrice: { brl: string; usd: string; eur: string }
   productRating: number
   productVariedades: any[]
   productVariedadesOnView: string[]
@@ -46,9 +46,12 @@ const ProductView: React.FC<props> = ({
   const MAGNIFY_SIZE_HALF = MAGNIFY_SIZE / 2
 
   const [magnifyStyle, setMagnifyStyle] = useState({
-    backgroundImage: `url(${altCurrentImg ? altCurrentImg : processLink(photos[currentImg])
-      })`
+    backgroundImage: `url(${
+      altCurrentImg ? altCurrentImg : processLink(photos[currentImg])
+    })`
   })
+
+  const [language, setlanguage] = useState('pt')
 
   const handleMouseMove = (e: {
     nativeEvent: { offsetX: any; offsetY: any; target: any }
@@ -78,13 +81,18 @@ const ProductView: React.FC<props> = ({
 
   useMemo(() => {
     setMagnifyStyle({
-      backgroundImage: `url(${altCurrentImg ? altCurrentImg : processLink(photos[currentImg])
-        })`
+      backgroundImage: `url(${
+        altCurrentImg ? altCurrentImg : processLink(photos[currentImg])
+      })`
     })
   }, [currentImg, altCurrentImg])
 
   const { setProductCart } = useContext(CartContext)
-
+  useEffect(() => {
+    const language = window.navigator.language
+    setlanguage(language)
+    console.log(language)
+  }, [language])
   return (
     <>
       <div
@@ -99,7 +107,7 @@ const ProductView: React.FC<props> = ({
                 onMouseMove={handleMouseMove}
                 style={{ animation: 'itemProduct 0.3s linear' }}
                 priority
-                placeholder='empty'
+                placeholder="empty"
                 src={altCurrentImg ? altCurrentImg : processLink(photos[currentImg])}
                 height={380}
                 width={380}
@@ -168,7 +176,13 @@ const ProductView: React.FC<props> = ({
             <p className="text-lg text-[#40cd28] my-3 font-semibold xl:my-5 xl:text-[20px]">
               R${''}
               <span className="text-[33px] xl:text-[30px] text-[#40cd28]">
-                {formatarMoeda(productPrice)}
+                {language == 'pt'
+                  ? formatarMoeda(productPrice.brl)
+                  : language == 'en'
+                  ? formatarMoeda(productPrice.usd)
+                  : language == 'sp'
+                  ? formatarMoeda(productPrice.eur)
+                  : formatarMoeda(productPrice.brl)}
               </span>
             </p>
             <div className="relative flex flex-col gap-2 w-full bg-zinc-100 rounded-lg my-2 px-3 py-2 xl:py-2">
@@ -220,7 +234,7 @@ const ProductView: React.FC<props> = ({
                             style={{
                               border:
                                 dividirNomeVariedade(i).length > 0 &&
-                                  dividirNomeVariedade(i)[1].trim() == e2.name
+                                dividirNomeVariedade(i)[1].trim() == e2.name
                                   ? '2px solid rgb(59 130 246)'
                                   : '0px',
                               cursor: 'pointer'

@@ -42,24 +42,24 @@ const Section_EmAlta: React.FC<props> = ({ products }) => {
               <IconButton
                 aria-label="Prev"
                 sx={{
-                  display: { xs: 'none', lg: 'inline', },
+                  display: { xs: 'none', lg: 'inline' },
                   position: 'absolute',
                   left: '10px',
                   top: '150px',
-                  fontSize: '40px',
+                  fontSize: '40px'
                 }}
                 onClick={() => {
                   slide('left')
                 }}
               >
-                <p className='opacity-0 w-0 h-0'>Next</p>
+                <p className="opacity-0 w-0 h-0">Next</p>
                 <TfiAngleLeft />
               </IconButton>
             </li>
             {products.length > 0 ? (
-              products.slice(positon, positon + 5).map((produtos: productProps) => (
+              products.slice(positon, positon + 5).map((produtos: productProps, i) => (
                 <>
-                  <ProductVertical product={produtos} />
+                  <ProductVertical key={i} product={produtos} />
                 </>
               ))
             ) : (
@@ -97,17 +97,17 @@ const Section_EmAlta: React.FC<props> = ({ products }) => {
               <IconButton
                 aria-label="Next"
                 sx={{
-                  display: { xs: 'none', lg: 'inline', },
+                  display: { xs: 'none', lg: 'inline' },
                   position: 'absolute',
                   right: '10px',
                   top: '150px',
-                  fontSize: '40px',
+                  fontSize: '40px'
                 }}
                 onClick={() => {
                   slide('right')
                 }}
               >
-                <p className='opacity-0 w-0 h-0'>Next</p>
+                <p className="opacity-0 w-0 h-0">Next</p>
                 <TfiAngleRight />
               </IconButton>
             </li>
