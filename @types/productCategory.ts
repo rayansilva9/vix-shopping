@@ -19,7 +19,7 @@ export default interface productPropsCategory {
     name: string
     category: string
     photos: string[]
-    priceId: string
+    pricesId: { brl: string; usd: string; eur: string }
     precoOriginal: number
     inCardBy: number
     totalPedidos: number

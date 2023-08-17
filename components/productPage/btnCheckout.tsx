@@ -5,7 +5,7 @@ import { BsCartCheck } from 'react-icons/bs'
 import { BsCartDashFill } from 'react-icons/bs'
 
 type props = {
-  priceId: string
+  priceId: { brl: string; usd: string; eur: string }
   quantidade: number
   variedade: string[]
   preço: { brl: string; usd: string; eur: string }

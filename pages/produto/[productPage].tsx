@@ -164,7 +164,7 @@ const Product: React.FC<productProps> = ({ produto }) => {
               prico={produto.precos}
               name={produto.name}
               docId={produto.docId}
-              priceId={produto.priceId}
+              pricesId={produto.pricesId}
               quantidade={quantidadeUnitariaToBuy}
               setQuantidadeUnitariaToBuy={setQuantidadeUnitariaToBuy}
               variedade={varidedade}
@@ -182,7 +182,7 @@ const Product: React.FC<productProps> = ({ produto }) => {
             photo={produto.photos[0]}
             name={produto.name}
             preço={produto.precos}
-            priceId={produto.priceId}
+            priceId={produto.pricesId}
             quantidade={quantidadeUnitariaToBuy}
             variedade={varidedade}
           />

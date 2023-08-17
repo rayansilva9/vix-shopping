@@ -14,7 +14,7 @@ import { CartContext } from '../../context/cartContext'
 
 type props = {
   docId: string
-  priceId: string
+  pricesId: { brl: string; usd: string; eur: string }
   id: string
   prico: { brl: string; usd: string; eur: string }
   quantidade: number
@@ -25,7 +25,7 @@ type props = {
 }
 
 const ProductPayInfo: React.FC<props> = ({
-  priceId,
+  pricesId,
   quantidade,
   variedade,
   setQuantidadeUnitariaToBuy,
@@ -168,7 +168,7 @@ const ProductPayInfo: React.FC<props> = ({
         </div>
         <div className=" flex-col gap-3 px-3 hidden xl:flex">
           <form
-            action={`/api/checkout/${priceId}/${quantidade}/${variedade.join(', ')}`}
+            action={`/api/checkout/${pricesId.brl}/${quantidade}/${variedade.join(', ')}`}
             method="POST"
           >
             <button
@@ -185,7 +185,7 @@ const ProductPayInfo: React.FC<props> = ({
                 return [
                   ...prev,
                   {
-                    price: priceId,
+                    pricesId: pricesId,
                     name: name,
                     id: id,
                     photo: photo,

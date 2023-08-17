@@ -1,8 +1,9 @@
 export default interface productPropsCart {
+  // pricesId: any;
   id: string
   name: string
   photo: string
-  price: string
+  price: { brl: string; usd: string; eur: string }
   prico: number
   nome?: string
   tipos?: string

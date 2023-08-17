@@ -16,7 +16,6 @@ type cartContextProps = {
   setOpenCart: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-
 export const CartContext = createContext({} as cartContextProps)
 
 export const CartContextProvider: React.FC<cartContextProviderProps> = ({ children }) => {
@@ -25,26 +24,21 @@ export const CartContextProvider: React.FC<cartContextProviderProps> = ({ childr
   const [openCart, setOpenCart] = useState(false)
   const [dbCart, setDbCart] = useState([])
 
-
   const { user } = React.useContext(UserContext)
 
-  const [itemFormated, setItemFormated] = React.useState([]);
+  const [itemFormated, setItemFormated] = React.useState([])
 
   function getPriceAndQuantity() {
-    const item = productCart.map((e) => {
-      return (
-        {
-          price: e.price,
-          quantity: e.quantity
-        }
-      )
-
+    const item = productCart.map(e => {
+      return {
+        price: e.price.brl,
+        quantity: e.quantity
+      }
     })
     setItemFormated(item)
   }
 
   async function getpost() {
-
     const res = await db.collection('users').doc(user.doc).get()
     const cart = res.data().cart
     setDbCart(cart)
@@ -54,7 +48,7 @@ export const CartContextProvider: React.FC<cartContextProviderProps> = ({ childr
     if (user !== null) {
       getpost()
     }
-  }, []);
+  }, [])
 
   useMemo(() => {
     if (user !== null) {
@@ -67,35 +61,42 @@ export const CartContextProvider: React.FC<cartContextProviderProps> = ({ childr
   useMemo(() => {
     if (typeof document !== 'undefined') {
       if (openCart) {
-        document.body.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden'
       } else {
-        document.body.style.overflow = 'visible';
+        document.body.style.overflow = 'visible'
       }
     }
   }, [openCart])
 
   useEffect(() => {
-    let o = productCart.map((e) => {
+    let o = productCart.map(e => {
       let name = e.name
       let val = e.tipos
       let a = name + ': ' + val
-      return (
-        { data: a }
-      )
-    });
+      return { data: a }
+    })
     setVariants(prev => {
-      return (
-        {
-          metadata: o.map(item => {
-            return { data: item.data };
-          })
-        }
-      )
+      return {
+        metadata: o.map(item => {
+          return { data: item.data }
+        })
+      }
     })
     getPriceAndQuantity()
-  }, [productCart]);
+  }, [productCart])
 
-
-
-  return <CartContext.Provider value={{ productCart, setProductCart, variants, setOpenCart, openCart, itemFormated }}>{children}</CartContext.Provider>
+  return (
+    <CartContext.Provider
+      value={{
+        productCart,
+        setProductCart,
+        variants,
+        setOpenCart,
+        openCart,
+        itemFormated
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  )
 }
