@@ -1,13 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import Stripe from 'stripe'
 import client from '../../../lib/mongo'
-
+import { v4 as uuidv4 } from 'uuid'
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-11-15'
 })
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
+    const idSession = uuidv4()
     try {
       console.log(req.headers.origin)
       const session = await stripe.checkout.sessions.create({
@@ -19,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           }
         ],
         metadata: {
-          tipos: req.query.id[2] as string
+          idSession: idSession
         },
         payment_intent_data: {
           metadata: {
@@ -34,10 +35,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       })
       await client.connect()
       const db = client.db('admin-loja')
-      const coll = db.collection('payment-intents')
+      const coll = db.collection('payments-intents')
 
       await coll.insertOne({
-        id: session.id,
+        id: idSession,
         ammount_received: session.amount_total,
         createdAt: session.created,
         currency: session.currency,
