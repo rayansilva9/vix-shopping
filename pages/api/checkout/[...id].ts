@@ -9,8 +9,14 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const idSession = uuidv4()
+    const itemParse = {
+      id: idSession,
+      name: req.query.id[3] as string,
+      quantidade: req.query.id[1] as string,
+      variedade: req.query.id[2] as string,
+      valor_pago: req.query.id[4] as string
+    }
     try {
-      console.log(req.headers.origin)
       const session = await stripe.checkout.sessions.create({
         line_items: [
           {
@@ -24,8 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
         payment_intent_data: {
           metadata: {
-            // Add your metadata key-value pairs here
-            tipos: req.query.id[2] as string
+            idSession: idSession
           }
         },
         billing_address_collection: 'required',
@@ -36,13 +41,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       await client.connect()
       const db = client.db('admin-loja')
       const coll = db.collection('payments-intents')
-
       await coll.insertOne({
         id: idSession,
         ammount_received: session.amount_total,
         createdAt: session.created,
         currency: session.currency,
-        status: 'criado'
+        status: 'pendente',
+        items: [itemParse]
       })
 
       res.redirect(303, session.url)

@@ -84,6 +84,12 @@ const ProductPayInfo: React.FC<props> = ({
     desejosLength().then(e => console.log(e))
   }, [])
 
+  const item = {
+    name,
+    quantidade,
+    variante: variedade.join(', ')
+  }
+
   return (
     <>
       <div className="bg-white w-[94%]  md:w-[calc(100vw-216px)] xl:w-auto xl:hidden rounded-lg py-2 px-4 mt-5 ">
@@ -168,7 +174,9 @@ const ProductPayInfo: React.FC<props> = ({
         </div>
         <div className=" flex-col gap-3 px-3 hidden xl:flex">
           <form
-            action={`/api/checkout/${pricesId.brl}/${quantidade}/${variedade.join(', ')}`}
+            action={`/api/checkout/${pricesId.brl}/${quantidade}/${variedade.join(
+              ', '
+            )}/${name}/${prico.brl}`}
             method="POST"
           >
             <button

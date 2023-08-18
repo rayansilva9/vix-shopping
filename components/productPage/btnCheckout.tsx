@@ -42,7 +42,7 @@ const BtnCheckout: React.FC<props> = ({
     <>
       <form
         method="post"
-        action={`/api/checkout/${priceId}/${quantidade}/${variedade.join(', ')}`}
+        action={`/api/checkout/${priceId}/${quantidade}/${variedade.join(', ')}/`}
       >
         <div
           style={{ boxShadow: ' 0px -4px 15px -8px rgba(0,0,0,0.75)' }}
