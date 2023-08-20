@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import Stripe from 'stripe'
 import client from '../../../lib/mongo'
 import { v4 as uuidv4 } from 'uuid'
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-11-15'
 })
@@ -47,7 +48,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         createdAt: session.created,
         currency: session.currency,
         status: 'pendente',
-        items: [itemParse]
+        items: [itemParse],
+        adress: ""
       })
 
       res.redirect(303, session.url)

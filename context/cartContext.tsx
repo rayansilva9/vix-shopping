@@ -31,7 +31,7 @@ export const CartContextProvider: React.FC<cartContextProviderProps> = ({ childr
   function getPriceAndQuantity() {
     const item = productCart.map(e => {
       return {
-        price: e.price.brl,
+        price: e.pricesId.brl,
         quantity: e.quantity
       }
     })
