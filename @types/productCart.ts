@@ -1,5 +1,5 @@
 export default interface productPropsCart {
-  pricesId: any;
+  pricesId: { brl: string; usd: string; eur: string }
   // pricesId: any;
   id: string
   name: string

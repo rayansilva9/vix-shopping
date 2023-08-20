@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useRef, useState } from 'react'
+import React, { SetStateAction, memo, useEffect, useMemo, useRef, useState } from 'react'
 import { db } from '../../lib/firebase'
 import Head from 'next/head'
 import useElementOnScreen from '../../hooks/useElementOnScreen'
@@ -71,17 +71,20 @@ const Product: React.FC<productProps> = ({ produto }) => {
 
   const [showSctComments, setSctComments] = useState(false)
   const [quantidadeUnitariaToBuy, setQuantidadeUnitariaToBuy] = useState(1)
-  const [varidedade, setVariedade] = useState<string[] | null[]>([
-    '123321:13321,123321:12332'
-  ])
-  // const [varidedade, setVariedade] = useState<string[] | null[]>(function () {
-  //   const names = []
-  //   for (let index = 0; index < produto.optVal.length; index++) {
-  //     const a = produto.optVal[index].name + ':' + produto.optVal[index].values[0].name
-  //     names.push(a)
-  //   }
-  //   return names
-  // })
+  const [varidedade, setVariedade] = useState<string[] | null[]>(getNomes())
+
+
+  function getNomes() {
+    const names = []
+    for (let index = 0; index < produto.optVal.length; index++) {
+      const a = produto.optVal[index].name + ':' + produto.optVal[index].values[0].name
+      names.push(a)
+    }
+    return names
+  }
+  useEffect(() => {
+    setVariedade(getNomes())
+  }, [])
 
   function MudarVariedade(index: number, novoValor: string) {
     setVariedade(prev => {

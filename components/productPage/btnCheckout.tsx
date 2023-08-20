@@ -60,7 +60,7 @@ const BtnCheckout: React.FC<props> = ({
                   return [
                     ...prev,
                     {
-                      price: priceId,
+                      pricesId: priceId,
                       name: name,
                       prico: preço,
                       tipos: variedade.join(', '),

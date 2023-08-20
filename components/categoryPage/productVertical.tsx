@@ -1,11 +1,10 @@
 import { Paper } from '@mui/material'
 import Image from 'next/image'
-import React, { SetStateAction, useContext } from 'react'
+import React, { useContext } from 'react'
 import formatarMoeda from '../../functions/formataMoeda'
 import { processLink } from '../../functions/fixLinksImg'
 import Link from 'next/link'
 import { CartContext } from '../../context/cartContext'
-import productPropsCart from '../../@types/productCart'
 
 type props = {
   e: any
@@ -35,7 +34,8 @@ const ProductVertCategory: React.FC<props> = ({ e }) => {
     } else {
       setProductCart([
         {
-          price: e.priceId,
+          pricesId: e.priceId,
+          price: e.precos,
           quantity: 1,
           name: e.name,
           prico: e.precoAvenda,
