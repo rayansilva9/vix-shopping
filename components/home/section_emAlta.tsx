@@ -3,14 +3,14 @@ import React, { useMemo, useState } from 'react'
 import productProps from '../../@types/productHome'
 import { TfiAngleLeft, TfiAngleRight } from 'react-icons/tfi'
 import ProductVertical from './productVertical'
-
+import { useTranslation } from 'react-i18next'
 type props = {
   products: productProps[]
 }
 
 const Section_EmAlta: React.FC<props> = ({ products }) => {
   const [positon, setPositon] = useState<number>(0)
-
+  const { t } = useTranslation()
   const slide = (direction: string) => {
     if (direction == 'right') {
       setPositon(prev => prev + 5)
@@ -33,7 +33,7 @@ const Section_EmAlta: React.FC<props> = ({ products }) => {
     <>
       <section className="bg-zinc-100 flex flex-col items-center ">
         <div className="flex flex-col w-full relative pl-8 lg:pl-0 mt-4 mb-7 self-start">
-          <p className="text-left text-xl font-normal">Em alta</p>
+          <p className="text-left text-xl font-normal">{t("main.section hot.title")}</p>
           <div className="w-[90px] h-2 bg-blue-500 rounded-md"></div>
         </div>
         <div className="flex items-center pl-7 w-full overflow-x-scroll no-scrollbar  lg:pl-0">

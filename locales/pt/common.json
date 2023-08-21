@@ -1,0 +1,116 @@
+{
+  "header": {
+    "utils": {
+      "flagHeader": "5% de desconto no pix",
+      "payment": "Pagamento",
+      "service": "Atendimento",
+      "blog": "blog"
+    },
+    "catergorys": {
+      "house and decoration": "Casa e Decoração",
+      "fashion": "Moda e Acessórios",
+      "beauty and personal care": "Beleza e Cuidados Pessoais",
+      "electronics and technology": "Eletrônicos e Tecnologia",
+      "sports and leisure": "Esportes e Lazer",
+      "health and wellness": "Saúde e Bem-Estar",
+      "kitchen": "Cozinha"
+    },
+    "input": {
+      "placeholder": "Procurar produtos"
+    },
+    "hoverPerfil": {
+      "editPefil": "Editar Perfil",
+      "logOff": "Encerrar sessão"
+    },
+    "editPefil": {
+      "title": "Editar Perfil",
+      "description": "Altere as informaçôes do seu perfil, e clique em Salvar.",
+      "name": "Nome",
+      "email": "Email",
+      "phoneNumber": "Telefone",
+      "btnSave": "Salvar"
+    }
+  },
+  "menuHamburg": {
+    "home": "Início",
+    "categorys": "Categorias",
+    "tracked your product": "Rastrei seu produto",
+    "needHelp?": "Precisa de Ajuda?",
+    "followUs": "Siga-nos",
+    "logOff": "Encerrar sessão"
+  },
+  "main": {
+    "benefits": {
+      "freeShipping": {
+        "title": "FRETE GRATIS",
+        "content": "para todo o brasil"
+      },
+      "buyWhatsapp": {
+        "title": "COMPRE PELO WHATSAPP",
+        "content": "atendimento 24 horas"
+      },
+      "exclusive offers": {
+        "title": "OFERTAS EXCLUSIVAS",
+        "content": "no app pra você"
+      },
+      "x": {
+        "title": "XXXXXXXXXX",
+        "content": "XXXXXXXXXX"
+      }
+    },
+    "section hot": {
+      "title": "Em alta"
+    },
+    "section dias dos pais": {
+      "title": "Dia dos pais"
+    },
+    "section moda feminina": {
+      "title": "Moda feminina"
+    }
+  },
+  "footer": {
+    "service": {
+      "call Center": "Central de Atendimento",
+      "onlyWhatsapp": "Apenas Whatsapp:",
+      "openingHours": "Horário de atendimento:",
+      "times": "Sábado, Domingo e feriados: 12:00hs às 17:00hs"
+    },
+    "ask": {
+      "title": "Perguntas Frequentes",
+      "exchanges and returns": "Trocas e Devoluçôes",
+      "terms of service": "Termos de Serviços",
+      "privacy policy": "Politica de Privacidade"
+    },
+    "socialsMidias": "Nossas Redes Sociais",
+    "avaliableOnAppStore": "Disponivel na Appstore",
+    "avaliableOnGooglePlay": "Disponivel na Google Play",
+    "alert": "Preços e condições de pagamento exclusivos para compras neste site oficial, podendo variar com o tempo da oferta. Evite comprar produtos mais baratos ou de outras lojas, pois você pode estar sendo enganado(a) por um golpista. Caso você compre os mesmos produtos em outras lojas, não nos responsabilizamos por quaisquer problemas.",
+    "label": "Todos os direitos reservados"
+  },
+  "categoryPage": {
+    "filter": "Filtrar",
+    "visualization": "Visualização",
+    "products": "produtos",
+    "addToCart": "Adicionar ao Carrinho",
+    "selectVariant": " Selecionar Variantes"
+  },
+  "productPage": {
+    "discountCoupon": "Cupom de desconto",
+    "freeShipping": "Frete Grátis",
+    "sales": "vendidos",
+    "shippingInfo":"De china para Santa Ines via Correios",
+    "deliveryEstimate":"Estimativa de entrega: 30 dias",
+    "paymentMethods":"Métodos de pagamento",
+    "guaranteedSecurity":"Segurança garantida",
+    "remaining":"restantes",
+    "quantity":"Quantidade",
+    "buyNow":"Compra Agora",
+    "addToCart":"Adicionar ao Carrinho",
+    "share":"Compartlihar",
+    "productDescription":"DESCRIÇÃO DO PRODUTO",
+    "reviews":"AVALIAÇÔES",
+    "rateThisProduct":"Avaliar este produto",
+    "ratedThisProduct":"avaliaram este produto",
+    "acquiredThe":"adquiriu o:"
+  }
+}

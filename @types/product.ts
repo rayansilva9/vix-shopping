@@ -17,7 +17,7 @@ export default interface productProps {
       }
     ]
     name: string
-    photos: string[]
+    photos: { pt: string[]; en: string[]; es: string[] }
     pricesId: { brl: string; usd: string; eur: string }
     precoOriginal: number
     inCardBy: number

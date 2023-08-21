@@ -16,6 +16,8 @@ import HoverCardDemo from './formCard'
 import BtnCheckouCart from '../btnCheckoutCart'
 import { CartContext } from '../../context/cartContext'
 import { AuthGoogle } from '../../hooks/AuthGoogle'
+import { useTranslation } from 'react-i18next'
+import SelectLang from './selectLang'
 
 type User = {
   username: string
@@ -38,7 +40,7 @@ const Header2: React.FC = () => {
   }
 
   const pathname = usePathname()
-
+  const { t, i18n } = useTranslation()
   const { user } = useContext(UserContext)
   const { productCart, setOpenCart } = useContext(CartContext)
 
@@ -46,24 +48,13 @@ const Header2: React.FC = () => {
     setusuario(user)
   }, [user])
 
-  const Login = async () => {
-    console.log('oiasd')
-    try {
-      const response = await fetch('/api/login/123', { method: 'POST' })
-      if (response.ok) {
-        window.location.reload()
-      } else {
-        console.error('Erro ao fazer login')
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   return (
     <>
       <div className="w-full bg-blue-600 select-none">
-        <p className="text-center font-semibold text-sm text-white"> Frete grátis</p>
+        <p className="text-center font-semibold text-sm text-white">
+          {' '}
+          {t('header.utils.flagHeader')}
+        </p>
       </div>
       <header
         style={{
@@ -94,15 +85,18 @@ const Header2: React.FC = () => {
                 <div className="flex gap-5">
                   <div className="flex items-center gap-2 cursor-pointer">
                     <MdPayment className="text-sm" />{' '}
-                    <p className="text-xs font-light">Pagamento</p>
+                    <p className="text-xs font-light">{t('header.utils.payment')}</p>
                   </div>
                   <div className="flex items-center gap-2 cursor-pointer">
                     <IoPeopleOutline className="text-sm" />{' '}
-                    <p className="text-xs font-light">Atendimento</p>
+                    <p className="text-xs font-light">{t('header.utils.service')}</p>
                   </div>
                   <div className="flex items-center gap-2 cursor-pointer">
                     <SiBloglovin className="text-sm" />{' '}
-                    <p className="text-xs font-light">Blog</p>
+                    <p className="text-xs font-light">{t('header.utils.blog')}</p>
+                  </div>
+                  <div className="flex items-center gap-2 cursor-pointer">
+                    <SelectLang />
                   </div>
                 </div>
                 <Stack
@@ -117,7 +111,7 @@ const Header2: React.FC = () => {
                   }}
                 >
                   <input
-                    placeholder="Buscar produtos..."
+                    placeholder={t('header.input.placeholder')}
                     style={{ background: '#ededed', color: 'black' }}
                     className=" w-full rounded-md h-11 placeholder:text-gray-500"
                     type="text"
@@ -164,29 +158,94 @@ const Header2: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-4 px-[108px] mt-5">
-              {CATEGORY.map((e, i) => {
-                return (
-                  <Link
-                    className="cursor-pointer"
-                    key={i}
-                    href={'/categoria/' + e.name.replaceAll(' ', '-')}
-                  >
-                    <p
-                      style={{
-                        fontWeight:
-                          decodeURI(pathname) ==
-                          '/categoria/'.concat(e.name.replaceAll(' ', '-'))
-                            ? '600'
-                            : '300'
-                      }}
-                      key={i}
-                      className={`relative text-sm `}
-                    >
-                      {e.name}
-                    </p>
-                  </Link>
-                )
-              })}
+              <Link className="cursor-pointer" href={'/categoria/Casa-e-Decoração'}>
+                <p
+                  style={{
+                    fontWeight:
+                      decodeURI(pathname) == '/categoria/Casa-e-Decoração' ? '600' : '300'
+                  }}
+                  className={`relative text-sm `}
+                >
+                  {t('header.catergorys.house and decoration')}
+                </p>
+              </Link>
+              <Link className="cursor-pointer" href={'/categoria/Moda-e-Acessórios'}>
+                <p
+                  style={{
+                    fontWeight:
+                      decodeURI(pathname) == '/categoria/Moda-e-Acessórios'
+                        ? '600'
+                        : '300'
+                  }}
+                  className={`relative text-sm `}
+                >
+                  {t('header.catergorys.fashion')}
+                </p>
+              </Link>
+              <Link className="cursor-pointer" href={'/categoria/Beleza-e -Cuidados'}>
+                <p
+                  style={{
+                    fontWeight:
+                      decodeURI(pathname) == '/categoria/Beleza-e -Cuidados'
+                        ? '600'
+                        : '300'
+                  }}
+                  className={`relative text-sm `}
+                >
+                  {t('header.catergorys.fashion')}
+                </p>
+              </Link>
+              <Link
+                className="cursor-pointer"
+                href={'/categoria/Eletrônicos-e-Tecnologia'}
+              >
+                <p
+                  style={{
+                    fontWeight:
+                      decodeURI(pathname) == '/categoria/Eletrônicos-e-Tecnologia'
+                        ? '600'
+                        : '300'
+                  }}
+                  className={`relative text-sm `}
+                >
+                  {t('header.catergorys.electronics and technology')}
+                </p>
+              </Link>
+              <Link className="cursor-pointer" href={'/categoria/Esportes-e-Lazer'}>
+                <p
+                  style={{
+                    fontWeight:
+                      decodeURI(pathname) == '/categoria/Esportes-e-Lazer' ? '600' : '300'
+                  }}
+                  className={`relative text-sm `}
+                >
+                  {t('header.catergorys.sports and leisure')}
+                </p>
+              </Link>
+              <Link className="cursor-pointer" href={'/categoria/Saúde-e-Bem-Estar'}>
+                <p
+                  style={{
+                    fontWeight:
+                      decodeURI(pathname) == '/categoria/Saúde-e-Bem-Estar'
+                        ? '600'
+                        : '300'
+                  }}
+                  className={`relative text-sm `}
+                >
+                  {t('header.catergorys.health and wellness')}
+                </p>
+              </Link>
+              <Link className="cursor-pointer" href={'/categoria/Cozinha'}>
+                <p
+                  style={{
+                    fontWeight:
+                      decodeURI(pathname) == '/categoria/Cozinha' ? '600' : '300'
+                  }}
+                  className={`relative text-sm `}
+                >
+                  {t('header.catergorys.kitchen')}
+                </p>
+              </Link>
             </div>
           </div>
           <div className="lg:hidden flex flex-col gap-0 px-3">
@@ -227,26 +286,6 @@ const Header2: React.FC = () => {
             <Link href={'/'}>
               <p className=" text-center text-2xl">VIX</p>
             </Link>
-            {/* <Stack
-              alignItems="center"
-              direction="row"
-              sx={{
-                width: '100%',
-                background: '#ededed',
-                borderRadius: '5px',
-                p: '0 10px'
-              }}
-            >
-
-              <input
-                id="input-src"
-                placeholder="Buscar produtos..."
-                style={{ background: '#ededed' }}
-                className=" w-full rounded-md h-11 placeholder:text-gray-500"
-                type="text"
-              />
-              <BiSearch className="text-2xl" />
-            </Stack> */}
           </div>
           <MenuMobile openedMenu={openMenu} funcOpen={open2} />
         </div>

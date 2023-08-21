@@ -10,6 +10,8 @@ import { usePathname } from 'next/navigation'
 import AlertDialogDemo from './alertDialog'
 import DialogDemo from './editProfile'
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
+import { useTranslation } from 'react-i18next'
+import SelectLang from './selectLang'
 
 interface Props {
   openedMenu: boolean
@@ -18,25 +20,12 @@ interface Props {
 
 const MenuMobile: React.FC<Props> = ({ openedMenu, funcOpen }) => {
   const { user } = React.useContext(UserContext)
+  const { t, i18n } = useTranslation()
 
   const [openCategorys, setopenCategorys] = React.useState(false)
   const pathname = usePathname()
 
   const Categoys: React.FC = () => {
-
-    const CATEGORY = [
-      { name: 'Casa e Decoração' },
-      { name: 'Moda e Acessórios' },
-      { name: 'Beleza e Cuidados Pessoais' },
-      { name: 'Eletrônicos e Tecnologia' },
-      { name: 'Esportes e Lazer' },
-      { name: 'Saúde e Bem-Estar' },
-      { name: 'Livros, Filmes e Música' },
-      { name: 'Cozinha' },
-      { name: 'Jardinagem e Ambiente Externo' },
-      { name: 'Viagens e Aventuras' }
-    ]
-
     return (
       <div
         style={{
@@ -49,43 +38,162 @@ const MenuMobile: React.FC<Props> = ({ openedMenu, funcOpen }) => {
           onClick={() => {
             setopenCategorys(false)
           }}
-          style={{ fontSize: '2.2rem', margin: '10px 0 ', color: 'black', transform: 'rotate(90deg)', }}
+          style={{
+            fontSize: '2.2rem',
+            margin: '10px 0 ',
+            color: 'black',
+            transform: 'rotate(90deg)'
+          }}
         />
         <div className="flex flex-col gap-1 px-2">
           {openedMenu && (
             <>
-              {CATEGORY.map((e, i) => {
-                return (
-                  <div style={{ animation: 'item-menu .4s ease' }} className="py-3 px-2 ">
-                    <Link
-                      key={i}
-                      href={'/categoria/' + e.name.replaceAll(' ', '-')}
-                      onClick={() => {
-                        setopenCategorys(false),
-                          funcOpen()
-                      }}
-                    >
-                      <p
-                        style={{
-                          fontWeight:
-                            decodeURI(pathname) ==
-                              '/categoria/'.concat(e.name.replaceAll(' ', '-'))
-                              ? '600'
-                              : '300'
-                        }}
-                        key={i}
-                        className={`relative text-black `}
-                      >
-                        {e.name}
-                      </p>
-                    </Link>
-                  </div>
-                )
-              })}
+              <div style={{ animation: 'item-menu .4s ease' }} className="py-3 px-2 ">
+                <Link
+                  className="cursor-pointer"
+                  href={'/categoria/Casa-e-Decoração'}
+                  onClick={() => {
+                    setopenCategorys(false), funcOpen()
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight:
+                        decodeURI(pathname) == '/categoria/Casa-e-Decoração'
+                          ? '600'
+                          : '300'
+                    }}
+                    className={`relative text-sm text-black `}
+                  >
+                    {t('header.catergorys.house and decoration')}
+                  </p>
+                </Link>
+              </div>
+              <div style={{ animation: 'item-menu .4s ease' }} className="py-3 px-2 ">
+                <Link
+                  className="cursor-pointer"
+                  href={'/categoria/Moda-e-Acessórios'}
+                  onClick={() => {
+                    setopenCategorys(false), funcOpen()
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight:
+                        decodeURI(pathname) == '/categoria/Moda-e-Acessórios'
+                          ? '600'
+                          : '300'
+                    }}
+                    className={`relative text-sm text-black`}
+                  >
+                    {t('header.catergorys.fashion')}
+                  </p>
+                </Link>
+              </div>
+              <div style={{ animation: 'item-menu .4s ease' }} className="py-3 px-2 ">
+                <Link
+                  className="cursor-pointer"
+                  href={'/categoria/Beleza-e -Cuidados'}
+                  onClick={() => {
+                    setopenCategorys(false), funcOpen()
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight:
+                        decodeURI(pathname) == '/categoria/Beleza-e -Cuidados'
+                          ? '600'
+                          : '300'
+                    }}
+                    className={`relative text-sm text-black`}
+                  >
+                    {t('header.catergorys.fashion')}
+                  </p>
+                </Link>
+              </div>
+              <div style={{ animation: 'item-menu .4s ease' }} className="py-3 px-2 ">
+                <Link
+                  className="cursor-pointer"
+                  href={'/categoria/Eletrônicos-e-Tecnologia'}
+                >
+                  <p
+                    style={{
+                      fontWeight:
+                        decodeURI(pathname) == '/categoria/Eletrônicos-e-Tecnologia'
+                          ? '600'
+                          : '300'
+                    }}
+                    className={`relative text-sm text-black`}
+                  >
+                    {t('header.catergorys.electronics and technology')}
+                  </p>
+                </Link>
+              </div>
+              <div style={{ animation: 'item-menu .4s ease' }} className="py-3 px-2 ">
+                <Link
+                  className="cursor-pointer"
+                  href={'/categoria/Esportes-e-Lazer'}
+                  onClick={() => {
+                    setopenCategorys(false), funcOpen()
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight:
+                        decodeURI(pathname) == '/categoria/Esportes-e-Lazer'
+                          ? '600'
+                          : '300'
+                    }}
+                    className={`relative text-sm text-black`}
+                  >
+                    {t('header.catergorys.sports and leisure')}
+                  </p>
+                </Link>
+              </div>
+              <div style={{ animation: 'item-menu .4s ease' }} className="py-3 px-2 ">
+                <Link
+                  className="cursor-pointer"
+                  href={'/categoria/Saúde-e-Bem-Estar'}
+                  onClick={() => {
+                    setopenCategorys(false), funcOpen()
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight:
+                        decodeURI(pathname) == '/categoria/Saúde-e-Bem-Estar'
+                          ? '600'
+                          : '300'
+                    }}
+                    className={`relative text-sm text-black`}
+                  >
+                    {t('header.catergorys.health and wellness')}
+                  </p>
+                </Link>
+              </div>
+              <div style={{ animation: 'item-menu .4s ease' }} className="py-3 px-2 ">
+                <Link
+                  className="cursor-pointer"
+                  href={'/categoria/Cozinha'}
+                  onClick={() => {
+                    setopenCategorys(false), funcOpen()
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight:
+                        decodeURI(pathname) == '/categoria/Cozinha' ? '600' : '300'
+                    }}
+                    className={`relative text-sm text-black`}
+                  >
+                    {t('header.catergorys.kitchen')}
+                  </p>
+                </Link>
+              </div>
             </>
           )}
         </div>
-      </div >
+      </div>
     )
   }
 
@@ -110,27 +218,31 @@ const MenuMobile: React.FC<Props> = ({ openedMenu, funcOpen }) => {
                 <DialogDemo>
                   <div className="flex gap-2 items-center mb-4">
                     <Avatar alt={user && user.username} src={user && user.photo} />
-                    <p className="text-black font-semibold">{user ? user.username : 'Entre ou Cadastre-se'}</p>
+                    <p className="text-black font-semibold">
+                      {user ? user.username : 'Entre ou Cadastre-se'}
+                    </p>
                   </div>
                 </DialogDemo>
               ) : (
                 <>
                   <div className="flex gap-2 items-center mb-4">
-                    <Avatar src='/emptyImg.jpg' />
-                    <p className="text-black font-semibold">{user ? user.username : 'Entre ou Cadastre-se'}</p>
+                    <Avatar src="/emptyImg.jpg" />
+                    <p className="text-black font-semibold">
+                      {user ? user.username : 'Entre ou Cadastre-se'}
+                    </p>
                   </div>
                 </>
               )}
-
             </>
-
+            <SelectLang textColor="text-black" />
             <div style={{ animation: 'item-menu .4s ease' }} className="py-3 px-2 ">
-              <Link href='/'
+              <Link
+                href="/"
                 onClick={() => {
-                setopenCategorys(false),
-                  funcOpen()
-              }}>
-                <p className="text-black">Home</p>
+                  setopenCategorys(false), funcOpen()
+                }}
+              >
+                <p className="text-black">{t('menuHamburg.home')}</p>
               </Link>
             </div>
             <div style={{ animation: 'item-menu .4s ease' }} className="py-3 px-2 ">
@@ -140,14 +252,17 @@ const MenuMobile: React.FC<Props> = ({ openedMenu, funcOpen }) => {
                 }}
                 className="text-black"
               >
-                Categorias
+                {t('menuHamburg.categorys')}
               </p>
             </div>
             <div style={{ animation: 'item-menu .4s ease' }} className="py-3 px-2 ">
-              <p className="text-black">Ratreie seu pedido</p>
+              <p className="text-black">{t('menuHamburg.tracked your product')}</p>
             </div>
             <div style={{ animation: 'item-menu .4s ease' }} className="py-3 px-2 ">
-              <p className="text-black mb-4 font-semibold">Precisa de ajuda?</p>
+              <p className="text-black mb-4 font-semibold">
+                {' '}
+                {t('menuHamburg.needHelp?')}
+              </p>
               <div className="text-black mb-3">
                 <p>(73) 98178-0874</p>
               </div>
@@ -156,7 +271,10 @@ const MenuMobile: React.FC<Props> = ({ openedMenu, funcOpen }) => {
               </div>
             </div>
             <div style={{ animation: 'item-menu .4s ease' }} className="py-3 px-2 ">
-              <p className="text-black mb-4 font-semibold">Siga-nos</p>
+              <p className="text-black mb-4 font-semibold">
+                {' '}
+                {t('menuHamburg.followUs')}
+              </p>
               <div className="text-gray-400 flex gap-2 items-center mb-2">
                 <IoLogoInstagram className="text-3xl" />
                 <p>Instagram</p>
@@ -177,21 +295,18 @@ const MenuMobile: React.FC<Props> = ({ openedMenu, funcOpen }) => {
                 <ImPinterest2 className="text-3xl" />
                 <p>Pinterest</p>
               </div>
-              {
-                user && (
-                  <AlertDialogDemo>
-                    <div className="text-red-500 flex gap-2 items-center mt-8">
-                      <p>Encerrar sessâo</p>
-                    </div>
-                  </AlertDialogDemo>
-                )
-              }
+              {user && (
+                <AlertDialogDemo>
+                  <div className="text-red-500 flex gap-2 items-center mt-8">
+                    <p>{t('menuHamburg.logOff')}</p>
+                  </div>
+                </AlertDialogDemo>
+              )}
             </div>
           </>
-        )
-        }
-      </div >
-    </div >
+        )}
+      </div>
+    </div>
   )
 }
 

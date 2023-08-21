@@ -1,0 +1,116 @@
+{
+  "header": {
+    "utils": {
+      "flagHeader": "Free shipping",
+      "payment": "Payment",
+      "service": "Service",
+      "blog": "blog"
+    },
+    "catergorys": {
+      "house and decoration": "Home and Decoration",
+      "fashion": "Fashion and Accessories",
+      "beauty and personal care": "Beauty and Personal Care",
+      "electronics and technology": "Electronics and Technology",
+      "sports and leisure": "Sports and Leisure",
+      "health and wellness": "Health and well-being",
+      "kitchen": "Kitchen"
+    },  
+    "input": {
+      "placeholder": "Search products"
+    },
+    "hoverPerfil": {
+      "editPefil": "Edit profile",
+      "logOff": "Log out"
+    },
+    "editPefil": {
+      "title": "Edit profile",
+      "description": "Change your profile information and click Save.",
+      "name": "Name",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "btnSave": "Save"
+    }
+  },
+  "menuHamburg": {
+    "home": "Home",
+    "categorys": "Categorys",
+    "tracked your product": "Tracked Your Product",
+    "needHelp?": "Need Help?",
+    "followUs": "Follow Us",
+    "logOff": "Log out"
+  },
+  "main": {
+    "benefits": {
+      "freeShipping": {
+        "title": "FREE SHIPPING",
+        "content": "for the whole country"
+      },
+      "buyWhatsapp": {
+        "title": "BUY BY WHATSAPP",
+        "content": "24-hour service"
+      },
+      "exclusive offers": {
+        "title": "EXCLUSIVE OFFERS",
+        "content": "in the app for you"
+      },
+      "x": {
+        "title": "XXXXXXXXXX",
+        "content": "XXXXXXXXXX"
+      }
+    },
+    "section hot": {
+      "title": "Hot"
+    },
+    "section dias dos pais": {
+      "title": "Dia dos pais"
+    },
+    "section moda feminina": {
+      "title": "Women's fashion"
+    }
+  },
+  "footer": {
+    "service": {
+      "call Center": "Call Center",
+      "onlyWhatsapp": "Whatsapp only:",
+      "openingHours": "Opening hours:",
+      "times": " 24 hours"
+    },
+    "ask": {
+      "title": "Frequently Asked Questions",
+      "exchanges and returns": "Exchanges and Returns",
+      "terms of service": "Terms of Service",
+      "privacy policy": "Privacy Policy"
+    },
+    "socialsMidias": "Our Social Midias",
+    "avaliableOnAppStore": "Available on the Appstore",
+    "avaliableOnGooglePlay": "Available on Google Play",
+    "alert": "Prices and payment conditions are exclusive to purchases on this official site and may vary depending on the length of the offer. Avoid buying cheaper products or products from other stores, as you may be being scammed. If you buy the same products from other stores, we cannot be held responsible for any problems.",
+    "label": "All rights reserved"
+  },
+  "categoryPage": {
+    "filter": "Filtering",
+    "visualization": "Visualization",
+    "products": "Products",
+    "addToCart": "AddTo Cart",
+    "selectVariant": "Select Variant"
+  },
+  "productPage": {
+    "discountCoupon": "Discount Coupon",
+    "freeShipping": "free Shipping",
+    "sales": "sales",
+    "shippingInfo":"From China to your city via post",
+    "deliveryEstimate":"Estimated delivery time: 30 days",
+    "paymentMethods":"Payment methods",
+    "guaranteedSecurity":"Security guaranteed",
+    "remaining":"remaining",
+    "quantity":"quantity",
+    "buyNow":"Buy Now",
+    "addToCart":"Add To Cart",
+    "share":"Share",
+    "productDescription":"PRODUCT DESCRIPTION",
+    "reviews":"REVIEWS",
+    "rateThisProduct":"Rate this product",
+    "ratedThisProduct":"rated this product",
+    "acquiredThe":"acquired:"
+  }
+}

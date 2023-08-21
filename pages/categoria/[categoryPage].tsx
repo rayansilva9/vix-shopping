@@ -1,15 +1,13 @@
 import React from 'react'
 import { BsFunnel } from 'react-icons/bs'
-import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
 import { MdOutlineFormatListBulleted } from 'react-icons/md'
 import { IoApps } from 'react-icons/io5'
-import { db } from '../../lib/firebase'
 import productPropsCategory from '../../@types/productCategory'
 import ProductVertCategory from '../../components/categoryPage/productVertical'
 import ProductHorizCategory from '../../components/categoryPage/productHorizontal'
 import ModalOrderBy from '../../components/categoryPage/orderBy'
 import client from '../../lib/mongo'
-
+import { useTranslation } from 'react-i18next'
 export const getStaticPaths = async () => {
   await client.connect()
   const db = client.db('loja')
@@ -51,7 +49,7 @@ export const getStaticProps = async ({ params }) => {
 
 const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
   const [modeView, setModeView] = React.useState<string>('grid')
-
+  const { t } = useTranslation()
   return (
     <>
       <div className="min-h-screen min-w-screen flex bg-zinc-100 overflow-visible relative pt-8 md:px-6 xl:px-10 ">
@@ -64,10 +62,10 @@ const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
           }}
           className="md:w-[200px] lg:w-[300px] h-[200px] bg-white rounded-xl md:px-2 xl:px-6 py-4 hidden md:inline "
         >
-          <p className="text-xl">Filtrar</p>
+          <p className="text-xl">{t('categoryPage.filter')}</p>
           <div className="flex flex-col items-start gap-3 my-4 w-full px-4">
             <div className="flex justify-between w-full">
-              <p className="text-sm text-gray-600">Visualização</p>
+              <p className="text-sm text-gray-600">{t('categoryPage.visualization')}</p>
               <div className="inline-flex gap-2 items-center justify-end  text-gray-400">
                 <IoApps
                   onClick={() => {
@@ -102,7 +100,9 @@ const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
         <div className="flex-1 md:px-[40px]  lg:px-[60px] mx-auto">
           <div className="block px-4">
             <p className="text-xl">{produto[0].category.replaceAll('-', ' ')}</p>
-            <p className="text-xs text-gray-600 my-2">{produto.length} produtos</p>
+            <p className="text-xs text-gray-600 my-2">
+              {produto.length} {t('categoryPage.products')}
+            </p>
           </div>
           <div className="block h-full w-full">
             <div
@@ -118,7 +118,7 @@ const Categoria: React.FC<productPropsCategory> = ({ produto }) => {
               <div className="flex w-full px-4">
                 <div className="inline-flex items-center flex-1 gap-2 text-gray-600">
                   <BsFunnel />
-                  <p className="text-sm ">Filtrar</p>
+                  <p className="text-sm ">{t('categoryPage.filter')}</p>
                 </div>
                 {/* <div className="inline-flex items-center flex-1 gap-2 ">
                   <ModalOrderBy>

@@ -10,7 +10,8 @@ import { UserContextProvider } from '../context/userContext'
 import { CartContextProvider } from '../context/cartContext'
 import CartContent from '../components/cart'
 import LoadingBar from '../components/loadingPage'
-
+import '../i18nify'
+import { CurrencyContextProvider } from '../context/currencyContext'
 const montserrat = Montserrat({
   preload: true,
   subsets: ['latin'],
@@ -22,16 +23,18 @@ export default function App({ Component, pageProps }) {
     <>
       <UserContextProvider>
         <CartContextProvider>
-          <div className={montserrat.className}>
-            <Header2 />
-            {/* <LoadingBar /> */}
-            <main className="no-scrollbar">
-              <Component {...pageProps} />
-            </main>
-            <CartContent />
-            <Analytics />
-            <Footer />
-          </div>
+          <CurrencyContextProvider>
+            <div className={montserrat.className}>
+              <Header2 />
+              {/* <LoadingBar /> */}
+              <main className="no-scrollbar">
+                <Component {...pageProps} />
+              </main>
+              <CartContent />
+              <Analytics />
+              <Footer />
+            </div>
+          </CurrencyContextProvider>
         </CartContextProvider>
       </UserContextProvider>
     </>

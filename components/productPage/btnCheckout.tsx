@@ -3,6 +3,7 @@ import { CartContext } from '../../context/cartContext'
 import { IconButton } from '@mui/material'
 import { BsCartCheck } from 'react-icons/bs'
 import { BsCartDashFill } from 'react-icons/bs'
+import { CurrencyContext } from '../../context/currencyContext'
 
 type props = {
   priceId: { brl: string; usd: string; eur: string }
@@ -37,12 +38,21 @@ const BtnCheckout: React.FC<props> = ({
   photo
 }) => {
   const { setProductCart, productCart } = useContext(CartContext)
+  const { currency } = useContext(CurrencyContext)
 
   return (
     <>
       <form
         method="post"
-        action={`/api/checkout/${priceId}/${quantidade}/${variedade.join(', ')}/`}
+        action={`/api/checkout/${
+          currency == 'brl'
+            ? priceId.brl
+            : currency == 'usd'
+            ? priceId.usd
+            : currency == 'eur'
+            ? priceId.eur
+            : priceId.brl
+        }/${quantidade}/${variedade.join(', ')}/`}
       >
         <div
           style={{ boxShadow: ' 0px -4px 15px -8px rgba(0,0,0,0.75)' }}
@@ -51,7 +61,17 @@ const BtnCheckout: React.FC<props> = ({
           <div className="flex items-center justify-between">
             <p className="text-base text-gray-600 font-bold xl:my-5 xl:text-[20px]">
               R${''}
-              <span className="text-2xl xl:text-[30px]">{formatarMoeda(preço.brl)}</span>
+              <span className="text-2xl xl:text-[30px]">
+                {formatarMoeda(
+                  currency == 'brl'
+                    ? preço.brl
+                    : currency == 'usd'
+                    ? preço.brl
+                    : currency == 'eur'
+                    ? preço.eur
+                    : preço.brl
+                )}
+              </span>
             </p>
             <IconButton
               onClick={() => {
@@ -60,7 +80,14 @@ const BtnCheckout: React.FC<props> = ({
                   return [
                     ...prev,
                     {
-                      pricesId: priceId,
+                      pricesId:
+                        currency == 'brl'
+                          ? priceId.brl
+                          : currency == 'usd'
+                          ? priceId.usd
+                          : currency == 'eur'
+                          ? priceId.eur
+                          : priceId.brl,
                       name: name,
                       prico: preço,
                       tipos: variedade.join(', '),

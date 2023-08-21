@@ -11,7 +11,8 @@ import { usePathname } from 'next/navigation'
 import { UserContext } from '../../context/userContext'
 // import AuthGoogle from '../../hooks/googleAuth';
 import { CartContext } from '../../context/cartContext'
-
+import { useTranslation } from 'react-i18next'
+import { CurrencyContext } from '../../context/currencyContext'
 type props = {
   docId: string
   pricesId: { brl: string; usd: string; eur: string }
@@ -37,9 +38,9 @@ const ProductPayInfo: React.FC<props> = ({
 }) => {
   const [countDesejos, setCountDesejos] = useState(0)
   // const [desejos, setDesejos] = useState(false);
-
+  const { t } = useTranslation()
   const pathname = usePathname().split('/')
-
+  const { currency } = React.useContext(CurrencyContext)
   var produtoId = pathname[pathname.length - 1]
   const { user } = useContext(UserContext)
   const { setProductCart } = useContext(CartContext)
@@ -93,7 +94,9 @@ const ProductPayInfo: React.FC<props> = ({
   return (
     <>
       <div className="bg-white w-[94%]  md:w-[calc(100vw-216px)] xl:w-auto xl:hidden rounded-lg py-2 px-4 mt-5 ">
-        <p className="text-lg font-medium text-gray-700 ">Métodos de pagamento</p>
+        <p className="text-lg font-medium text-gray-700 ">
+          {t('productPage.paymentMethods')}
+        </p>
         <div className="flex gap-2 items-center">
           <Image src="/visa-icon.png" alt="" width={50} height={30} />
           <Image src="/mastercard-icon.png" alt="" width={50} height={30} />
@@ -130,25 +133,34 @@ const ProductPayInfo: React.FC<props> = ({
             <BiChevronRight className="text-2xl xl:hidden" />
           </div>
           <div className="flex flex-col xl:my-1">
-            <p className="text-xl font-medium xl:text-[17px]">Frete Grátis</p>
-            <p className="text-gray-700 xl:text-[16px]">
-              De china para Santa Ines via Correios
+            <p className="text-xl font-medium xl:text-[17px]">
+              {t('productPage.freeShipping')}
             </p>
-            <p className="text-gray-700 xl:text-[16px]">Estimativa de entrega: 30 dias</p>
+            <p className="text-gray-700 xl:text-[16px]">
+              {t('productPage.shippingInfo')}
+            </p>
+            <p className="text-gray-700 xl:text-[16px]">
+              {t('productPage.deliveryEstimate')}
+            </p>
           </div>
           <Divider />
         </div>
         <div className="flex-col gap-2 px-3 xl:my-1 hidden xl:flex">
           <p className="text-lg font-medium text-gray-700 xl:text-[17px]">
-            Metodos de pagamento
+            {t('productPage.paymentMethods')}
           </p>
           <div className="flex flex-col ">
-            <p className="text-sm text-gray-700 xl:text-[16px]">Segurança garantida</p>
+            <p className="text-sm text-gray-700 xl:text-[16px]">
+              {' '}
+              {t('productPage.guaranteedSecurity')}
+            </p>
           </div>
           <Divider />
         </div>
         <div className="px-3 mb-4">
-          <p className="font-medium text-gray-700 xl:text-[17px]">Quantidade</p>
+          <p className="font-medium text-gray-700 xl:text-[17px]">
+            {t('productPage.quantity')}
+          </p>
           <div className="flex gap-4 my-5">
             <button
               className="w-6 h-6 text-lg bg-slate-200 rounded-full flex items-center justify-center"
@@ -170,20 +182,34 @@ const ProductPayInfo: React.FC<props> = ({
               +
             </button>
           </div>
-          <p className="text-lg">432 restantes</p>
+          <p className="text-lg">432 {t('productPage.remaining')}</p>
         </div>
         <div className=" flex-col gap-3 px-3 hidden xl:flex">
           <form
-            action={`/api/checkout/${pricesId.brl}/${quantidade}/${variedade.join(
-              ', '
-            )}/${name}/${prico.brl}`}
+            action={`/api/checkout/${
+              currency == 'brl'
+                ? pricesId.brl
+                : currency == 'usd'
+                ? pricesId.brl
+                : currency == 'eur'
+                ? pricesId.eur
+                : pricesId.brl
+            }/${quantidade}/${variedade.join(', ')}/${name}/${
+              currency == 'brl'
+                ? prico.brl
+                : currency == 'usd'
+                ? prico.brl
+                : currency == 'eur'
+                ? prico.eur
+                : prico.brl
+            }`}
             method="POST"
           >
             <button
               type="submit"
               className="w-[350px] cursor-pointer hover:bg-[#3eae78] transition-colors py-3 bg-[#0BC86D] rounded-3xl text-lg text-white font-medium"
             >
-              <p className="text-md text-center">Compra Agora</p>
+              <p className="text-md text-center"> {t('productPage.buyNow')}</p>
             </button>
           </form>
           <button
@@ -208,12 +234,14 @@ const ProductPayInfo: React.FC<props> = ({
             type="submit"
             className="w-[350px] cursor-pointer hover:bg-[#3ffca192]  transition-colors py-3 bg-[#3ffca159] rounded-3xl text-lg text-white font-medium"
           >
-            <p className="text-md text-center text-green-600">Adicionar ao carrinho</p>
+            <p className="text-md text-center text-green-600">
+              {t('productPage.addToCart')}
+            </p>
           </button>
           <div className="flex gap-3">
             <button className="w-full py-2 cursor-pointer hover:bg-gray-300  transition-colors flex items-center justify-center gap-2 bg-gray-200 rounded-3xl text-lg text-black font-medium">
               <FaShare style={{ stroke: '1' }} />
-              <p className="text-md">Compartlihar</p>
+              <p className="text-md">{t('productPage.share')}</p>
             </button>
             <button
               onClick={() => {

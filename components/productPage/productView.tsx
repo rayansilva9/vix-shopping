@@ -6,7 +6,8 @@ import { TfiAngleLeft, TfiAngleRight } from 'react-icons/tfi'
 import { processLink } from '../../functions/fixLinksImg'
 import CustomizedRating from '../rating'
 import formatarMoeda from '../../functions/formataMoeda'
-import { CartContext } from '../../context/cartContext'
+import { useTranslation } from 'react-i18next'
+import { CurrencyContext } from '../../context/currencyContext'
 
 interface CustomHTMLUListElement extends HTMLUListElement {
   scrollLeft: number
@@ -15,7 +16,7 @@ interface CustomHTMLUListElement extends HTMLUListElement {
 type props = {
   altCurrentImg: string
   currentImg: number
-  photos: string[]
+  photos: { pt: string[]; en: string[]; es: string[] }
   miniImagesRef: React.MutableRefObject<CustomHTMLUListElement>
   scrollMiniImg: (direction: string) => void
   productName: string
@@ -42,16 +43,53 @@ const ProductView: React.FC<props> = ({
   setCurrentImg,
   productVariedadesOnView
 }) => {
+  const { t, i18n } = useTranslation()
+  function GET_BY_LANG(index: number = 0) {
+    switch (i18n.language) {
+      case 'pt':
+        return photos.pt.length > 0 && processLink(photos.pt[index])
+        break
+      case 'en':
+        return photos.en.length > 0 && processLink(photos.en[index])
+        break
+      case 'es':
+        return photos.es.length > 0 && processLink(photos.es[index])
+        break
+
+      default:
+        return photos.pt.length > 0 && processLink(photos.pt[index])
+        break
+    }
+  }
+  function GET_IMG_BY_LANG(index: number = 0) {
+    switch (i18n.language) {
+      case 'pt':
+        return photos.pt
+        break
+      case 'en':
+        return photos.en
+        break
+      case 'es':
+        return photos.es
+        break
+
+      default:
+        return photos.pt
+        break
+    }
+  }
+  const { currency } = useContext(CurrencyContext)
   const MAGNIFY_SIZE = 200
   const MAGNIFY_SIZE_HALF = MAGNIFY_SIZE / 2
 
   const [magnifyStyle, setMagnifyStyle] = useState({
     backgroundImage: `url(${
-      altCurrentImg ? altCurrentImg : processLink(photos[currentImg])
+      altCurrentImg !== '' ? altCurrentImg : GET_BY_LANG(currentImg)
+    })
     })`
   })
 
-  const [language, setlanguage] = useState('pt')
+  const [language, setlanguage] = useState('en')
 
   const handleMouseMove = (e: {
     nativeEvent: { offsetX: any; offsetY: any; target: any }
@@ -67,7 +105,10 @@ const ProductView: React.FC<props> = ({
       display: 'block',
       top: `${offsetY - MAGNIFY_SIZE_HALF}px`,
       left: `${offsetX - MAGNIFY_SIZE_HALF}px`,
-      backgroundPosition: `${xPercentage}% ${yPercentage}%`
+      backgroundPosition: `${xPercentage}% ${yPercentage}%`,
+      backgroundImage: `url(${
+        altCurrentImg !== '' ? altCurrentImg : GET_BY_LANG(currentImg)
+      })`
     }))
   }
 
@@ -78,19 +119,18 @@ const ProductView: React.FC<props> = ({
   function dividirNomeVariedade(index: number) {
     return productVariedadesOnView[index].split(':')
   }
-
   useMemo(() => {
     setMagnifyStyle({
       backgroundImage: `url(${
-        altCurrentImg ? altCurrentImg : processLink(photos[currentImg])
+        altCurrentImg !== '' ? altCurrentImg : GET_BY_LANG(currentImg)
+      })
       })`
     })
   }, [currentImg, altCurrentImg])
 
-  const { setProductCart } = useContext(CartContext)
   useEffect(() => {
-    const language = window.navigator.language
-    setlanguage(language)
+    // const language = window.navigator.language
+    // setlanguage(language)
   }, [language])
   return (
     <>
@@ -107,7 +147,7 @@ const ProductView: React.FC<props> = ({
                 style={{ animation: 'itemProduct 0.3s linear' }}
                 priority
                 placeholder="empty"
-                src={altCurrentImg ? altCurrentImg : processLink(photos[currentImg])}
+                src={altCurrentImg !== '' ? altCurrentImg : GET_BY_LANG(currentImg)}
                 height={380}
                 width={380}
                 draggable={false}
@@ -129,10 +169,10 @@ const ProductView: React.FC<props> = ({
                 ref={miniImagesRef}
                 className="w-[300px] left-2 flex pl-6 overflow-x-scroll gap-3 no-scrollbar relative"
               >
-                {photos.map((src, i) => (
+                {GET_IMG_BY_LANG().map((src, i) => (
                   <li
                     onClick={() => {
-                      setCurrentImg(i), setAltCurrentImg('')
+                      setCurrentImg(i), setAltCurrentImg(''), console.log(src)
                     }}
                     className="w-[80px] p-[6px] relative -left-7 flex items-center justify-center"
                     style={{ border: 'pointer' }}
@@ -173,26 +213,32 @@ const ProductView: React.FC<props> = ({
             </p>
             <Divider className="my-2 w-full lg:w-[330px] hidden lg:inline" />
             <p className="text-lg text-[#40cd28] my-3 font-semibold xl:my-5 xl:text-[20px]">
-              R${''}
+              {currency == 'brl'
+                ? 'R$'
+                : currency == 'usd'
+                ? '$'
+                : currency == 'eur'
+                ? '€'
+                : 'R$'}
               <span className="text-[33px] xl:text-[30px] text-[#40cd28]">
-                {language == 'pt'
+                {currency == 'brl'
                   ? formatarMoeda(productPrice.brl)
-                  : language == 'en'
+                  : currency == 'usd'
                   ? formatarMoeda(productPrice.usd)
-                  : language == 'sp'
+                  : currency == 'eur'
                   ? formatarMoeda(productPrice.eur)
                   : formatarMoeda(productPrice.brl)}
               </span>
             </p>
             <div className="relative flex flex-col gap-2 w-full bg-zinc-100 rounded-lg my-2 px-3 py-2 xl:py-2">
               <BiChevronRight className="absolute top-3 right-2" />
-              <p className="text-sm xl:text-[16px]">Cupom de desconto</p>
-              <p className="text-sm xl:text-[16px]">Frete gratis</p>
+              <p className="text-sm xl:text-[16px]">{t('productPage.discountCoupon')}</p>
+              <p className="text-sm xl:text-[16px]">{t('productPage.freeShipping')}</p>
             </div>
             <div className="flex items-center gap-1">
               <CustomizedRating tamanho={'small'} mt={'1px'} val={productRating} />
               <p className="lg:text-[16px]">{productRating}</p>
-              <p className="lg:text-[16px]">| 500+ vendidos</p>
+              <p className="lg:text-[16px]">| 500+ {t('productPage.sales')}</p>
             </div>
             <Divider className="mt-4" />
           </div>

@@ -6,13 +6,32 @@ import Image from 'next/image'
 import formatarMoeda from '../../functions/formataMoeda'
 import { processLink } from '../../functions/fixLinksImg'
 import CustomizedRating from '../../components/rating'
-
+import { useTranslation } from 'react-i18next'
 type props = {
   product: productProps
 }
 
 const ProductVertical: React.FC<props> = ({ product }) => {
   const [currentImg, setcurrentImg] = useState<number>(0)
+  const { i18n } = useTranslation()
+
+  function GET_BY_LANG() {
+    switch (i18n.language) {
+      case 'pt':
+        return product.photos.pt.length > 0 && processLink(product.photos.pt[0])
+        break
+      case 'en':
+        return product.photos.en.length > 0 && processLink(product.photos.en[0])
+        break
+      case 'es':
+        return product.photos.es.length > 0 && processLink(product.photos.es[0])
+        break
+
+      default:
+        return product.photos.pt.length > 0 && processLink(product.photos.pt[0])
+        break
+    }
+  }
 
   return (
     <>
@@ -38,7 +57,7 @@ const ProductVertical: React.FC<props> = ({ product }) => {
               boxShadow: ' rgba(0, 0, 0, 0.25) 0px 3px 10px -5px'
             }}
           >
-            {product.photos.length == 0 ? (
+            {product.photos.pt.length == 0 ? (
               <Skeleton variant="rounded" width={194} height={194} animation="wave" />
             ) : currentImg == 0 ? (
               <Image
@@ -46,7 +65,7 @@ const ProductVertical: React.FC<props> = ({ product }) => {
                 style={{ animation: 'productImg .2s linear' }}
                 width={194}
                 height={194}
-                src={product.photos.length > 0 && processLink(product.photos[0])}
+                src={GET_BY_LANG()}
                 alt=""
               />
             ) : (
@@ -55,7 +74,7 @@ const ProductVertical: React.FC<props> = ({ product }) => {
                 style={{ animation: 'productImg .5s linear' }}
                 width={194}
                 height={194}
-                src={product.photos.length > 0 && processLink(product.photos[1])}
+                src={GET_BY_LANG()}
                 alt=""
               />
             )}

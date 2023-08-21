@@ -6,6 +6,7 @@ import formatarMoeda from '../../functions/formataMoeda'
 import { processLink } from '../../functions/fixLinksImg'
 import CustomizedRating from '../rating'
 import Link from 'next/link'
+import { useTranslation } from 'react-i18next'
 
 type props = {
   product: productProps
@@ -13,6 +14,26 @@ type props = {
 }
 
 const ProductHorizontal: React.FC<props> = ({ product, rounded = '20px' }) => {
+  const { i18n } = useTranslation()
+
+  function GET_BY_LANG() {
+    switch (i18n.language) {
+      case 'pt':
+        return product.photos.pt.length > 0 && processLink(product.photos.pt[0])
+        break
+      case 'en':
+        return product.photos.en.length > 0 && processLink(product.photos.en[0])
+        break
+      case 'es':
+        return product.photos.es.length > 0 && processLink(product.photos.es[0])
+        break
+
+      default:
+        return product.photos.pt.length > 0 && processLink(product.photos.pt[0])
+        break
+    }
+  }
+
   return (
     <>
       <li className={`cursor-pointer list-none flex-1 min-w-[100%] md:min-w-[auto] `}>
@@ -39,7 +60,7 @@ const ProductHorizontal: React.FC<props> = ({ product, rounded = '20px' }) => {
                 quality={65}
                 height={107}
                 width={107}
-                src={processLink(product.photos[0])}
+                src={GET_BY_LANG()}
                 alt=""
               />
             </div>

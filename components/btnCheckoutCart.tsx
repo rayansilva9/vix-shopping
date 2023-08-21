@@ -1,20 +1,37 @@
-import React, { ReactNode } from 'react';
-import { CartContext } from '../context/cartContext';
+import React, { ReactNode } from 'react'
+import { CartContext } from '../context/cartContext'
+import { CurrencyContext } from '../context/currencyContext'
 
 type props = {
   children: ReactNode
 }
 
 const BtnCheckouCart: React.FC<props> = ({ children }) => {
+  const { productCart, variants } = React.useContext(CartContext)
+  const { currency } = React.useContext(CurrencyContext)
 
-  const { productCart, variants, itemFormated } = React.useContext(CartContext)
-
-
-
+  function getPriceAndQuantity() {
+    const item = productCart.map(e => {
+      return {
+        price:
+          currency == 'brl'
+            ? e.pricesId.brl
+            : currency == 'usd'
+            ? e.pricesId.usd
+            : currency == 'eur'
+            ? e.pricesId.eur
+            : e.pricesId.brl,
+        quantity: e.quantity
+      }
+    })
+    return item
+  }
   return (
     <>
       <form
-        action={`/api/checkoutCart/${JSON.stringify(itemFormated)}/${JSON.stringify(variants)}`}
+        action={`/api/checkoutCart/${JSON.stringify(
+          getPriceAndQuantity()
+        )}/${JSON.stringify(variants)}`}
         method="POST"
       >
         {children}
@@ -23,4 +40,4 @@ const BtnCheckouCart: React.FC<props> = ({ children }) => {
   )
 }
 
-export default BtnCheckouCart;
+export default BtnCheckouCart

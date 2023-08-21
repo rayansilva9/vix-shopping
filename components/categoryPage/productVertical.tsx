@@ -5,7 +5,7 @@ import formatarMoeda from '../../functions/formataMoeda'
 import { processLink } from '../../functions/fixLinksImg'
 import Link from 'next/link'
 import { CartContext } from '../../context/cartContext'
-
+import { useTranslation } from 'react-i18next'
 type props = {
   e: any
 }
@@ -13,8 +13,28 @@ type props = {
 const ProductVertCategory: React.FC<props> = ({ e }) => {
   const [mouseHover, setMouseHover] = React.useState<boolean>(false)
   const itemRef = React.useRef(null)
-
+  const { t } = useTranslation()
   const { setProductCart, productCart } = useContext(CartContext)
+
+  const { i18n } = useTranslation()
+
+  function GET_BY_LANG(index: number = 0) {
+    switch (i18n.language) {
+      case 'pt':
+        return e.photos.pt.length > 0 && processLink(e.photos.pt[index])
+        break
+      case 'en':
+        return e.photos.en.length > 0 && processLink(e.photos.en[index])
+        break
+      case 'es':
+        return e.photos.es.length > 0 && processLink(e.photos.es[index])
+        break
+
+      default:
+        return e.photos.pt.length > 0 && processLink(e.photos.pt[index])
+        break
+    }
+  }
 
   const addToCart = () => {
     if (productCart !== null) {
@@ -72,15 +92,14 @@ const ProductVertCategory: React.FC<props> = ({ e }) => {
               }}
               className="bg-blue-500 text-white px-2 py-2 rounded-lg"
             >
-              {' '}
-              Adicionar ao Carrinho
+              {t('categoryPage.addToCart')}
             </button>
           ) : (
             <Link
               href={`/produto/${e.id!}`}
               className="bg-blue-500 text-white px-2 py-2 rounded-lg"
             >
-              Selecionar Variantes
+              {t('categoryPage.selectVariant')}
             </Link>
           )}
         </div>
@@ -107,7 +126,7 @@ const ProductVertCategory: React.FC<props> = ({ e }) => {
                 quality={65}
                 height={107}
                 width={107}
-                src={processLink(e.photos[0])}
+                src={GET_BY_LANG()}
                 alt=""
               />
             </div>

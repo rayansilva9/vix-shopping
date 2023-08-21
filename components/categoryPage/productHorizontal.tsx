@@ -4,7 +4,7 @@ import React from 'react'
 import formatarMoeda from '../../functions/formataMoeda'
 import { processLink } from '../../functions/fixLinksImg'
 import Link from 'next/link'
-
+import { useTranslation } from 'react-i18next'
 type props = {
   e: any
 }
@@ -14,7 +14,25 @@ const ProductHorizCategory: React.FC<props> = ({ e }) => {
   const itemRef = React.useRef(null)
 
   const [currentImg, setcurrentImg] = React.useState<number>(0)
+  const { i18n } = useTranslation()
 
+  function GET_BY_LANG(index: number = 0) {
+    switch (i18n.language) {
+      case 'pt':
+        return e.photos.pt.length > 0 && processLink(e.photos.pt[index])
+        break
+      case 'en':
+        return e.photos.en.length > 0 && processLink(e.photos.en[index])
+        break
+      case 'es':
+        return e.photos.es.length > 0 && processLink(e.photos.es[index])
+        break
+
+      default:
+        return e.photos.pt.length > 0 && processLink(e.photos.pt[index])
+        break
+    }
+  }
   return (
     <>
       <li className="cursor-pointer flex-1 relative min-w-[50vw] lg:min-w-[auto] list-none max-w-[50%] md:max-w-[200px] ">
@@ -39,7 +57,7 @@ const ProductHorizCategory: React.FC<props> = ({ e }) => {
                 style={{ animation: 'productImg .2s linear' }}
                 width={194}
                 height={194}
-                src={e.photos.length > 0 && processLink(e.photos[0])}
+                src={GET_BY_LANG()}
                 alt=""
               />
             ) : (
@@ -48,7 +66,7 @@ const ProductHorizCategory: React.FC<props> = ({ e }) => {
                 style={{ animation: 'productImg .5s linear' }}
                 width={194}
                 height={194}
-                src={e.photos.length > 0 && processLink(e.photos[1])}
+                src={GET_BY_LANG(1)}
                 alt=""
               />
             )}

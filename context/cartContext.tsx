@@ -3,13 +3,13 @@ import productPropsCart from '../@types/productCart'
 import { db } from '../lib/firebase'
 import { UserContext } from './userContext'
 
+
 type cartContextProviderProps = {
   children: ReactNode
 }
 
 type cartContextProps = {
   variants: any
-  itemFormated: any
   productCart: productPropsCart[]
   setProductCart: React.Dispatch<React.SetStateAction<productPropsCart[]>>
   openCart: boolean
@@ -25,18 +25,6 @@ export const CartContextProvider: React.FC<cartContextProviderProps> = ({ childr
   const [dbCart, setDbCart] = useState([])
 
   const { user } = React.useContext(UserContext)
-
-  const [itemFormated, setItemFormated] = React.useState([])
-
-  function getPriceAndQuantity() {
-    const item = productCart.map(e => {
-      return {
-        price: e.pricesId.brl,
-        quantity: e.quantity
-      }
-    })
-    setItemFormated(item)
-  }
 
   async function getpost() {
     const res = await db.collection('users').doc(user.doc).get()
@@ -82,7 +70,6 @@ export const CartContextProvider: React.FC<cartContextProviderProps> = ({ childr
         })
       }
     })
-    getPriceAndQuantity()
   }, [productCart])
 
   return (
@@ -92,8 +79,7 @@ export const CartContextProvider: React.FC<cartContextProviderProps> = ({ childr
         setProductCart,
         variants,
         setOpenCart,
-        openCart,
-        itemFormated
+        openCart
       }}
     >
       {children}
