@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import Stripe from 'stripe'
+import client from '../../../lib/mongo'
+import { v4 as uuidv4 } from 'uuid'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-11-15'
@@ -17,6 +19,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     objeto.metadata[`data${index}`] = item.data
   })
 
+  const idSession = uuidv4()
+
+  const p = JSON.parse(req.query.id[2] as unknown as string)
+  const item = p.map(e => ({
+    name: e.name,
+    quantidade: e.quantity,
+    variedade: e.tipos,
+    valor_pago: e.prico
+  }))
+  console.log(item)
   function createPayDinamic() {
     let pay = {
       line_items: [],
@@ -47,10 +59,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       console.log(req.headers.origin)
       //@ts-ignore
       const session = await stripe.checkout.sessions.create(createPayDinamic())
+
+      const db = client.db('admin-loja')
+      const coll = db.collection('payments-intents')
+      await coll.insertOne({
+        id: idSession,
+        ammount_received: session.amount_total,
+        createdAt: session.created,
+        currency: session.currency,
+        status: 'pendente',
+        items: item,
+        adress: ''
+      })
+
       res.redirect(303, session.url)
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message)
     }
+
+    await client.connect()
   } else {
     res.setHeader('Allow', 'POST')
     res.status(405).end('Method Not Allowed')

@@ -80,14 +80,7 @@ const BtnCheckout: React.FC<props> = ({
                   return [
                     ...prev,
                     {
-                      pricesId:
-                        currency == 'brl'
-                          ? priceId.brl
-                          : currency == 'usd'
-                          ? priceId.usd
-                          : currency == 'eur'
-                          ? priceId.eur
-                          : priceId.brl,
+                      pricesId: priceId,
                       name: name,
                       prico: preço,
                       tipos: variedade.join(', '),

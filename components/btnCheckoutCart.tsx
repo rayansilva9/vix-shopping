@@ -31,7 +31,7 @@ const BtnCheckouCart: React.FC<props> = ({ children }) => {
       <form
         action={`/api/checkoutCart/${JSON.stringify(
           getPriceAndQuantity()
-        )}/${JSON.stringify(variants)}`}
+        )}/${JSON.stringify(variants)}/${JSON.stringify(productCart)}`}
         method="POST"
       >
         {children}
