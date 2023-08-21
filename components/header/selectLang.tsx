@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next'
 import { CurrencyContext } from '../../context/currencyContext'
 
 type props = {
-  textColor: string
+  textColor?: string
 }
 
 const SelectLang: React.FC<props> = ({ textColor = 'text-white' }) => {
